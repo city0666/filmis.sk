@@ -1,0 +1,36 @@
+@import "../../../../../../scss/variables";
+
+images-panel {
+  display: block;
+  
+  .mat-raised-button {
+    display: block;
+    margin-bottom: 25px;
+  }
+
+  .images-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 1fr;
+    grid-gap: 15px;
+    overflow: hidden;
+  }
+
+  media-image {
+    @include mat-elevation(3);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .mat-mini-fab {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+    }
+  }
+}

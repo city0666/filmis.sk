@@ -1,0 +1,38 @@
+@import "../../../../../../scss/variables";
+
+videos-panel {
+  display: block;
+
+  .mat-column-name {
+    margin-right: 40px;
+
+    img {
+      margin-right: 15px;
+      border-radius: 4px;
+      width: 50px;
+      height: 35px;
+      object-fit: cover;
+    }
+  }
+
+  .mat-column-type, .mat-column-quality, .mat-column-season, .mat-column-episode {
+    max-width: 120px;
+  }
+
+  .cdk-drag-handle {
+    cursor: move;
+    margin-right: 10px;
+  }
+
+  .cdk-drag-placeholder {
+    background-color: $admin-hover-color;
+  }
+
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .cdk-drop-list-dragging .mat-row:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}

@@ -1,0 +1,12 @@
+<media-item-header [backdrop]="backdropImage$ | async"></media-item-header>
+
+<ad-host slot="ads.shared" class="shared-ad-host"></ad-host>
+
+<div class="container" *ngIf="episode$ | async as episode">
+    <title-primary-details-panel [item]="episode"></title-primary-details-panel>
+    <title-secondary-details-panel [item]="episode"></title-secondary-details-panel>
+    <videos-panel [mediaItem]="episode" *ngIf="settings.get('titles.show_videos_panel')"></videos-panel>
+    <title-cast-panel></title-cast-panel>
+</div>
+
+<footer></footer>

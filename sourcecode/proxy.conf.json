@@ -1,0 +1,10 @@
+{
+  "/secure": {
+    "target": "http://localhost/mtdb/server",
+    "secure": false
+  },
+  "/storage": {
+    "target": "http://localhost/mtdb/server",
+    "secure": false
+  }
+}

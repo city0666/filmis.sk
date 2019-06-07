@@ -1,0 +1,11 @@
+import-media-modal {
+  display: block;
+
+  .type-select {
+    text-transform: capitalize;
+
+    option {
+      text-transform: capitalize;
+    }
+  }
+}

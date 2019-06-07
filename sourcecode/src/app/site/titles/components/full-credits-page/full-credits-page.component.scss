@@ -1,0 +1,49 @@
+@import "../../../../../scss/variables";
+
+full-credits-page {
+  display: block;
+  width: 100%;
+
+  .credits-container {
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+
+  .mat-expansion-panel {
+    border: 1px solid $site-border-color-200;
+    margin-bottom: 20px;
+    background: $site-bg-color-100;
+    color: $site-text-color-400;
+
+    .credit-group-name {
+      text-transform: capitalize;
+    }
+  }
+
+  .credit {
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+
+    .name {
+      display: block;
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: $site-accent-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .separator {
+      padding: 0 15px;
+    }
+
+    .job {
+      text-transform: capitalize;
+    }
+  }
+}

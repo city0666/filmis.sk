@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>
+        <span *ngIf="data.video" trans>Update</span>
+        <span *ngIf="!data.video" trans>Create</span>
+        <span> {{ 'Video' | trans }}</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form autocomplete="off" (ngSubmit)="confirm()" [formGroup]="videoForm" ngNativeValidate>
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <label for="name" trans>Name</label>
+            <input type="text" required minlength="3" maxlength="100" id="name" formControlName="name">
+        </div>
+
+        <div class="input-container">
+            <label for="thumbnail" trans>Thumbnail</label>
+            <div class="input-with-action">
+                <button type="button" mat-flat-button color="accent" (click)="uploadThumbnail()" [matTooltip]="'Upload thumbnail' | trans">
+                    <mat-icon svgIcon="file-upload"></mat-icon>
+                </button>
+                <input type="text" formControlName="thumbnail" id="thumbnail" minlength="1" maxlength="250">
+            </div>
+        </div>
+
+        <div class="input-container">
+            <label for="url" trans>Url</label>
+            <input type="url" required maxlength="250" id="url" formControlName="url">
+        </div>
+
+        <div class="input-container">
+            <label for="quality" trans>Quality</label>
+            <select required maxlength="250" id="quality" formControlName="quality">
+                <option [ngValue]="null" trans>None</option>
+                <option value="regular" trans>Regular</option>
+                <option value="hd">HD</option>
+                <option value="4k">4K</option>
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="type" trans>Type</label>
+            <select required maxlength="250" id="type" formControlName="type">
+                <option value="embed">Embed</option>
+                <option value="video">Direct Video</option>
+                <option value="external">Remote Link</option>
+            </select>
+        </div>
+
+        <ng-container *ngIf="isSeries()">
+            <div class="input-container">
+                <label for="season" trans>Season</label>
+                <select name="season" id="season" formControlName="season" required>
+                    <option [ngValue]="null" trans>None</option>
+                    <option [ngValue]="season.number" *ngFor="let season of this.data.mediaItem.seasons">{{season.number}}</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="episode" trans>Episode</label>
+                <select name="episode" id="episode" formControlName="episode" required>
+                    <option [ngValue]="null" trans>None</option>
+                    <option [ngValue]="episode" *ngFor="let episode of episodeCount$ | async">{{episode}}</option>
+                </select>
+            </div>
+        </ng-container>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>Save</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,71 @@
+<data-table [dataSource]="dataSource" itemsName="videos" matSort>
+    <ng-container headerActions>
+        <div class="title" trans>Videos</div>
+    </ng-container>
+
+    <ng-container headerFilters>
+        <div class="input-container">
+            <select name="" id="" [formControl]="sourceControl">
+                <option [ngValue]="null" trans>All Sources</option>
+                <option value="local" trans>Local</option>
+                <option value="tmdb" trans>External</option>
+            </select>
+        </div>
+    </ng-container>
+
+    <button mat-icon-button [matTooltip]="'Delete selected' | trans" (click)="maybeDeleteSelectedPeople()" headerSelectedActions *ngIf="currentUser.hasPermission('videos.delete')">
+        <mat-icon svgIcon="delete"></mat-icon>
+    </button>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Video</mat-header-cell>
+        <mat-cell *matCellDef="let video">
+            <img [src]="video.thumbnail || video.title?.backdrop" alt="Video thumbnail">
+            <a class="video-name" [href]="video.url" target="_blank">{{video.name}}</a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef trans>Title</mat-header-cell>
+        <mat-cell *matCellDef="let video">
+            <a [routerLink]="['/admin/titles', video.title.id, 'edit']" [queryParams]="{active: 'video'}" *ngIf="video.title">{{video.title.name}}</a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans class="small-column">Type</mat-header-cell>
+        <mat-cell *matCellDef="let video" class="small-column"> {{video.type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="source">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans class="small-column">Source</mat-header-cell>
+        <mat-cell *matCellDef="let video" class="small-column"> {{video.source}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="quality">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans class="small-column">Quality</mat-header-cell>
+        <mat-cell *matCellDef="let video" class="small-column">
+            <mat-icon svgIcon="hd" *ngIf="video.quality === 'hd'"></mat-icon>
+            <mat-icon svgIcon="4k" *ngIf="video.quality === '4k'"></mat-icon>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="positive-votes">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="positive_votes" trans class="small-column">Positive Votes</mat-header-cell>
+        <mat-cell *matCellDef="let video" class="small-column"> {{video.positive_votes || '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="negative-votes">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="negative_votes" trans class="small-column">Negative Votes</mat-header-cell>
+        <mat-cell *matCellDef="let video" class="small-column"> {{video.negative_votes || '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let video">
+            <button mat-icon-button (click)="openCrupdateVideoModal(video)" *ngIf="currentUser.hasPermission('videos.update')" [matTooltip]="'Edit video' | trans">
+                <mat-icon svgIcon="edit"></mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

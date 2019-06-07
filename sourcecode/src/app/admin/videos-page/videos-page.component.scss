@@ -1,0 +1,33 @@
+@import "../../../scss/variables";
+
+videos-page {
+  display: block;
+
+  .mat-column-name {
+    margin-right: 20px;
+
+    img {
+      width: 60px;
+      height: 35px;
+      flex: 0 0 60px;
+      object-fit: cover;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    .video-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .small-column {
+    max-width: 130px;
+    text-transform: capitalize;
+
+    .mat-sort-header-button {
+      text-transform: inherit;
+    }
+  }
+}

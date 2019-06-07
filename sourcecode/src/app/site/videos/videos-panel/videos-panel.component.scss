@@ -1,0 +1,120 @@
+@import "../../../../scss/variables";
+
+videos-panel {
+  display: block;
+
+  .img-container img {
+    width: 100%;
+    height: auto;
+    max-height: 120px;
+  }
+
+  .thumb-up-btn {
+    color: $success-bg-color;
+    padding: 0;
+
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+
+  .thumb-down-btn {
+    color: $danger-bg-color;
+    padding: 0;
+
+    .mat-icon {
+      margin-left: 5px;
+    }
+  }
+
+  .domain-favicon {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(1, 1fr);
+
+    @media only screen and (min-width: $xsmall) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (min-width: 740px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media only screen and (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media only screen and (min-width: $large) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .video {
+      border: 1px solid $site-border-color-100;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .name {
+      padding: 8px;
+      font-size: 1.5rem;
+      text-transform: capitalize;
+
+      .mat-icon {
+        margin-right: 5px;
+        color: $icon-color-dark;
+        vertical-align: bottom;
+      }
+    }
+
+    .rating {
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    .img-container {
+      width: 100%;
+      position: relative;
+
+      .img-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+      }
+
+      .mat-mini-fab {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .text {
+      font-size: 2.5rem;
+    }
+
+    .add-video-btn {
+      margin-left: auto;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<div class="title">
+    <div class="text" trans>Videos</div>
+    <button mat-flat-button class="add-video-btn" color="accent" (click)="openAddVideoModal()" *ngIf="currentUser.hasPermission('videos.create')" trans>Add Video</button>
+</div>
+
+<ng-container *ngIf="mediaItem?.videos?.length">
+    <div class="video-grid">
+        <div class="video" *ngFor="let video of mediaItem.videos">
+            <div class="img-container">
+                <img [src]="getThumbnail(video)" alt="Video thumbnail">
+                <div class="img-overlay"></div>
+                <button mat-mini-fab color="accent" (click)="playVideo(video)">
+                    <mat-icon [svgIcon]="video.type === 'external' ? 'open-in-new' : 'play-arrow'"></mat-icon>
+                </button>
+            </div>
+            <div class="meta">
+                <div class="name">
+                    <mat-icon svgIcon="hd" *ngIf="video.quality === 'hd'"></mat-icon>
+                    <mat-icon svgIcon="4k" *ngIf="video.quality === '4k'"></mat-icon>
+                    <span>{{video.name}}</span>
+                </div>
+                <div class="rating">
+                    <button mat-button class="thumb-up-btn" (click)="rateVideo(video, 'positive')" [disabled]="loading$ | async">
+                        <mat-icon svgIcon="thumb-up"></mat-icon>
+                        <span>({{video.positive_votes}})</span>
+                    </button>
+                    <button mat-button class="thumb-down-btn" (click)="rateVideo(video, 'negative')" [disabled]="loading$ | async">
+                        <span>({{video.negative_votes}})</span>
+                        <mat-icon svgIcon="thumb-down"></mat-icon>
+                    </button>
+                </div>
+                <img class="domain-favicon" *ngIf="video.source === 'local'" [src]="getFavicon(video.url)" alt="Video domain favicon">
+            </div>
+        </div>
+    </div>
+</ng-container>

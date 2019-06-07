@@ -1,0 +1,131 @@
+<div class="header">
+    <div class="title" trans>Content</div>
+    <div class="subtitle" trans>Control content is displayed across the site.</div>
+</div>
+
+<form class="body many-inputs" (ngSubmit)="saveSettings()" ngNativeValidate>
+    <div class="setting-toggle-container news-toggle-container">
+        <mat-slide-toggle name="news.auto_update" id="news.auto_update" [(ngModel)]="state.client['news.auto_update']" trans>Auto Update News</mat-slide-toggle>
+        <p trans>When enabled, news will be automatically updated using 3rd party sites.</p>
+    </div>
+
+    <button mat-flat-button color="accent" class="button" (click)="updateNews()" [disabled]="loading" type="button" trans>Update News Now</button>
+
+    <div class="settings-separator"></div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="content.automation" id="content.automation" [(ngModel)]="state.client['content.automation']" trans>Automation</mat-slide-toggle>
+        <p trans>When this is enabled, data (movies, series, seasons, people etc) will be automatically fetched and updated using themoviedb.</p>
+    </div>
+
+    <ng-container *ngIf="state.client['content.automation']">
+        <div class="input-container" [class.has-error]="errors['tmdb_api_key']">
+            <label for="tmdb_api_key" trans>TMDB API Key</label>
+            <input type="text" id="tmdb_api_key" name="tmdb_api_key" [(ngModel)]="state.server['tmdb_api_key']" required>
+            <p class="error" *ngIf="errors['tmdb_api_key']">{{errors['tmdb_api_key']}}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="tmdb.language" trans>TMDB Language</label>
+            <input type="text" id="tmdb.language" name="tmdb.language" [(ngModel)]="state.client['tmdb.language']" required>
+            <p trans>ISO 639-1 language code content should be fetched from TMDB in. If translation is not available data will default to english.</p>
+        </div>
+
+        <div class="setting-toggle-container">
+            <mat-slide-toggle name="tmdb.includeAdult" id="tmdb.includeAdult" [(ngModel)]="state.client['tmdb.includeAdult']" trans>Allow Adult Content</mat-slide-toggle>
+        </div>
+    </ng-container>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="content.force_season_update" id="content.force_season_update" [(ngModel)]="state.client['content.force_season_update']" trans>Always Update Seasons</mat-slide-toggle>
+        <p trans>When this is enabled, season episodes will be automatically updated, even if automation is disabled.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="content.rating_col" trans>Rating Used For Sorting</label>
+        <select type="number" id="content.rating_col" name="content.rating_col" [(ngModel)]="state.server['rating_column']" required>
+            <option value="tmdb_vote_average">TheMovieDB</option>
+            <option value="local_vote_average">Local (Ratings and reviews from site users)</option>
+        </select>
+        <p trans>When ordering titles by rating, should local user rating or TheMovieDB rating average be used.</p>
+    </div>
+
+    <div class="settings-separator"></div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="homepage.autoslide" id="homepage.autoslide" [(ngModel)]="state.client['homepage.autoslide']" trans>Auto Slide Homepage Slider</mat-slide-toggle>
+        <p trans>Toggle auto-slide functionality of homepage slider.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="homepage.list_items_count" trans>Homepage List Items</label>
+        <input type="number" id="homepage.list_items_count" name="homepage.list_items_count" [(ngModel)]="state.client['homepage.list_items_count']" required min="1" max="30">
+        <p trans>How many items each list on homepage should show.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="homepage.slider_items_count" trans>Homepage Slider Items</label>
+        <input type="number" id="homepage.slider_items_count" name="homepage.slider_items_count" [(ngModel)]="state.client['homepage.slider_items_count']" required min="1" max="30">
+        <p trans>How many items homepage slider should show.</p>
+    </div>
+
+    <ng-container>
+        <button mat-flat-button color="accent" class="button" (click)="updateLists()" [disabled]="loading" type="button" trans>Update Lists Now</button>
+    </ng-container>
+
+    <div class="settings-separator"></div>
+
+    <div class="input-container">
+        <label for="genres" trans>Browse Page Genres</label>
+        <chip-input
+                id="genres"
+                name="genres"
+                [(ngModel)]="browseGenres"
+                placeholder="+New Genre..."
+                trans-placeholder
+        ></chip-input>
+    </div>
+
+    <div class="input-container">
+        <label for="age-ratings" trans>Age Ratings</label>
+        <chip-input
+                id="age-ratings"
+                name="age-ratings"
+                [(ngModel)]="ageRatings"
+                placeholder="+New Rating..."
+                trans-placeholder
+        ></chip-input>
+    </div>
+
+    <div class="settings-separator"></div>
+
+    <button type="button" mat-flat-button color="accent" [disabled]="loading" (click)="createSitemap()" trans>Generate Sitemap</button>
+    <p class="sitemap-description">
+        <span trans>Once generated, sitemap index url will be</span>:
+        <a target="_blank" [href]="settings.getBaseUrl() + 'storage/sitemaps/sitemap-index.xml'">{{settings.getBaseUrl()}}storage/sitemaps/sitemap-index.xml</a>
+    </p>
+    <div class="settings-separator"></div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="titles.show_videos_panel" id="titles.show_videos_panel" [(ngModel)]="state.client['titles.show_videos_panel']" trans>Show Videos Panel</mat-slide-toggle>
+        <p trans>Enabling this will display all videos attached to title or episode on their pages.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.show_streamable_filter" id="browse.show_streamable_filter" [(ngModel)]="state.client['browse.show_streamable_filter']" trans>Show Streamable Filter</mat-slide-toggle>
+        <p trans>Toggle visibility of "Only Streamable" filter on browse titles page.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.streamable_filter_state" id="browse.streamable_filter_state" [(ngModel)]="state.client['browse.streamable_filter_state']" trans>Toggle Streamable Filter</mat-slide-toggle>
+        <p trans>Set "Only Streamable" filter to "on" by default.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="titles.enable_reviews" id="titles.enable_reviews" [(ngModel)]="state.client['titles.enable_reviews']" trans>Enable Reviews</mat-slide-toggle>
+        <p trans>Enable or disable all reviews functionality across the site.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" [disabled]="loading" type="submit" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading"></mat-progress-bar>
+</form>

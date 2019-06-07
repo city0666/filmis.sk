@@ -1,0 +1,29 @@
+<primary-facts-panel class="material-panel crupdate-title-panel" [class.hidden]="!panelIsOpen('primaryFacts')"></primary-facts-panel>
+<seasons-panel class="material-panel crupdate-title-panel" [class.hidden]="!panelIsOpen('seasons')"></seasons-panel>
+<images-panel class="material-panel crupdate-title-panel" [class.hidden]="!panelIsOpen('images')"></images-panel>
+<videos-panel class="material-panel crupdate-title-panel" [class.hidden]="!panelIsOpen('videos')"></videos-panel>
+<credits-panel class="material-panel crupdate-title-panel" [mediaItem]="title$ | async" type="cast" [class.hidden]="!panelIsOpen('cast')"></credits-panel>
+<credits-panel class="material-panel crupdate-title-panel" [mediaItem]="title$ | async" type="crew" [class.hidden]="!panelIsOpen('crew')"></credits-panel>
+<tags-panel class="material-panel crupdate-title-panel" type="keyword" [class.hidden]="!panelIsOpen('keywords')"></tags-panel>
+<tags-panel class="material-panel crupdate-title-panel" type="genre" [class.hidden]="!panelIsOpen('genres')"></tags-panel>
+<tags-panel class="material-panel crupdate-title-panel" type="production_country" displayType="country" [class.hidden]="!panelIsOpen('countries')"></tags-panel>
+<reviews-panel class="material-panel crupdate-title-panel" [class.hidden]="!panelIsOpen('reviews')"></reviews-panel>
+
+<aside class="sidebar material-panel">
+    <div class="header" trans>Edit</div>
+    <div class="list">
+        <button class="list-item no-style" (click)="openPanel('primaryFacts')" [class.active]="panelIsOpen('primaryFacts')" trans>Primary Facts</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('seasons')" [class.active]="panelIsOpen('seasons')" trans>Seasons</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('images')" [class.active]="panelIsOpen('images')" trans>Images</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('videos')" [class.active]="panelIsOpen('videos')" trans>Videos</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('cast')" [class.active]="panelIsOpen('cast')" trans>Cast</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('crew')" [class.active]="panelIsOpen('crew')" trans>Crew</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('genres')" [class.active]="panelIsOpen('genres')" trans>Genres</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('keywords')" [class.active]="panelIsOpen('keywords')" trans>Keywords</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('countries')" [class.active]="panelIsOpen('countries')" trans>Countries</button>
+        <button class="list-item no-style" [disabled]="!titleCreated()" (click)="openPanel('reviews')" [class.active]="panelIsOpen('reviews')" trans>Reviews</button>
+    </div>
+    <p *ngIf="!titleCreated()" class="message" trans>Save from "Primary Facts" panel in order to enable other menu items.</p>
+</aside>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>

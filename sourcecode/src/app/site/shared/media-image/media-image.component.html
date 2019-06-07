@@ -1,0 +1,7 @@
+<a [routerLink]="link" *ngIf="link; else noLink">
+    <img class="media-image-el" alt="media image" #image draggable="false" [src]="src">
+</a>
+<ng-template #noLink>
+    <img class="media-image-el" alt="media image" #image draggable="false" [src]="src">
+</ng-template>
+<ng-content></ng-content>
