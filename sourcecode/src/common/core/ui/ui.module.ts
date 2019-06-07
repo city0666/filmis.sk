@@ -26,6 +26,7 @@ import { Settings } from '../config/settings.service';
 import {ContactComponent} from '../../contact/contact.component';
 import {LoadingPageComponent} from './loading-indicator/loading-page/loading-page.component';
 import { AuthClickDirective } from './auth-click.directive';
+import {FooterComponent} from './footer/footer.component';
 
 @NgModule({
     imports: [
@@ -57,6 +58,7 @@ import { AuthClickDirective } from './auth-click.directive';
         EnterKeybindDirective,
         LoggedInUserWidgetComponent,
         MaterialNavbar,
+        FooterComponent,
         AdHostComponent,
         ContactComponent,
         FormattedDatePipe,
@@ -73,6 +75,7 @@ import { AuthClickDirective } from './auth-click.directive';
         EnterKeybindDirective,
         LoggedInUserWidgetComponent,
         MaterialNavbar,
+        FooterComponent,
         AdHostComponent,
         ContactComponent,
         FormattedDatePipe,

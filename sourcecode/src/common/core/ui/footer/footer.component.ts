@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {Settings} from '../../../../common/core/config/settings.service';
 
 @Component({
@@ -8,7 +8,8 @@ import {Settings} from '../../../../common/core/config/settings.service';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit{
+    ngOnInit() {}
     constructor(public settings: Settings) {}
 
     public siteName(): string {

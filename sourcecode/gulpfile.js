@@ -156,16 +156,16 @@ gulp.task('i18n-extract', function() {
         }
     });
 
-    fs.writeFile('./../server/resources/client-translations.json', JSON.stringify(fromHtml), 'utf8');
+    fs.writeFile('./../resources/client-translations.json', JSON.stringify(fromHtml), 'utf8');
 });
 
 gulp.task('dist', function(completeAsync) {
     //remove old dist files from laravel public folder
-    //gulp.src('./../server/public/client', {read: false}).pipe(clean({force: true}));
-    rimraf.sync('./../server/public/client');
+    //gulp.src('./../public/client', {read: false}).pipe(clean({force: true}));
+    rimraf.sync('./../public/client');
 
     //copy dist folder into laravel public folder
-    gulp.src(['./../dist/**/*', '!./../dist/index.html', '!./../dist/stats.json']).pipe(gulp.dest('./../server/public/client'));
+    gulp.src(['./../dist/**/*', '!./../dist/index.html', '!./../dist/stats.json']).pipe(gulp.dest('./../public/client'));
 
     var $ = cheerio.load(fs.readFileSync('./../dist/index.html', 'utf8'));
 
@@ -189,7 +189,7 @@ gulp.task('dist', function(completeAsync) {
     var cssSearch = /{{--angular styles begin--}}[\s\S]*{{--angular styles end--}}/;
     var cssReplaceStr = '{{--angular styles begin--}}' + "\n\t\t" + styles.join("\n\t\t") + "\n\t{{--angular styles end--}}";
 
-    var laravelViewPath = './../server/resources/views/app.blade.php';
+    var laravelViewPath = './../resources/views/app.blade.php';
 
     //replace app stylesheet links and js script tags with new ones
     var content = fs.readFileSync(laravelViewPath, 'utf8');

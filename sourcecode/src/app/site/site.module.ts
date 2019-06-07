@@ -32,7 +32,6 @@ import { PlayerComponent } from './player/player/player.component';
 import {PlayerState} from './player/state/player-state';
 import {PlayerOverlayHandler} from './player/state/player-overlay-handler';
 import { RelatedTitlesPanelComponent } from './titles/components/related-titles-panel/related-titles-panel.component';
-import { FooterComponent } from './shared/footer/footer.component';
 import { TitleActionButtonsComponent } from './titles/components/title-action-buttons/title-action-buttons.component';
 import {GlobalLoaderHandlerService} from './shared/global-loader-handler.service';
 import { MediaItemHeaderComponent } from './titles/components/media-item-header/media-item-header.component';
@@ -125,7 +124,6 @@ import {AppHammerGestureConfig} from './app-hammer-gesture-config';
         PeopleListWidgetComponent,
         PlayerComponent,
         RelatedTitlesPanelComponent,
-        FooterComponent,
         TitleActionButtonsComponent,
         MediaItemHeaderComponent,
         EpisodePageComponent,

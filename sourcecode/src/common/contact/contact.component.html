@@ -1,4 +1,4 @@
-<material-navbar [container]="true"></material-navbar>
+<material-navbar menuPosition="primary"></material-navbar>
 
 <div class="form-container">
     <form (ngSubmit)="submitMessage()" [formGroup]="model" class="many-inputs" ngNativeValidate>
@@ -26,3 +26,6 @@
         <button type="submit" mat-raised-button [color]="settings.get('vebto.auth.color')" [disabled]="loading | async" trans>Send</button>
     </form>
 </div>
+
+<footer></footer>
+
