@@ -1,10 +1,14 @@
 {
   "/secure": {
-    "target": "http://localhost/mtdb/server",
-    "secure": false
+    "target": "http://webfilm:8888",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   },
   "/storage": {
-    "target": "http://localhost/mtdb/server",
-    "secure": false
+    "target": "http://webfilm:8888",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }
