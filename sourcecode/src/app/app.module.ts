@@ -5,7 +5,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthModule} from '../common/auth/auth.module';
 import {CoreModule} from '../common/core/core.module';
 import {RouterModule} from '@angular/router';
-import {AccountSettingsModule} from '../common/account-settings/account-settings.module';
 import {PagesModule} from '../common/core/pages/pages.module';
 import {APP_CONFIG} from '../common/core/config/vebto-config';
 import {MTDB_CONFIG} from './mtdb-config';
@@ -28,7 +27,6 @@ import {environment} from '../environments/environment';
         RouterModule.forRoot([], {scrollPositionRestoration: 'top'}),
         CoreModule.forRoot(),
         AuthModule,
-        AccountSettingsModule,
         AppRoutingModule,
         SiteModule,
         PagesModule,

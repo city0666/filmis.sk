@@ -6,6 +6,8 @@ import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 import {CustomHomepage} from './custom-homepage.service';
 import {Pages} from './pages.service';
 import {UiModule} from '../ui/ui.module';
+import {SiteModule} from '../../../app/site/site.module';
+
 import { NOT_FOUND_ROUTES } from '../wildcard-routing.module';
 
 const routes: Routes = [
@@ -30,6 +32,7 @@ export class PagesRoutingModule {
         RouterModule,
         UiModule,
         PagesRoutingModule,
+        SiteModule,
     ],
     declarations: [
         CustomPageComponent,

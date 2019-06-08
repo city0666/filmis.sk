@@ -23,7 +23,6 @@ import { TranslationsModule } from '../translations/translations.module';
 import { FormattedFileSizePipe } from '../../uploads/formatted-file-size.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Settings } from '../config/settings.service';
-import {ContactComponent} from '../../contact/contact.component';
 import {LoadingPageComponent} from './loading-indicator/loading-page/loading-page.component';
 import { AuthClickDirective } from './auth-click.directive';
 import {FooterComponent} from './footer/footer.component';
@@ -60,7 +59,6 @@ import {FooterComponent} from './footer/footer.component';
         MaterialNavbar,
         FooterComponent,
         AdHostComponent,
-        ContactComponent,
         FormattedDatePipe,
         ContextMenuDirective,
         FormattedFileSizePipe,
@@ -77,7 +75,6 @@ import {FooterComponent} from './footer/footer.component';
         MaterialNavbar,
         FooterComponent,
         AdHostComponent,
-        ContactComponent,
         FormattedDatePipe,
         ContextMenuDirective,
         FormattedFileSizePipe,

@@ -20,6 +20,8 @@ import {NewsArticleComponent} from './news/news-article/news-article.component';
 import {NewsIndexComponent} from './news/news-index/news-index.component';
 import {PeopleIndexComponent} from './people/people-index/people-index.component';
 import {ContactComponent} from '../../common/contact/contact.component';
+import { AccountSettingsComponent } from 'common/account-settings/account-settings.component';
+import { AccountSettingsResolve } from 'common/account-settings/account-settings-resolve.service';
 
 const routes: Routes = [
     {
@@ -27,6 +29,13 @@ const routes: Routes = [
         canActivate: [CheckPermissionsGuard],
         canActivateChild: [CheckPermissionsGuard],
         children: [
+            {
+                path: 'account/settings',
+                component: AccountSettingsComponent,
+                resolve: {resolves: AccountSettingsResolve},
+                canActivate: [AuthGuard],
+                data: {name: 'account-settings'},
+            },
             // browse
             {
                 path: 'movies',

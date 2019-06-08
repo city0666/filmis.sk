@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {AssignUsersToRoleModalComponent} from './roles/assign-users-to-role-modal/assign-users-to-role-modal.component';
 import {CrupdateRoleModalComponent} from './roles/crupdate-role-modal/crupdate-role-modal.component';
 import {UsersComponent} from './users/users.component';
-import {AdminComponent} from './admin.component';
 import {CrupdateUserModalComponent} from './users/crupdate-user-modal/crupdate-user-modal.component';
 import {RolesComponent} from './roles/roles.component';
 import {PagesComponent} from './pages/pages.component';
@@ -87,7 +86,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         DragDropModule,
     ],
     declarations: [
-        AdminComponent,
         RolesComponent,
         CrupdateRoleModalComponent,
         AssignUsersToRoleModalComponent,

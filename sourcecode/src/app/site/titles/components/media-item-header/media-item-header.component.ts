@@ -4,6 +4,8 @@ import {
     ChangeDetectionStrategy,
     HostBinding,
     Input,
+    EventEmitter,
+    Output,
 } from '@angular/core';
 
 @Component({
@@ -16,6 +18,8 @@ import {
 export class MediaItemHeaderComponent {
     @Input() backdrop: string;
     @Input() transparent = false;
+    @Input() showToggleButton = false;
+    @Output() toggleButtonClick: EventEmitter<any> = new EventEmitter();
 
     @HostBinding('style.background-image') get backgroundImage() {
         if (this.backdrop) {
@@ -27,5 +31,10 @@ export class MediaItemHeaderComponent {
         if ( ! this.backdrop) {
             return 'no-backdrop';
         }
+    }
+
+
+    onToggleButtonClick(): void {
+        this.toggleButtonClick.emit(true);
     }
 }

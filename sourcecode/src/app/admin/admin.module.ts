@@ -11,7 +11,7 @@ import { CreditsPanelComponent } from './titles-page/crupdate-title/panels/credi
 import { CrupdateCreditModalComponent } from './titles-page/crupdate-title/panels/crupdate-credit-modal/crupdate-credit-modal.component';
 import { TagsPanelComponent } from './titles-page/crupdate-title/panels/tags-panel/tags-panel.component';
 import { SeasonsPanelComponent } from './titles-page/crupdate-title/panels/seasons-panel/seasons-panel.component';
-import {MatExpansionModule, MatTabsModule} from '@angular/material';
+import {MatExpansionModule, MatTabsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTooltipModule, MatDialogModule, MatMenuModule, MatSlideToggleModule, MatListModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule, MatAutocompleteModule, MatSidenavModule} from '@angular/material';
 import { CrupdateEpisodeModalComponent } from './titles-page/crupdate-title/panels/seasons-panel/crupdate-episode-modal/crupdate-episode-modal.component';
 import {AdminRoutingModule} from './admin-routing.module';
 import {NewsPageComponent} from './news-page/news-page.component';
@@ -26,6 +26,8 @@ import { ReviewsPanelComponent } from './titles-page/crupdate-title/panels/revie
 import {VideosPageComponent} from './videos-page/videos-page.component';
 import {ListsPageComponent} from './lists-page/lists-page.component';
 import {MatProgressBarModule} from '@angular/material/typings/progress-bar';
+import { AdminComponent } from './admin.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     imports: [
@@ -43,6 +45,21 @@ import {MatProgressBarModule} from '@angular/material/typings/progress-bar';
         MatExpansionModule,
         MatTabsModule,
         MatProgressBarModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatDialogModule,
+        MatMenuModule,
+        MatSlideToggleModule,
+        MatListModule,
+        MatExpansionModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatAutocompleteModule,
+        MatSidenavModule,
+        DragDropModule,
 
         // state
         // NgxsModule.forFeature([
@@ -50,6 +67,7 @@ import {MatProgressBarModule} from '@angular/material/typings/progress-bar';
         // ]),
     ],
     declarations: [
+        AdminComponent,
         TitlesPageComponent,
         CrupdateTitleComponent,
         PrimaryFactsPanelComponent,

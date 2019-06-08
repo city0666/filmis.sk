@@ -70,6 +70,11 @@ import { ImageGalleryOverlayComponent } from './shared/image-gallery-overlay/ima
 import { ImportMediaModalComponent } from './shared/import-media-modal/import-media-modal.component';
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {AppHammerGestureConfig} from './app-hammer-gesture-config';
+import { ContactComponent } from 'common/contact/contact.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AccountSettingsComponent } from 'common/account-settings/account-settings.component';
+import { ConnectSocialAccountsPanelComponent } from 'common/account-settings/connect-social-accounts-panel/connect-social-accounts-panel.component';
+import { AccountSettingsResolve } from 'common/account-settings/account-settings-resolve.service';
 
 @NgModule({
     imports: [
@@ -77,6 +82,7 @@ import {AppHammerGestureConfig} from './app-hammer-gesture-config';
         UiModule,
         SiteRoutingModule,
         ChipInputModule,
+        ReactiveFormsModule,
 
         // material
         MatAutocompleteModule,
@@ -108,6 +114,9 @@ import {AppHammerGestureConfig} from './app-hammer-gesture-config';
         ]),
     ],
     declarations: [
+        AccountSettingsComponent,
+        ConnectSocialAccountsPanelComponent,
+        ContactComponent,
         TitlePageContainerComponent,
         TitleSecondaryDetailsPanelComponent,
         TitleCastPanelComponent,
@@ -153,6 +162,7 @@ import {AppHammerGestureConfig} from './app-hammer-gesture-config';
         ImportMediaModalComponent,
     ],
     entryComponents: [
+        ConnectSocialAccountsPanelComponent,
         PlayerComponent,
         StarRatingOverlayComponent,
         CrupdateReviewModalComponent,
@@ -165,8 +175,10 @@ import {AppHammerGestureConfig} from './app-hammer-gesture-config';
         SearchInputComponent,
         ReviewTabComponent,
         TextFieldModule,
+        MediaItemHeaderComponent,
     ],
     providers: [
+        AccountSettingsResolve,
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: AppHammerGestureConfig,
