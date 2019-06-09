@@ -14,6 +14,8 @@
 	{{--angular scripts end--}}
 @endsection
 
+@include('custom.cookie')
+
 @section('before-loaded-content')
 	<div class="global-spinner">
 		<style>.global-spinner {display: none; align-items: center; justify-content: center; z-index: 999; background: #fff; position: fixed; top: 0; left: 0; width: 100%; height: 100%;}</style>
