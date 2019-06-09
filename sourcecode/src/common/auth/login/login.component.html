@@ -15,7 +15,7 @@
         <div class="input-container">
             <label for="password" class="hidden"></label>
             <input type="password" [(ngModel)]="model.password" name="password" id="password" required placeholder="Password" trans-placeholder>
-            <a class="forgot-password" [routerLink]="['/forgot-password']"><span trans>Forgot</span>?</a>
+            <a class="forgot-password" [routerLink]="['/forgot-password']"><span trans>Forgot?</span></a>
             <p class="error password-error" *ngIf="errors.password">{{errors.password}}</p>
         </div>
 
@@ -31,7 +31,7 @@
 
         <ng-container *ngIf="!settings.get('registration.disable')">
             <p class="info-row">
-                <span class="color-secondary"><span trans>Don't have an account</span>?</span>
+                <span class="color-secondary"><span trans>Don't have an account?</span></span>
                 <a class="register-link" [routerLink]="['/register']" trans>Register here.</a>
             </p>
 

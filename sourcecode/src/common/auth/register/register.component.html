@@ -5,18 +5,18 @@
 
         <a class="logo" [routerLink]="['/']"><img [src]="settings.getBaseUrl(true) + settings.get('branding.logo_dark')" alt="logo"></a>
 
-        <div class="general-error" *ngIf="errors.general">{{errors.general}}</div>
+        <div class="general-error" *ngIf="errors.general" trans>{{errors.general}}</div>
 
         <div class="input-container">
             <label for="email" class="hidden" trans>Email</label>
             <input type="email" [(ngModel)]="model.email" name="email" id="email" required placeholder="Email" trans-placeholder>
-            <p class="error email-error" *ngIf="errors.email">{{errors.email}}</p>
+            <p class="error email-error" *ngIf="errors.email" trans>{{errors.email}}</p>
         </div>
 
         <div class="input-container">
             <label for="password" class="hidden" trans>Password</label>
             <input type="password" [(ngModel)]="model.password" name="password" id="password" required placeholder="Password" trans-placeholder>
-            <p class="error password-error" *ngIf="errors.password">{{errors.password}}</p>
+            <p class="error password-error" *ngIf="errors.password" trans>{{errors.password}}</p>
         </div>
 
         <div class="input-container">
@@ -27,7 +27,7 @@
         <div class="input-container" *ngIf="settings.get('envato.enable') && settings.get('envato.require_purchase_code')">
             <label for="purchase_code" class="hidden" trans>Envato Purchase Code</label>
             <input type="text" [(ngModel)]="model.purchase_code" name="purchase_code" id="purchase_code" required placeholder="Envato Purchase Code" trans-placeholder>
-            <p class="error purchase-code-error" *ngIf="errors.purchase_code">{{errors.purchase_code}}</p>
+            <p class="error purchase-code-error" *ngIf="errors.purchase_code" trans>{{errors.purchase_code}}</p>
         </div>
 
         <div class="social-icons-and-register-row">

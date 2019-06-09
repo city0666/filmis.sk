@@ -1,4 +1,4 @@
-<div class="menu-title" *ngIf="showTitle">{{menu.name}}</div>
+<div class="menu-title" *ngIf="showTitle" trans>{{menu.name}}</div>
 
 <ng-container *ngFor="let item of menu.items">
     <ng-container *ngIf="shouldShow(item)">
