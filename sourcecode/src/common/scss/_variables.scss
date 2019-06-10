@@ -11,7 +11,7 @@ $navbar-breakpoint: 1000px !default;
 //fonts
 $font-family: Roboto,'Helvetica Neue',sans-serif !default;
 
-$site-accent-color: map_get($mat-light-green, 700) !default;
+$site-accent-color: rgba(233,74,46,1) !default;
 $site-primary-color-100: map_get($mat-blue, 700) !default;
 $site-primary-color-200: map_get($mat-blue, 800) !default;
 $site-text-color-100: #fff;

@@ -83,6 +83,7 @@
             <button type="button" class="no-style editor-button" (click)="execCommand('justifyLeft')" [class.active]="queryCommandState('justifyLeft')" [matTooltip]="'Unordered List' | trans"><mat-icon svgIcon="format-align-left"></mat-icon></button>
             <button type="button" class="no-style editor-button" (click)="execCommand('justifyCenter')" [class.active]="queryCommandState('justifyCenter')" [matTooltip]="'Unordered List' | trans"><mat-icon svgIcon="format-align-center"></mat-icon></button>
             <button type="button" class="no-style editor-button" (click)="execCommand('justifyRight')" [class.active]="queryCommandState('justifyRight')" [matTooltip]="'Unordered List' | trans"><mat-icon svgIcon="format-align-right"></mat-icon></button>
+            <button type="button" class="no-style editor-button" (click)="execCommand('justifyFull')" [class.active]="queryCommandState('justifyFull')" [matTooltip]="'Unordered List' | trans"><mat-icon svgIcon="format-align-justify"></mat-icon></button>
         </div>
         <div class="actions editor-toggle-buttons">
             <button type="button" class="no-style editor-button visual-mode-button" [class.active]="activeEditor === 'visual'" (click)="showVisualEditor()" trans>Visual</button>
