@@ -55,11 +55,12 @@ class Tag extends Model
      */
     public function insertOrRetrieve(Collection $tags)
     {
-        $tags = $tags->toLower('name');
+        // $tags = $tags->toLower('name');
         $existing = $this->getByNames($tags->pluck('name'), $tags->first()['type']);
 
         $new = $tags->filter(function($tag) use($existing) {
-            return !$existing->contains('name', strtolower($tag['name']));
+            return !$existing->contains('name', $tag['name']);
+            // return !$existing->contains('name', strtolower($tag['name']));
         });
 
         if ($new->isNotEmpty()) {
@@ -79,6 +80,6 @@ class Tag extends Model
     {
         $query = $this->whereIn('name', $names);
         if ($type) $query->where('type', $type);
-        return $query->get()->toLower('name');
+        return $query->get();
     }
 }

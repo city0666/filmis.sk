@@ -32,6 +32,9 @@
                 <div class="value">{{person.birth_place}}</div>
             </div>
         </div>
+        <div class="sticky-sidebar"  [ngClass]="{'sticky' : isSticky}">
+            <ad-host slot="ads.sidebar_person" class="shared-ad-host"></ad-host>
+        </div>
     </div>
     <div class="right">
         <h1>{{person.name}}</h1>

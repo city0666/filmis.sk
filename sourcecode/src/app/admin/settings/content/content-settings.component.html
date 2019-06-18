@@ -112,6 +112,36 @@
     </div>
 
     <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.show_releasedate_filter" id="browse.show_releasedate_filter" [(ngModel)]="state.client['browse.show_releasedate_filter']" trans>Show Release Date Filter</mat-slide-toggle>
+        <p trans>Toggle visibility of "Release Date" filter on browse titles page.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.show_rating_filter" id="browse.show_rating_filter" [(ngModel)]="state.client['browse.show_rating_filter']" trans>Show Rating Filter</mat-slide-toggle>
+        <p trans>Toggle visibility of "Rating" filter on browse titles page.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.show_runtime_filter" id="browse.show_runtime_filter" [(ngModel)]="state.client['browse.show_runtime_filter']" trans>Show Runtime Filter</mat-slide-toggle>
+        <p trans>Toggle visibility of "Runtime" filter on browse titles page.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.show_country_filter" id="browse.show_country_filter" [(ngModel)]="state.client['browse.show_country_filter']" trans>Show Country Filter</mat-slide-toggle>
+        <p trans>Toggle visibility of "Country" filter on browse titles page.</p>
+    </div>
+    
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.show_language_filter" id="browse.show_language_filter" [(ngModel)]="state.client['browse.show_language_filter']" trans>Show Language Filter</mat-slide-toggle>
+        <p trans>Toggle visibility of "Language" filter on browse titles page.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="browse.show_age_filter" id="browse.show_age_filter" [(ngModel)]="state.client['browse.show_age_filter']" trans>Show Age Filter</mat-slide-toggle>
+        <p trans>Toggle visibility of "Age" filter on browse titles page.</p>
+    </div>
+
+    <div class="setting-toggle-container">
         <mat-slide-toggle name="browse.show_streamable_filter" id="browse.show_streamable_filter" [(ngModel)]="state.client['browse.show_streamable_filter']" trans>Show Streamable Filter</mat-slide-toggle>
         <p trans>Toggle visibility of "Only Streamable" filter on browse titles page.</p>
     </div>

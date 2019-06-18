@@ -27,6 +27,10 @@ browse-titles {
 
   .mat-drawer-inner-container {
     overflow: initial;
+
+    .sticky-sidebar {
+      padding-right: 20px;
+    }
   }
 
   .sidebar {
@@ -34,7 +38,7 @@ browse-titles {
     padding-top: 35px;
     border-right: none;
     padding-left: 20px;
-    overflow: auto;
+    // overflow: auto;
     user-select: none;
     background: inherit;
     color: inherit;
@@ -150,4 +154,29 @@ browse-titles {
   .shared-ad-host {
     margin-top: 30px;
   }
+
+  .page-container {
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .left {
+    flex: 0 0 320px;
+    flex-wrap: wrap;
+    width: 320px;
+  }
+
+  .right {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .sticky-sidebar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    margin-bottom: 30px;
+  }
+  
 }

@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit, HostListener} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {PersonState} from '../state/person-state';
 import {Observable} from 'rxjs';
@@ -39,5 +39,11 @@ export class PersonPageComponent implements OnInit {
 
     public trackByFn(title: Title) {
         return title.id;
+    }
+    isSticky: boolean = false;
+
+    @HostListener('window:scroll', ['$event'])
+    public checkScroll() {
+        this.isSticky = window.pageYOffset >= 250;
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, OnDestroy, HostListener} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {FormBuilder} from '@angular/forms';
 import {LoadFilterOptions, LoadMoreTitles, ReloadTitles} from '../../state/browse/browse-title-actions';
@@ -122,5 +122,22 @@ export class BrowseTitlesComponent extends InfiniteScroll implements OnInit, OnD
 
     protected isLoading() {
         return this.store.selectSnapshot(BrowseTitleState.loading);
+    }
+
+
+    isSticky: boolean = false;
+
+    @HostListener('window:scroll', ['$event'])
+    public checkScroll() {
+        this.isSticky = window.pageYOffset >= 250;
+    }
+
+    public checkHeightStickySidebar () {
+        var sticky = document.getElementById('sticky-sidebar');
+        var stickySupport = document.getElementById('sticky-sidebar-support');
+        var computed = window.getComputedStyle(sticky);
+
+        stickySupport.style.height = computed.height;
+        return { st: sticky.clientHeight, cm: computed.height};
     }
 }

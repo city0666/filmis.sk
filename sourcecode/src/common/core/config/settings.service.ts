@@ -127,7 +127,7 @@ export class Settings {
         // booleans as form data will always be a string
         // also need to encode as base64 to make sure requests
         // are not blocked when setting contains <scripts>
-        jsonSettings.client = btoa(JSON.stringify(settings.client));
+        jsonSettings.client = JSON.stringify(settings.client);
         jsonSettings.server = btoa(JSON.stringify(settings.server));
         const data = objToFormData(jsonSettings);
         return this.http.post('settings', data);

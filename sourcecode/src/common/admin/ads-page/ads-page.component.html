@@ -2,9 +2,9 @@
     <div class="header" trans>Predefined AD Slots</div>
 
     <div class="input-container" *ngFor="let ad of settings.get('vebto.admin.ads')">
-        <label [for]="ad.slot">{{ad.name}}</label>
+        <label [for]="ad.slot" trans>{{ad.name}}</label>
         <textarea [name]="ad.slot" [id]="ad.slot" [(ngModel)]="model[ad.slot]"></textarea>
-        <p>{{ad.description}}</p>
+        <p trans>{{ad.description}}</p>
     </div>
 
     <div class="setting-toggle-container margin-top margin-bottom">

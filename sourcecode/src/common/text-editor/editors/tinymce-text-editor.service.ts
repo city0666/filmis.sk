@@ -170,6 +170,7 @@ export class TinymceTextEditor {
             link_title: false,
             image_dimensions: false,
             image_description: false,
+            entity_encoding: "raw",
             setup: editor => {
                 this.tinymceInstance = editor;
                 editor.on('change', () => this.config['onChange'].emit(editor.getContent()));
