@@ -1,6 +1,27 @@
 <form class="panel many-inputs" (ngSubmit)="saveAds()" ngNativeValidate>
     <div class="header" trans>Predefined AD Slots</div>
 
+    <div class="container">
+        <p trans>Ads Download Button</p>
+        <div class="row">
+            <div class="col">
+                <div class="input-container">
+                    <label [for]="" trans>Website</label>
+                    <input type="text" name="button.website" [(ngModel)]="model['button.website']" [ngModelOptions]="{standalone: true}" />
+                    <p trans>Ads Website</p>
+                </div>
+            </div>
+            <div class="col-margin"></div>
+            <div class="col">
+                <div class="input-container">
+                    <label [for]="" trans>Referral</label>
+                    <input type="text" name="button.referral" [(ngModel)]="model['button.referral']" [ngModelOptions]="{standalone: true}" />
+                    <p trans>Ads Referral</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="input-container" *ngFor="let ad of settings.get('vebto.admin.ads')">
         <label [for]="ad.slot" trans>{{ad.name}}</label>
         <textarea [name]="ad.slot" [id]="ad.slot" [(ngModel)]="model[ad.slot]"></textarea>

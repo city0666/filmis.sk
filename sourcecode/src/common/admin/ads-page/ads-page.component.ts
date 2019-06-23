@@ -37,6 +37,9 @@ export class AdsPageComponent implements OnInit {
     private hydrate() {
         const ads = this.settings.get('ads') || {};
 
+        this.model['button.website'] = this.settings.get('button.website');
+        this.model['button.referral'] = this.settings.get('button.referral');
+
         Object.keys(ads).forEach(key => {
             this.model['ads.' + key] = ads[key];
         });

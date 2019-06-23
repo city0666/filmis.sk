@@ -97,7 +97,7 @@
     </mat-sidenav-content>
 </mat-sidenav-container>
 <div *ngIf="!breakpoints.isMobile$.value" class="main-container container">
-    <div class="left sidebar">
+    <div [class]="'page_left sidebar left__sidebar-' + settings.get('ads.sidebar_browse_width')">
         <form [formGroup]="form">
             <div class="filter-container input-container">
                 <label class="filter-header" for="type" trans>Title Type</label>
@@ -167,7 +167,7 @@
             <ad-host slot="ads.sidebar_browse" class="shared-ad-host"></ad-host>
         </div>
     </div>
-    <div class="right">
+    <div class="page_right">
         <div class="items-container">
             <div class="header">
                 <h1 trans>Browse</h1>

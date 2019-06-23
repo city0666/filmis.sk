@@ -3,7 +3,15 @@
 title-page-container {
   display: block;
   width: 100%;
-
+  .ads {
+    &-download {
+      text-align: center;
+      a {
+        font-size: 28px;
+        padding: 10px 15px;
+      }
+    }
+  }
   .tagline {
     background-color: $site-bg-color-200;
     font-size: 2.2rem;

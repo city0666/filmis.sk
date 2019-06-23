@@ -29,22 +29,28 @@ browse-titles {
     overflow: initial;
 
     .sticky-sidebar {
-      padding-right: 20px;
+      // padding-right: 20px;
     }
   }
 
+  @media only screen and (max-width: $medium) {
+    .sidebar {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
   .sidebar {
     width: 250px + 35px;
     padding-top: 35px;
     border-right: none;
-    padding-left: 20px;
+    // padding-left: 20px;
     // overflow: auto;
     user-select: none;
     background: inherit;
     color: inherit;
 
     form {
-      width: calc(100% - 35px);
+      width: calc(100% - 30px);
     }
 
     .filter-header {
@@ -161,13 +167,13 @@ browse-titles {
     margin-bottom: 30px;
   }
 
-  .left {
+  .page_left {
     flex: 0 0 320px;
     flex-wrap: wrap;
     width: 320px;
   }
 
-  .right {
+  .page_right {
     flex: 1 1 auto;
     min-width: 0;
   }
@@ -178,5 +184,13 @@ browse-titles {
     top: 0;
     margin-bottom: 30px;
   }
-  
+}
+
+$start: 200;
+$end: 300;
+
+@for $i from $start through $end {
+  .left__sidebar-#{$i} {
+    flex: 0 0 #{$i}px !important;
+  }
 }

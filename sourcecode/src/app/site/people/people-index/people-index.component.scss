@@ -3,10 +3,32 @@
 people-index {
   display: block;
 
+  .sticky-sidebar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+  }
+
   .main-container {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    display: flex;
+    margin-bottom: 60px;
+    padding-left: 0;
+    padding-right: 0;
     min-height: calc(100vh - #{$material-navbar-height + $footer-height});
+    .page {
+      &_left {
+        flex: 0 0 320px;
+        flex-wrap: wrap;
+        padding-top: 35px;
+        width: 320px;
+      }
+      &_right {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 35px 20px 0;
+
+      }
+    }
   }
 
   .page-title {
@@ -71,5 +93,14 @@ people-index {
       height: 75px;
       flex: 0 0 50px;
     }
+  }
+}
+
+$start: 200;
+$end: 300;
+
+@for $i from $start through $end {
+  .left__sidebar-#{$i} {
+    flex: 0 0 #{$i}px !important;
   }
 }

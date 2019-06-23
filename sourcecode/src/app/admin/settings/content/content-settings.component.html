@@ -106,6 +106,20 @@
     </p>
     <div class="settings-separator"></div>
 
+    <div class="input-container">
+        <label for="ads.sidebar_browse_width" trans>Sidebar width of browse page </label>
+        <input type="number" id="ads.sidebar_browse_width" name="ads.sidebar_browse_width" [(ngModel)]="state.client['ads.sidebar_browse_width']" required min="200" max="300">
+        <p trans>Width size of the sidebar for browse page.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="ads.sidebar_browse_people" trans>Sidebar width of people page </label>
+        <input type="number" id="ads.sidebar_browse_people" name="ads.sidebar_browse_people" [(ngModel)]="state.client['ads.sidebar_browse_people']" required min="200" max="300">
+        <p trans>Width size of the sidebar for people page.</p>
+    </div>
+
+    <div class="settings-separator"></div>
+
     <div class="setting-toggle-container">
         <mat-slide-toggle name="titles.show_videos_panel" id="titles.show_videos_panel" [(ngModel)]="state.client['titles.show_videos_panel']" trans>Show Videos Panel</mat-slide-toggle>
         <p trans>Enabling this will display all videos attached to title or episode on their pages.</p>

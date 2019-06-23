@@ -6,6 +6,7 @@ import {PaginationResponse} from '../../../../common/core/types/pagination-respo
 import {Person} from '../../../models/person';
 import {finalize} from 'rxjs/operators';
 import {TitleUrlsService} from '../../titles/title-urls.service';
+import {Settings} from '../../../../common/core/config/settings.service';
 
 @Component({
     selector: 'people-index',
@@ -21,6 +22,7 @@ export class PeopleIndexComponent extends InfiniteScroll implements OnInit {
     constructor(
         private people: PeopleService,
         public urls: TitleUrlsService,
+        public settings: Settings
     ) {
         super();
     }
@@ -33,7 +35,7 @@ export class PeopleIndexComponent extends InfiniteScroll implements OnInit {
     private loadPeople() {
         this.loading$.next(true);
         const page = this.people$.value ? (this.people$.value.current_page + 1) : 1;
-        this.people.getAll({perPage: 10, page, mostPopular: true})
+        this.people.getAll({perPage: 12, page})
             .pipe(finalize(() => this.loading$.next(false)))
             .subscribe(response => {
                 if (this.people$.value) {
