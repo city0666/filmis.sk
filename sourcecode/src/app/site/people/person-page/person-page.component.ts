@@ -8,6 +8,7 @@ import {Title} from '../../../models/title';
 import {ToggleGlobalLoader} from '../../../state/app-state-actions';
 import {ActivatedRoute} from '@angular/router';
 import {ViewportScroller} from '@angular/common';
+import {Settings} from '../../../../common/core/config/settings.service';
 
 @Component({
     selector: 'person-page',
@@ -28,6 +29,7 @@ export class PersonPageComponent implements OnInit {
         private store: Store,
         private route: ActivatedRoute,
         private viewportScroller: ViewportScroller,
+        private settings: Settings
     ) {}
 
     ngOnInit() {

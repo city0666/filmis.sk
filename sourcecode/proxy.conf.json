@@ -1,12 +1,12 @@
 {
   "/secure": {
-    "target": "https://filmis.sk",
+    "target": "http://webfilm:8888",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/storage": {
-    "target": "https://filmis.sk",
+    "target": "http://webfilm:8888",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

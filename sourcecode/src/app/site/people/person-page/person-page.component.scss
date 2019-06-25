@@ -203,3 +203,12 @@ person-page {
     margin-bottom: 10px;
   }
 }
+
+$start: 100;
+$end: 600;
+
+@for $i from $start through $end {
+  .left__sidebar-#{$i} {
+    flex: 0 0 #{$i}px !important;
+  }
+}

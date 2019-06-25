@@ -1,7 +1,7 @@
 <media-item-header></media-item-header>
 
 <div class="page-container container" *ngIf="person$ | async as person">
-    <div class="left">
+    <div [class]="'left left__sidebar-' + settings.get('ads.sidebar_browse_people')">
         <div class="img-container">
             <media-image [src]="person.poster"></media-image>
         </div>

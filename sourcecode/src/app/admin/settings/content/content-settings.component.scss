@@ -8,4 +8,10 @@ content-settings {
   .sitemap-description {
     color: $site-text-color-300;
   }
+
+  chip-input {
+    .mat-chip-list-wrapper {
+      height: initial !important;
+    }
+  }
 }

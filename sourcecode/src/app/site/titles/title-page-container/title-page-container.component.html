@@ -10,7 +10,9 @@
 
         <videos-panel [mediaItem]="title" *ngIf="title.show_videos || settings.get('titles.show_videos_panel')"></videos-panel>
         <div class="ads-download">
-            <a [href]="settings.get('button.website') + title.name + settings.get('button.referral')" target="_blank" class="mat-flat-button mat-accent ng-star-inserted">Download</a>
+            <a [href]="settings.get('button.website') + title.name + settings.get('button.referral')" target="_blank" class="mat-flat-button mat-accent ng-star-inserted">
+                {{ 'Download ' | trans }}
+            </a>
         </div>
         <mat-tab-group color="accent" animationDuration="0ms">
             <mat-tab [label]="'Cast' | trans">
