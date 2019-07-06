@@ -499,13 +499,36 @@ export class CrupdateTitleState {
                 const type = action.tag.type === 'keyword' ? 'keywords' : 'genres';
                 const oldTags = ctx.getState().title[type];
                 const exists = (oldTags as Tag[]).find(tag => tag.id === response.tag.id);
-                if (exists) return;
-                ctx.patchState({
-                    title: {
-                        ...ctx.getState().title,
-                        [type]: [...oldTags, response.tag]
+                if (exists) {
+                    console.log(response, exists, action, ...oldTags);
+                    let newTags: Tag[] = [];
+                    for(let tag of (oldTags as Tag[])) {
+                        if (tag.id === exists.id) {
+                            let temp: Tag = {
+                                id: tag.id,
+                                name: action.tag.name,
+                                display_name: action.tag.display_name,
+                                type: tag.type
+                            };
+                            newTags.push(temp);
+                        } else {
+                            newTags.push(tag);
+                        }
                     }
-                });
+                    ctx.patchState({
+                        title: {
+                            ...ctx.getState().title,
+                            [type]: newTags
+                        }
+                    });
+                } else {
+                    ctx.patchState({
+                        title: {
+                            ...ctx.getState().title,
+                            [type]: [...oldTags, response.tag]
+                        }
+                    });
+                }
             }),
             finalize(() => ctx.patchState({loading: false}))
         );

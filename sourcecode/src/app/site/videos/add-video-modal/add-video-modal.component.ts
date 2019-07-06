@@ -14,6 +14,8 @@ import {openUploadWindow} from '../../../../common/uploads/utils/open-upload-win
 import {UploadInputTypes} from '../../../../common/uploads/upload-input-config';
 import {UploadQueueService} from '../../../../common/uploads/upload-queue/upload-queue.service';
 import {Settings} from '../../../../common/core/config/settings.service';
+import {CurrentUser} from '../../../../common/auth/current-user';
+import {LANGUAGES} from '../languages';
 
 interface AddVideoModalData {
     mediaItem: Title|Episode;
@@ -31,14 +33,19 @@ interface AddVideoModalData {
 export class AddVideoModalComponent implements OnInit {
     public loading$ = new BehaviorSubject(false);
     public episodeCount$ = new BehaviorSubject([]);
+    public languages$ = [];
+    public subtitles$ = [];
     public videoForm = this.fb.group({
         name: [],
         thumbnail: [],
         url: [],
-        quality: ['hd'],
-        type: ['video'],
+        quality: ['regular'],
+        type: ['embed'],
         season: [],
         episode: [],
+        language: [],
+        subtitles: [],
+        source: []
     });
 
     constructor(
@@ -48,11 +55,27 @@ export class AddVideoModalComponent implements OnInit {
         private uploadQueue: UploadQueueService,
         private settings: Settings,
         private dialogRef: MatDialogRef<AddVideoModalComponent>,
+        public currentUser: CurrentUser,
         @Inject(MAT_DIALOG_DATA) public data: AddVideoModalData,
     ) {}
 
     ngOnInit() {
         this.hydrateForm();
+        // console.log(this.languages$);
+        this.getLanguages();
+    }
+
+    public getLanguages() {
+        let languages = JSON.parse(this.settings.get('videos.language'));
+        let subtitles = JSON.parse(this.settings.get('videos.subtitles'));
+        for (let lang of LANGUAGES) {
+            if (languages.includes(lang.value)) {
+                this.languages$.push(lang);
+            }
+            if (subtitles.includes(lang.value)) {
+                this.subtitles$.push(lang);
+            }
+        }
     }
 
     public confirm() {
@@ -98,6 +121,7 @@ export class AddVideoModalComponent implements OnInit {
             payload.title_id = this.data.mediaItem.title_id;
             payload.episode_id = this.data.mediaItem.id;
         }
+        payload.user_id = this.currentUser.get('id');
         return payload;
     }
 

@@ -22,6 +22,9 @@ title-primary-details-panel {
     .right {
       margin-left: auto;
       max-width: 40%;
+      .edit-button {
+        margin-right: 10px;
+      }
     }
 
     @media only screen and (max-width: $medium) {

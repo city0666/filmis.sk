@@ -73,6 +73,9 @@ class VideosController extends Controller
             'title_id' => 'required|integer',
             'season' => 'nullable|integer',
             'episode' => 'requiredWith:season|integer|nullable',
+            'language' => 'string|nullable',
+            'subtitles' => 'string|nullable',
+            'user_id' => 'integer|nullable',
         ]);
 
         $video = app(CrupdateVideo::class)->execute($this->request->all());
@@ -92,6 +95,9 @@ class VideosController extends Controller
             'title_id' => 'integer',
             'season' => 'nullable|integer',
             'episode' => 'requiredWith:season|integer|nullable',
+            'language' => 'string|nullable',
+            'subtitles' => 'string|nullable',
+            'user_id' => 'integer|nullable',
         ]);
 
         $video = app(CrupdateVideo::class)->execute($this->request->all(), $id);

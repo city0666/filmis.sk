@@ -24,7 +24,7 @@ export const MTDB_CONFIG = {
     admin: {
         hideBilling: true,
         pages: [
-            {name: 'titles', icon: 'movie', route: 'titles', permission: 'titles.view'},
+            {name: 'movies', icon: 'movie', route: 'titles', permission: 'titles.view'},
             {name: 'people', icon: 'recent-actors', route: 'people', permission: 'people.view'},
             {name: 'news', icon: 'description', route: 'news', permission: 'news.view'},
             {name: 'videos', icon: 'slow-motion-video', route: 'videos', permission: 'videos.view'},

@@ -1,6 +1,6 @@
 <ng-container *ngIf="seasons$ | async as seasons">
     <div class="header">
-        <button type="button" mat-raised-button color="primary" (click)="addSeason()" [disabled]="loading$ | async">Add Season</button>
+        <button type="button" mat-raised-button color="primary" (click)="addSeason()" [disabled]="loading$ | async" trans>Add Season</button>
     </div>
 
     <mat-accordion>

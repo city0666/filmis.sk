@@ -67,7 +67,18 @@ export class VideosPageComponent implements OnInit, OnDestroy {
             this.deleteSelectedPeople();
         });
     }
-
+    public getVideoSource(source: String) {
+        let result = "video";
+        switch (source) {
+            case 'local':
+                result = 'movie';
+                break;
+            case 'tmdb':
+                result = 'trailer';
+                break;
+        }
+        return result;
+    }
     public openCrupdateVideoModal(video?: Video) {
         this.modal.open(
             AddVideoModalComponent,

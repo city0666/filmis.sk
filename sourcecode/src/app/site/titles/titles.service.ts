@@ -40,6 +40,7 @@ export class TitlesService {
     constructor(private http: AppHttpClient) {}
 
     public get(titleId: number, queryParams?: GetTitleQueryParams): BackendResponse<GetTitleResponse> {
+        console.log(titleId, queryParams);
         return this.http.get('titles/' + titleId, queryParams);
     }
 

@@ -5,6 +5,7 @@ namespace Common\Tags;
 use Common\Files\FileEntry;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use DB;
 
 class Tag extends Model
 {
@@ -67,6 +68,12 @@ class Tag extends Model
             $this->insert($new->toArray());
             return $this->getByNames($tags->pluck('name'), $tags->first()['type']);
         } else {
+            $newTag = $tags->first();
+            $exiTag = $existing->first();
+            DB::table('tags')->where('id', $exiTag['id'])->update([
+                'name' => $newTag['name'],
+                'display_name' => $newTag['display_name']
+            ]);
             return $existing;
         }
     }

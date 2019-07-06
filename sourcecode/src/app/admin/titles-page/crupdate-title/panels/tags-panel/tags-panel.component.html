@@ -25,6 +25,9 @@
     <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let tag">
+            <button mat-icon-button (click)="openCrupdateCreditModal(tag)">
+                <mat-icon svgIcon="edit"></mat-icon>
+            </button>
             <button mat-icon-button (click)="detachTag(tag)">
                 <mat-icon svgIcon="close"></mat-icon>
             </button>

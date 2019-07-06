@@ -28,6 +28,12 @@
                         <span>({{video.negative_votes}})</span>
                         <mat-icon svgIcon="thumb-down"></mat-icon>
                     </button>
+                    <button class="btn-action" mat-button *ngIf="currentUser.hasPermission('videos.update')" (click)="openEditVideoModal(video)" [disabled]="loading$ | async">
+                        <mat-icon svgIcon="edit"></mat-icon>
+                    </button>
+                    <button class="btn-action" mat-button *ngIf="currentUser.hasPermission('videos.delete')" (click)="openDeleteVideoModal(video)">
+                        <mat-icon svgIcon="close"></mat-icon>
+                    </button>
                 </div>
                 <img class="domain-favicon" *ngIf="video.source === 'local'" [src]="getFavicon(video.url)" alt="Video domain favicon">
             </div>

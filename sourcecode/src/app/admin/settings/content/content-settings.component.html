@@ -97,6 +97,29 @@
         ></chip-input>
     </div>
 
+
+    <div class="input-container">
+        <label for="video-language" trans>Video Languages</label>
+        <chip-input
+                id="video-language"
+                name="video-language"
+                [(ngModel)]="videoLanguages"
+                placeholder="+New Language..."
+                trans-placeholder
+        ></chip-input>
+    </div>
+
+    <div class="input-container">
+        <label for="video-subtitle" trans>Video Subtitles</label>
+        <chip-input
+                id="video-subtitle"
+                name="video-subtitle"
+                [(ngModel)]="videoSubtitles"
+                placeholder="+New Subtitle..."
+                trans-placeholder
+        ></chip-input>
+    </div>
+
     <div class="settings-separator"></div>
 
     <button type="button" mat-flat-button color="accent" [disabled]="loading" (click)="createSitemap()" trans>Generate Sitemap</button>

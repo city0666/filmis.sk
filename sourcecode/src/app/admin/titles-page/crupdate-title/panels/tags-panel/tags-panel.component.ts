@@ -48,6 +48,8 @@ export class TagsPanelComponent implements OnInit {
            if (newTag) {
                newTag.type = this.type;
                this.store.dispatch(new CreateTag(newTag));
+           } else {
+               console.log(newTag);
            }
         });
     }

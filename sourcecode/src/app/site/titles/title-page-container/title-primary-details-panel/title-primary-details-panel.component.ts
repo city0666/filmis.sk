@@ -10,6 +10,7 @@ import {ShareableNetworks, shareLinkSocially} from '../../../../../common/core/u
 import {Settings} from '../../../../../common/core/config/settings.service';
 import {shareViaEmail} from '../../../../../common/core/utils/share-via-email';
 import {copyToClipboard} from '../../../../../common/core/utils/copy-link-to-clipboard';
+import {CurrentUser} from '../../../../../common/auth/current-user';
 import {MESSAGES} from '../../../../toast-messages';
 import {Translations} from '../../../../../common/core/translations/translations.service';
 import {Toast} from '../../../../../common/core/ui/toast.service';
@@ -31,6 +32,7 @@ export class TitlePrimaryDetailsPanelComponent {
         private store: Store,
         private i18n: Translations,
         private toast: Toast,
+        public currentUser: CurrentUser,
     ) {}
 
     public isEpisode() {

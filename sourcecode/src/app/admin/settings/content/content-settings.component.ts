@@ -12,10 +12,14 @@ import {MESSAGES} from '../../../toast-messages';
 export class ContentSettingsComponent extends SettingsPanelComponent implements OnInit {
     public browseGenres: string[] = [];
     public ageRatings: string[] = [];
+    public videoLanguages: string[] = [];
+    public videoSubtitles: string[] = [];
 
     ngOnInit() {
         this.browseGenres = this.settings.getJson('browse.genres', []);
         this.ageRatings = this.settings.getJson('browse.ageRatings', []);
+        this.videoLanguages = this.settings.getJson('videos.language', []);
+        this.videoSubtitles = this.settings.getJson('videos.subtitles', []);
     }
 
     public updateNews() {
@@ -40,6 +44,8 @@ export class ContentSettingsComponent extends SettingsPanelComponent implements 
         const settings = this.state.getModified();
         settings.client['browse.genres'] = JSON.stringify(this.browseGenres);
         settings.client['browse.ageRatings'] = JSON.stringify(this.ageRatings);
+        settings.client['videos.language'] = JSON.stringify(this.videoLanguages);
+        settings.client['videos.subtitles'] = JSON.stringify(this.videoSubtitles);
         super.saveSettings(settings);
     }
 

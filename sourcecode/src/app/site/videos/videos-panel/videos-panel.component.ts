@@ -10,6 +10,7 @@ import {PlayVideo} from '../../player/state/player-state-actions';
 import {Title} from '../../../models/title';
 import {Episode} from '../../../models/episode';
 import {CurrentUser} from '../../../../common/auth/current-user';
+import {ConfirmModalComponent} from '../../../../common/core/ui/confirm-modal/confirm-modal.component';
 import {getFaviconFromUrl} from '../../../../common/core/utils/get-favicon-from-url';
 
 @Component({
@@ -42,6 +43,44 @@ export class VideosPanelComponent {
             this.mediaItem.videos = [...this.mediaItem.videos, video];
             this.changeDetector.detectChanges();
         });
+    }
+
+    public openEditVideoModal(video?: Video) {
+        this.modal.open(
+            AddVideoModalComponent,
+            {video, mediaItem: this.mediaItem},
+            {panelClass: 'add-video-modal-container'}
+        ).beforeClosed().subscribe(changedVideo => {
+            var videos = this.mediaItem.videos;
+            for (var i = 0; i < videos.length; i++) {
+                if (videos[i].id === changedVideo.id) {
+                    this.mediaItem.videos[i] = changedVideo;
+                }
+            }
+            this.changeDetector.detectChanges();
+        });
+    }
+
+    public openDeleteVideoModal(video?: Video) {
+        this.modal.show(ConfirmModalComponent, {
+            title: 'Delete Video',
+            body:  'Are you sure you want to delete this video',
+            ok:    'Delete'
+        }).afterClosed().subscribe(confirmed => {
+            if ( ! confirmed) return;
+            this.videoApi.delete([video.id]).subscribe(() => {
+                var videos = this.mediaItem.videos;
+                for (var i = 0; i < videos.length; i++) {
+                    if (videos[i].id === video.id) {
+                        this.mediaItem.videos.splice(i, 1);
+                        break;
+                    }
+                }
+                this.changeDetector.detectChanges();
+            });
+            
+        });
+
     }
 
     public rateVideo(video: Video, rating: 'positive'|'negative') {

@@ -8,6 +8,13 @@
         </div>
         <div class="right links">
             <div class="social-icons">
+                <a 
+                    *ngIf="currentUser.hasPermission('titles.update')" 
+                    [routerLink]="'/admin/titles/'+(title).id+'/edit'" 
+                    class="mat-flat-button mat-accent ng-star-inserted edit-button"
+                    trans
+                >Edit
+                </a>
                 <button type="button" mat-icon-button (click)="shareUsing('facebook')" class="social-icon facebook">
                     <mat-icon svgIcon="facebook-custom"></mat-icon>
                 </button>
