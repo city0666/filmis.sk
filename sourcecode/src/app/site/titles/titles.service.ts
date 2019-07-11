@@ -104,6 +104,10 @@ export class TitlesService {
         return this.http.post('titles/' + titleId + '/tags', params);
     }
 
+    public updateTag(titleId: number, tag: Tag): BackendResponse<{tag: Tag}> {
+        return this.http.put('tags/' + titleId, tag);
+    }
+
     public detachTag(titleId: number, tag: Tag): BackendResponse<void> {
         return this.http.delete('titles/' + titleId + '/tags/' + tag.type + '/' + tag.id);
     }

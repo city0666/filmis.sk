@@ -85,6 +85,7 @@ Route::group(['prefix' => 'secure'], function () {
     // title tags
     Route::post('titles/{titleId}/tags', 'TitleTagsController@store');
     Route::delete('titles/{titleId}/tags/{type}/{tagId}', 'TitleTagsController@destroy');
+    Route::put('tags/{titleId}', 'TitleTagsController@update');
 
     // import
     Route::post('media/import', 'ImportMediaController@importMediaItem');

@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {Modal} from '../../../../../../common/core/ui/dialogs/modal.service';
 import {CrupdateTagModalComponent} from './crupdate-tag-modal/crupdate-tag-modal.component';
-import {CreateTag, DetachTag} from '../../state/crupdate-title-actions';
+import {CreateTag, UpdateTag, DetachTag} from '../../state/crupdate-title-actions';
 import {Toast} from '../../../../../../common/core/ui/toast.service';
 import {MESSAGES} from '../../../../../toast-messages';
 
@@ -45,12 +45,16 @@ export class TagsPanelComponent implements OnInit {
             {tag},
             {panelClass: 'crupdate-tag-modal-container'}
         ).beforeClosed().subscribe(newTag => {
-           if (newTag) {
-               newTag.type = this.type;
-               this.store.dispatch(new CreateTag(newTag));
-           } else {
-               console.log(newTag);
-           }
+            newTag.type = this.type;
+            if (tag) {
+                console.log("UPDATE");
+                this.store.dispatch(new UpdateTag(newTag));
+            } else if (newTag) {
+                console.log("NEW");
+                this.store.dispatch(new CreateTag(newTag));
+            } else {
+                console.log(newTag);
+            }
         });
     }
 

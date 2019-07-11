@@ -56,24 +56,23 @@ class Tag extends Model
      */
     public function insertOrRetrieve(Collection $tags)
     {
-        // $tags = $tags->toLower('name');
+        $tags = $tags->toLower('name');
         $existing = $this->getByNames($tags->pluck('name'), $tags->first()['type']);
 
         $new = $tags->filter(function($tag) use($existing) {
-            return !$existing->contains('name', $tag['name']);
-            // return !$existing->contains('name', strtolower($tag['name']));
+            return !$existing->contains('name', strtolower($tag['name']));
         });
 
         if ($new->isNotEmpty()) {
-            $this->insert($new->toArray());
+            $inserted = $this->insert($new->toArray());
             return $this->getByNames($tags->pluck('name'), $tags->first()['type']);
         } else {
-            $newTag = $tags->first();
-            $exiTag = $existing->first();
-            DB::table('tags')->where('id', $exiTag['id'])->update([
-                'name' => $newTag['name'],
-                'display_name' => $newTag['display_name']
-            ]);
+            // $newTag = $tags->first();
+            // $exiTag = $existing->first();
+            // DB::table('tags')->where('id', $exiTag['id'])->update([
+            //     'name' => $newTag['name'],
+            //     'display_name' => $newTag['display_name']
+            // ]);
             return $existing;
         }
     }

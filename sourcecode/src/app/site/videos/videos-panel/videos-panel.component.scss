@@ -52,7 +52,7 @@ videos-panel {
       grid-template-columns: repeat(4, 1fr);
     }
 
-    @media only screen and (min-width: $large) {
+    @media only screen and (min-width: 1200px) {
       grid-template-columns: repeat(5, 1fr);
     }
 
@@ -76,13 +76,11 @@ videos-panel {
     }
 
     .rating {
-      // margin-top: 5px;
       text-align: right;
       .btn-action {
         min-width: 0 !important;
         padding: 0;
         width: 37px;
-        margin-right: 10px;
       }
     }
 

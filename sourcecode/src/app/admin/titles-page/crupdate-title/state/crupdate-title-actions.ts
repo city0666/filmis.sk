@@ -113,6 +113,11 @@ export class CreateTag {
     constructor(public tag: Tag) {}
 }
 
+export class UpdateTag {
+    static readonly type = '[CrupdateTitle] Update Tag';
+    constructor(public tag: Tag) {}
+}
+
 export class DetachTag {
     static readonly type = '[CrupdateTitle] Detach Tag';
     constructor(public tag: Tag) {}

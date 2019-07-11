@@ -44,7 +44,7 @@
             <label for="type" trans>Type</label>
             <select required maxlength="250" id="type" formControlName="type">
                 <option value="embed">Embed</option>
-                <option value="external">Remote Link</option>
+                <option value="external">Link</option>
             </select>
         </div>
 
@@ -68,22 +68,24 @@
 
         <div class="input-container">
             <label for="language" trans>Language</label>
-            <select required maxlength="250" id="language" formControlName="language">
+            <select maxlength="250" id="language" formControlName="language">
+                <option [value]="null" trans>None</option>
                 <option [value]="lng.value" *ngFor="let lng of languages$">{{lng.label}}</option>
             </select>
         </div>
 
         <div class="input-container">
             <label for="subtitles" trans>Subtitles</label>
-            <select required maxlength="250" id="subtitles" formControlName="subtitles">
-                <option [value]="lng.value" *ngFor="let lng of languages$">{{lng.label}}</option>
+            <select maxlength="250" id="subtitles" formControlName="subtitles">
+                <option [value]="null" trans>None</option>
+                <option [value]="lng.value" *ngFor="let lng of subtitles$">{{lng.label}}</option>
             </select>
         </div>
         <div class="input-container">
             <label for="source" trans>Source</label>
             <select required maxlength="250" id="source" formControlName="source">
+                <option value="local">Full Movie</option>
                 <option value="tmdb">Trailer</option>
-                <option value="local">Movie</option>
                 <option value="video">Video</option>
             </select>
         </div>

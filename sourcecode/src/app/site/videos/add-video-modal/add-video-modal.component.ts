@@ -45,7 +45,7 @@ export class AddVideoModalComponent implements OnInit {
         episode: [],
         language: [],
         subtitles: [],
-        source: []
+        source: ['local']
     });
 
     constructor(
@@ -66,8 +66,8 @@ export class AddVideoModalComponent implements OnInit {
     }
 
     public getLanguages() {
-        let languages = JSON.parse(this.settings.get('videos.language'));
-        let subtitles = JSON.parse(this.settings.get('videos.subtitles'));
+        let languages = JSON.parse(this.settings.get('videos.language')) || [];
+        let subtitles = JSON.parse(this.settings.get('videos.subtitles')) || [];
         for (let lang of LANGUAGES) {
             if (languages.includes(lang.value)) {
                 this.languages$.push(lang);

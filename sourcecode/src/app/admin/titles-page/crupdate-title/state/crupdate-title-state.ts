@@ -13,6 +13,7 @@ import {
     DeleteEpisode, DeleteImage,
     DeleteSeason,
     DeleteVideo,
+    UpdateTag,
     DetachTag,
     HydrateTitle,
     LoadEpisodeCredits,
@@ -486,6 +487,42 @@ export class CrupdateTitleState {
                     images
                 };
                 ctx.patchState({title});
+            }),
+            finalize(() => ctx.patchState({loading: false}))
+        );
+    }
+
+    @Action(UpdateTag)
+    updateTag(ctx: StateContext<CrupdateTitleStateModel>, action: UpdateTag) {
+        console.log(action);
+        ctx.patchState({loading: true});
+        return this.titles.updateTag(ctx.getState().title.id, action.tag).pipe(
+            tap(response => {
+                const type = action.tag.type === 'keyword' ? 'keywords' : 'genres';
+                const oldTags = ctx.getState().title[type];
+                const exists = (oldTags as Tag[]).find(tag => tag.id === response.tag.id);
+                if (exists) {
+                    let newTags: Tag[] = [];
+                    for(let tag of (oldTags as Tag[])) {
+                        if (tag.id === exists.id) {
+                            let temp: Tag = {
+                                id: tag.id,
+                                name: action.tag.name,
+                                display_name: action.tag.display_name,
+                                type: tag.type
+                            };
+                            newTags.push(temp);
+                        } else {
+                            newTags.push(tag);
+                        }
+                    }
+                    ctx.patchState({
+                        title: {
+                            ...ctx.getState().title,
+                            [type]: newTags
+                        }
+                    });
+                }
             }),
             finalize(() => ctx.patchState({loading: false}))
         );

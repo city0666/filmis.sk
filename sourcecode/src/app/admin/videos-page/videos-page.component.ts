@@ -71,7 +71,7 @@ export class VideosPageComponent implements OnInit, OnDestroy {
         let result = "video";
         switch (source) {
             case 'local':
-                result = 'movie';
+                result = 'full movie';
                 break;
             case 'tmdb':
                 result = 'trailer';
@@ -79,6 +79,20 @@ export class VideosPageComponent implements OnInit, OnDestroy {
         }
         return result;
     }
+
+    public getVideoType(type: String) {
+        let result = "";
+        switch(type) {
+            case 'embed':
+                result = 'embed';
+                break;
+            case 'external':
+                result = 'link';
+                break;
+        }
+        return result;
+    }
+
     public openCrupdateVideoModal(video?: Video) {
         this.modal.open(
             AddVideoModalComponent,

@@ -7,6 +7,7 @@ use Common\Core\Controller;
 use Common\Tags\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use DB;
 
 class TitleTagsController extends Controller
 {
@@ -71,6 +72,20 @@ class TitleTagsController extends Controller
             ->detach([$tagId]);
 
         return $this->success();
+    }
+
+    public function update($titleId)
+    {
+        $this->authorize('update', Title::class);
+
+        $tag = $this->request->all();
+        $update = DB::table('tags')->where('name', $tag['name'])->update([
+            'name' => $tag['name'],
+            'display_name' => $tag['display_name']
+        ]);
+
+        $tags = DB::table('tags')->where('name', $tag['name'])->get();
+        return $this->success(['tag' => $tags->first()]);
     }
 
     private function getRelationName($type) {

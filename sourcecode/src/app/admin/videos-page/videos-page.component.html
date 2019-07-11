@@ -7,7 +7,7 @@
         <div class="input-container">
             <select name="" id="" [formControl]="sourceControl">
                 <option [ngValue]="null" trans>All Sources</option>
-                <option value="local" trans>Movie</option>
+                <option value="local" trans>Full Movie</option>
                 <option value="tmdb" trans>Trailer</option>
             </select>
         </div>
@@ -34,7 +34,7 @@
 
     <ng-container matColumnDef="type">
         <mat-header-cell *matHeaderCellDef mat-sort-header trans class="small-column">Type</mat-header-cell>
-        <mat-cell *matCellDef="let video" class="small-column"> {{video.type}} </mat-cell>
+        <mat-cell *matCellDef="let video" class="small-column"> {{getVideoType(video.type)}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="source">
