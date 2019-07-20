@@ -21,7 +21,7 @@
             <div class="genres-filter filter-container">
                 <div class="filter-header" trans>With selected genres</div>
                 <mat-selection-list formControlName="genre">
-                    <mat-list-option [value]="genre" *ngFor="let genre of genres$ | async" checkboxPosition="before">{{genre | trans}}</mat-list-option>
+                    <mat-list-option [value]="genre" *ngFor="let genre of genres$ | async" checkboxPosition="before">{{genre}}</mat-list-option>
                 </mat-selection-list>
             </div>
 

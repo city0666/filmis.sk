@@ -60,6 +60,7 @@ class Tag extends Model
         $existing = $this->getByNames($tags->pluck('name'), $tags->first()['type']);
 
         $new = $tags->filter(function($tag) use($existing) {
+            // return !$existing->contains('name', $tag['name']);
             return !$existing->contains('name', strtolower($tag['name']));
         });
 
@@ -67,12 +68,6 @@ class Tag extends Model
             $inserted = $this->insert($new->toArray());
             return $this->getByNames($tags->pluck('name'), $tags->first()['type']);
         } else {
-            // $newTag = $tags->first();
-            // $exiTag = $existing->first();
-            // DB::table('tags')->where('id', $exiTag['id'])->update([
-            //     'name' => $newTag['name'],
-            //     'display_name' => $newTag['display_name']
-            // ]);
             return $existing;
         }
     }

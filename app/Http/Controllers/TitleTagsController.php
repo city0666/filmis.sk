@@ -79,6 +79,7 @@ class TitleTagsController extends Controller
         $this->authorize('update', Title::class);
 
         $tag = $this->request->all();
+        $tag['name'] = strtolower($tag['name']);
         $update = DB::table('tags')->where('name', $tag['name'])->update([
             'name' => $tag['name'],
             'display_name' => $tag['display_name']
