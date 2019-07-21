@@ -75,6 +75,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccountSettingsComponent } from 'common/account-settings/account-settings.component';
 import { ConnectSocialAccountsPanelComponent } from 'common/account-settings/connect-social-accounts-panel/connect-social-accounts-panel.component';
 import { AccountSettingsResolve } from 'common/account-settings/account-settings-resolve.service';
+import { AccountVideosComponent } from 'common/account-videos/account-videos.component';
 
 @NgModule({
     imports: [
@@ -114,6 +115,7 @@ import { AccountSettingsResolve } from 'common/account-settings/account-settings
         ]),
     ],
     declarations: [
+        AccountVideosComponent,
         AccountSettingsComponent,
         ConnectSocialAccountsPanelComponent,
         ContactComponent,

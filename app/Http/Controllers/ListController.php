@@ -79,9 +79,7 @@ class ListController extends Controller
             SORT_REGULAR,
             $this->request->get('sortDir') === 'desc'
         )->values();
-
-        $paginator = new LengthAwarePaginator($items, $items->count(), $items->count());
-
+        $paginator = new LengthAwarePaginator($items, $items->count(), 10);
         return $this->success([
             'list' => $list,
             'items' => $paginator,

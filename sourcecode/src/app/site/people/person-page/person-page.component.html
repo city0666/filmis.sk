@@ -1,5 +1,9 @@
 <media-item-header></media-item-header>
 
+<div class="page-ads">
+    <ad-host slot="ads.shared" class="shared-ad-host"></ad-host>
+</div>
+
 <div class="page-container container" *ngIf="person$ | async as person">
     <div [class]="'left left__sidebar-' + settings.get('ads.sidebar_browse_people')">
         <div class="img-container">
@@ -42,8 +46,6 @@
             <div class="right-col-title" trans>Biography</div>
             <p moreLessText="600">{{person.description}}</p>
         </div>
-
-        <ad-host slot="ads.shared" class="shared-ad-host"></ad-host>
 
         <div class="known-for" *ngIf="(knownFor$ | async).length">
             <div class="right-col-title" trans>Known For</div>

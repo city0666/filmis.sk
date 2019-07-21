@@ -22,6 +22,7 @@ import {PeopleIndexComponent} from './people/people-index/people-index.component
 import {ContactComponent} from '../../common/contact/contact.component';
 import { AccountSettingsComponent } from 'common/account-settings/account-settings.component';
 import { AccountSettingsResolve } from 'common/account-settings/account-settings-resolve.service';
+import { AccountVideosComponent } from 'common/account-videos/account-videos.component';
 
 const routes: Routes = [
     {
@@ -35,6 +36,12 @@ const routes: Routes = [
                 resolve: {resolves: AccountSettingsResolve},
                 canActivate: [AuthGuard],
                 data: {name: 'account-settings'},
+            },
+            {
+                path: 'account/videos',
+                component: AccountVideosComponent,
+                canActivate: [AuthGuard],
+                data: {name: 'account-videos'},
             },
             // browse
             {

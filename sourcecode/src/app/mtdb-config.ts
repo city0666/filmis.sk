@@ -8,6 +8,7 @@ export const MTDB_CONFIG = {
         dropdownItems: [
             {route: '/watchlist', name: 'Watchlist', icon: 'playlist-add-check'},
             {route: '/lists', name: 'Your Lists', icon: 'list'},
+            {route: '/account/videos', name: 'My Videos', icon: 'movie'}
         ]
     },
     auth: {
