@@ -7,6 +7,12 @@ $spacing: 30px;
 settings {
   display: block;
 
+  chip-input {
+    .mat-chip-list-wrapper {
+      height: initial !important;
+    }
+  }
+
   .spacing-container {
     padding: 25px;
     display: flex;

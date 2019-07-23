@@ -12,6 +12,7 @@ import {Episode} from '../../../models/episode';
 import {CurrentUser} from '../../../../common/auth/current-user';
 import {ConfirmModalComponent} from '../../../../common/core/ui/confirm-modal/confirm-modal.component';
 import {getFaviconFromUrl} from '../../../../common/core/utils/get-favicon-from-url';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'videos-panel',
@@ -30,19 +31,24 @@ export class VideosPanelComponent {
         private videoApi: VideoService,
         private changeDetector: ChangeDetectorRef,
         public currentUser: CurrentUser,
+        private router: Router,
     ) {}
 
     public openAddVideoModal() {
-        this.modal.open(
-            AddVideoModalComponent,
-            {mediaItem: this.mediaItem},
-            {panelClass: 'add-video-modal-container'}
-        ).beforeClosed().subscribe(video => {
-            if ( ! video) return;
-            // TODO: should use store here probably to make it cleaner
-            this.mediaItem.videos = [...this.mediaItem.videos, video];
-            this.changeDetector.detectChanges();
-        });
+        if (this.currentUser.isLoggedIn()) {
+            this.modal.open(
+                AddVideoModalComponent,
+                {mediaItem: this.mediaItem},
+                {panelClass: 'add-video-modal-container'}
+            ).beforeClosed().subscribe(video => {
+                if ( ! video) return;
+                // TODO: should use store here probably to make it cleaner
+                this.mediaItem.videos = [...this.mediaItem.videos, video];
+                this.changeDetector.detectChanges();
+            });
+        } else {
+            this.router.navigate(['/login']);
+        }
     }
 
     public openEditVideoModal(video?: Video) {

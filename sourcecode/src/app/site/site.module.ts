@@ -76,7 +76,7 @@ import { AccountSettingsComponent } from 'common/account-settings/account-settin
 import { ConnectSocialAccountsPanelComponent } from 'common/account-settings/connect-social-accounts-panel/connect-social-accounts-panel.component';
 import { AccountSettingsResolve } from 'common/account-settings/account-settings-resolve.service';
 import { AccountVideosComponent } from 'common/account-videos/account-videos.component';
-
+import { BaseAdminModule } from 'common/admin/base-admin.module';
 @NgModule({
     imports: [
         CommonModule,
@@ -84,6 +84,7 @@ import { AccountVideosComponent } from 'common/account-videos/account-videos.com
         SiteRoutingModule,
         ChipInputModule,
         ReactiveFormsModule,
+        BaseAdminModule,
 
         // material
         MatAutocompleteModule,
