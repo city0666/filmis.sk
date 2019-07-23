@@ -60,10 +60,32 @@ class VideosController extends Controller
 
         return $this->success(['pagination' => $pagination]);
     }
+    
+    public function getUserVideos($userId) {
+        // $this->authorize('index', Video::class);
+
+        $paginator = (new Paginator($this->video));
+        $paginator->where('user_id', '=', $userId);
+        $paginator->with(['title' => function(BelongsTo $query) {
+            $query->select('id', 'name', 'backdrop', 'is_series', 'season_count');
+        }]);
+
+        if ($titleId = $this->request->get('titleId')) {
+            $paginator->where('title_id', $titleId);
+        }
+
+        if ($source = $this->request->get('source')) {
+            $paginator->where('source', $source);
+        }
+
+        $pagination = $paginator->paginate($this->request->all());
+
+        return $this->success(['pagination' => $pagination]);
+    }
 
     public function store()
     {
-        $this->authorize('store', Video::class);
+        // $this->authorize('store', Video::class);
 
         $this->validate($this->request, [
             'name' => 'required|string|min:3|max:250',
@@ -85,7 +107,7 @@ class VideosController extends Controller
 
     public function update($id)
     {
-        $this->authorize('update', Video::class);
+        // $this->authorize('update', Video::class);
 
         $this->validate($this->request, [
             'name' => 'string|min:3|max:250',
@@ -107,7 +129,7 @@ class VideosController extends Controller
 
     public function destroy()
     {
-        $this->authorize('destroy', Video::class);
+        // $this->authorize('destroy', Video::class);
 
         $this->video->whereIn('id', $this->request->get('ids'))->delete();
 

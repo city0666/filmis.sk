@@ -76,6 +76,7 @@ Route::group(['prefix' => 'secure'], function () {
 
     // videos
     Route::get('videos', 'VideosController@index');
+    Route::get('videos/user/{userId}', 'VideosController@getUserVideos');
     Route::post('videos', 'VideosController@store');
     Route::put('videos/{id}', 'VideosController@update');
     Route::delete('videos', 'VideosController@destroy');
