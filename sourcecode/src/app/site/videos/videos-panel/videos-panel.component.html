@@ -1,6 +1,6 @@
 <div class="title">
     <div class="text" trans>Videos</div>
-    <button mat-flat-button class="add-video-btn" color="accent" (click)="openAddVideoModal()" trans>Add Video</button>
+    <button mat-flat-button class="add-video-btn" color="accent" (click)="openAddVideoModal()" *ngIf="currentUser.hasPermission('videos.create') || currentUser.isLoggedIn() === false" trans>Add Video</button>
 </div>
 
 <ng-container *ngIf="mediaItem?.videos?.length">
@@ -28,10 +28,10 @@
                         <span>({{video.negative_votes}})</span>
                         <mat-icon svgIcon="thumb-down"></mat-icon>
                     </button>
-                    <button class="btn-action" mat-button *ngIf="currentUser.hasPermission('videos.update') || currentUser.get('id') == video.user_id" (click)="openEditVideoModal(video)" [disabled]="loading$ | async">
+                    <button class="btn-action" mat-button *ngIf="getApproval('videos.update', video.user_id)" (click)="openEditVideoModal(video)" [disabled]="loading$ | async">
                         <mat-icon svgIcon="edit"></mat-icon>
                     </button>
-                    <button class="btn-action" mat-button *ngIf="currentUser.hasPermission('videos.delete') || currentUser.get('id') == video.user_id" (click)="openDeleteVideoModal(video)">
+                    <button class="btn-action" mat-button *ngIf="getApproval('videos.delete', video.user_id)" (click)="openDeleteVideoModal(video)">
                         <mat-icon svgIcon="close"></mat-icon>
                     </button>
                 </div>

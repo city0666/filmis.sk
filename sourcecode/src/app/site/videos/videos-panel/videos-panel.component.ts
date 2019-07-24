@@ -114,4 +114,10 @@ export class VideosPanelComponent {
     public getFavicon(url: string) {
         return getFaviconFromUrl(url);
     }
+
+    public getApproval(permission: string, userId: number) {
+        return this.currentUser.hasPermission(permission) && (
+            this.currentUser.isAdmin() || this.currentUser.get('id') == userId
+        );
+    }
 }

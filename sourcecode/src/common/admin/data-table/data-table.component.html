@@ -13,7 +13,7 @@
         </div>
 
         <div class="header-inner selected" [class.hidden]="!dataSource.anyRowsSelected() || !selectedActions.children.length">
-            <div class="left">{{dataSource.selectedRows.selected.length}} <span class="text" trans>{{itemsName}} Selected</span></div>
+            <div class="left"><span class="text" trans>{{itemsName}} Selected</span> ({{dataSource.selectedRows.selected.length}})</div>
             <div class="right" #selectedActions><ng-content select="[headerSelectedActions]"></ng-content></div>
         </div>
     </div>
