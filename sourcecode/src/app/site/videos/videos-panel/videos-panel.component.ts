@@ -116,8 +116,6 @@ export class VideosPanelComponent {
     }
 
     public getApproval(permission: string, userId: number) {
-        return this.currentUser.hasPermission(permission) && (
-            this.currentUser.isAdmin() || this.currentUser.get('id') == userId
-        );
+        return this.currentUser.isLoggedIn() && (this.currentUser.hasPermission(permission) || this.currentUser.get('id') == userId);
     }
 }

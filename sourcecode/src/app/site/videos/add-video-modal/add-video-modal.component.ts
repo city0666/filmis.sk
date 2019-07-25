@@ -88,7 +88,7 @@ export class AddVideoModalComponent implements OnInit {
     }
 
     private createVideo() {
-        this.videos.create(this.getPayload())
+        this.videos.create(this.getPayload(true))
             .pipe(finalize(() => this.loading$.next(false)))
             .subscribe(response => {
                 this.toast.open(MESSAGES.VIDEO_CREATE_SUCCESS);
@@ -99,7 +99,7 @@ export class AddVideoModalComponent implements OnInit {
     }
 
     private updateVideo() {
-        this.videos.update(this.data.video.id, this.getPayload())
+        this.videos.update(this.data.video.id, this.getPayload(false))
             .pipe(finalize(() => this.loading$.next(false)))
             .subscribe(response => {
                 this.toast.open(MESSAGES.VIDEO_UPDATE_SUCCESS);
@@ -113,7 +113,7 @@ export class AddVideoModalComponent implements OnInit {
         this.dialogRef.close(video);
     }
 
-    private getPayload() {
+    private getPayload(isNew: boolean) {
         const payload = this.videoForm.value;
         if (this.data.mediaItem.type === MEDIA_TYPE.TITLE) {
             payload.title_id = this.data.mediaItem.id;
@@ -121,7 +121,9 @@ export class AddVideoModalComponent implements OnInit {
             payload.title_id = this.data.mediaItem.title_id;
             payload.episode_id = this.data.mediaItem.id;
         }
-        payload.user_id = this.currentUser.get('id');
+        if (isNew) {
+            payload.user_id = this.currentUser.get('id');
+        }
         return payload;
     }
 
