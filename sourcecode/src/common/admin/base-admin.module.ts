@@ -53,6 +53,12 @@ import {FullPlanNameModule} from '../shared/billing/full-plan-name/full-plan-nam
 import {FileEntriesPageComponent} from './file-entries-page/file-entries-page.component';
 import {NewLineModalComponent} from './translations/new-line-modal/new-line-modal.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { AdsComponent } from './ads/ads.component';
+import { DownloadComponent } from './ads/download/download.component';
+import { BannerComponent } from './ads/banner/banner.component';
+import { PopupsComponent } from './ads/popups/popups.component';
+import { PopupsPanelComponent } from './ads/popups/popups-panel/popups-panel.component';
+import { ChipInputModule } from 'common/core/ui/chip-input/chip-input.module';
 
 @NgModule({
     imports: [
@@ -66,6 +72,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         UiModule,
         AuthModule,
         FullPlanNameModule,
+        SpaceInputModule,
+        ChipInputModule,
         SpaceInputModule,
 
         // material
@@ -111,6 +119,13 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         CrupdatePlanModalComponent,
         CrupdateSubscriptionModalComponent,
         DataTableComponent,
+
+
+        AdsComponent,
+        DownloadComponent,
+        BannerComponent,
+        PopupsComponent,
+        PopupsPanelComponent,
     ],
     entryComponents: [
         CrupdateUserModalComponent,

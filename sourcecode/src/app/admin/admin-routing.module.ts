@@ -17,6 +17,9 @@ import {CrupdatePersonPageComponent} from './people-page/crupdate-person-page/cr
 import {VideosPageComponent} from './videos-page/videos-page.component';
 import {ListsPageComponent} from './lists-page/lists-page.component';
 
+import {AdsComponent} from '../../common/admin/ads/ads.component';
+import {vebtoAdsRoutes} from '../../common/admin/ads/ads-routing.module';
+
 const routes: Routes = [
     {
         path: '',
@@ -102,6 +105,15 @@ const routes: Routes = [
                         component: ContentSettingsComponent,
                     },
                     ...vebtoSettingsRoutes,
+                ],
+            },
+            //ads
+            {
+                path: 'ads',
+                component: AdsComponent,
+                data: {permissions: ['ads.update']},
+                children: [
+                    ...vebtoAdsRoutes,
                 ],
             },
             ...vebtoAdminRoutes,

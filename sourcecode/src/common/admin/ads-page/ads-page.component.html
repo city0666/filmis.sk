@@ -33,5 +33,10 @@
         <p trans>Disable all ad related functionality.</p>
     </div>
 
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="popup.disable" id="popup.disable" [(ngModel)]="model['popup.disable']" trans>Disable Popups</mat-slide-toggle>
+        <p trans>Disable all popup ads functionality.</p>
+    </div>
+
     <button type="submit" mat-raised-button color="accent" class="save-button" [disabled]="loading" trans>Save</button>
 </form>

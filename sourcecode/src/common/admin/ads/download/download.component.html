@@ -1,0 +1,25 @@
+<div class="header">
+    <div class="title" trans>Download Button</div>
+    <div class="subtitle" trans>Settings of download button.</div>
+</div>
+<form (ngSubmit)="saveAds()" ngNativeValidate>
+    <div class="row">
+        <div class="col">
+            <div class="input-container">
+                <label [for]="" trans>Website</label>
+                <input type="text" name="button.website" [(ngModel)]="model['button.website']" [ngModelOptions]="{standalone: true}" />
+                <p trans>Ads Website</p>
+            </div>
+        </div>
+        <div class="col-margin"></div>
+        <div class="col">
+            <div class="input-container">
+                <label [for]="" trans>Referral</label>
+                <input type="text" name="button.referral" [(ngModel)]="model['button.referral']" [ngModelOptions]="{standalone: true}" />
+                <p trans>Ads Referral</p>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" mat-raised-button color="accent" class="save-button" [disabled]="loading" trans>Update</button>
+</form>

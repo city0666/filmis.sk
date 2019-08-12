@@ -68,11 +68,11 @@ export const vebtoAdminRoutes: Routes = [
         component: CrupdatePageComponent,
         data: {permissions: ['pages.update']}
     },
-    {
-        path: 'ads',
-        component: AdsPageComponent,
-        data: {permissions: ['ads.update']}
-    },
+    // {
+    //     path: 'ads',
+    //     component: AdsPageComponent,
+    //     data: {permissions: ['ads.update']}
+    // },
 
     // billing
     {

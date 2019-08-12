@@ -91,6 +91,15 @@ Route::group(['prefix' => 'secure'], function () {
     // import
     Route::post('media/import', 'ImportMediaController@importMediaItem');
     Route::get('tmdb/import', 'ImportMediaController@importViaBrowse');
+
+    // popups
+    Route::get('popups', 'PopupController@index');
+    Route::post('popups', 'PopupController@store');
+    Route::put('popups/{id}', 'PopupController@update');
+    Route::delete('popups', 'PopupController@destroy');
+    // Route::post('popups/{id}/views', 'VideoRatingController@rate');
+    Route::post('popups/change-order', 'PopupOrderController@changeOrder');
+
 });
 
 // FRONT-END ROUTES THAT NEED TO BE PRE-RENDERED

@@ -77,6 +77,7 @@ import { ConnectSocialAccountsPanelComponent } from 'common/account-settings/con
 import { AccountSettingsResolve } from 'common/account-settings/account-settings-resolve.service';
 import { AccountVideosComponent } from 'common/account-videos/account-videos.component';
 import { BaseAdminModule } from 'common/admin/base-admin.module';
+import { CrupdatePopupState } from 'common/admin/ads/crupdate-popups.state';
 @NgModule({
     imports: [
         CommonModule,
@@ -113,6 +114,7 @@ import { BaseAdminModule } from 'common/admin/base-admin.module';
             // TODO: move into admin later
             CrupdateTitleState,
             CrupdatePersonState,
+            CrupdatePopupState,
         ]),
     ],
     declarations: [
