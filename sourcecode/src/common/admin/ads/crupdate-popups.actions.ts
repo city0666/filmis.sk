@@ -2,7 +2,7 @@ import { Popup } from 'app/models/popup';
 
 export class HydratePopup {
     static readonly type = '[CrupdatePopup] Hyrdate';
-    constructor(public id: number) {}
+    constructor() {}
 }
 
 export class CreatePopup {

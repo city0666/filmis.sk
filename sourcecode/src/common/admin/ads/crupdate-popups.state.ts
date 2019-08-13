@@ -8,24 +8,26 @@ import {
     HydratePopup,
     CreatePopup,
     UpdatePopup,
-    DeletePopup
+    DeletePopup,
+    ChangePopupOrder
 } from './crupdate-popups.actions';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 interface CrupdatePopupStateModel {
-    popup: Popup;
+    popups: Popup[];
     loading: boolean;
 }
 
 @State<CrupdatePopupStateModel>({
     name: 'crupdatePopup',
     defaults: {
-        popup: new Popup(),
+        popups: [],
         loading: false
     }
 })
 export class CrupdatePopupState {
     @Selector()
-    static popup(state: CrupdatePopupStateModel) {
-        return state.popup;
+    static popups(state: CrupdatePopupStateModel) {
+        return state.popups;
     }
 
     @Selector()
@@ -43,9 +45,10 @@ export class CrupdatePopupState {
     @Action(HydratePopup)
     hydratePopup(ctx: StateContext<CrupdatePopupStateModel>, action: HydratePopup) {
         ctx.patchState({ loading: true });
-        return this.popups.get(action.id).pipe(tap(response => {
+        return this.popups.get().pipe(tap(response => {
+            console.log(action, response);
             ctx.patchState({
-                popup: response.popup,
+                popups: response.popups,
                 loading: false
             })
         }))
@@ -62,10 +65,26 @@ export class CrupdatePopupState {
     @Action(UpdatePopup)
     crupdatePopup(ctx: StateContext<CrupdatePopupStateModel>, action: UpdatePopup) {
         ctx.patchState({loading: true});
-        return this.popups.update(ctx.getState().popup.id, action.payload).pipe(tap(() => {
+        return this.popups.update(1, action.payload).pipe(tap(() => {
             this.toast.open('Popup updated.');
         }, () => {
             this.toast.open('Popup update failed.');
         }), finalize(() => ctx.patchState({loading: false})));
     }
+
+    @Action(ChangePopupOrder)
+    changePopupsOrder(ctx: StateContext<CrupdatePopupStateModel>, action: ChangePopupOrder) {
+        const popups = ctx.getState().popups.slice();
+        moveItemInArray(popups, action.currentIndex, action.newIndex);
+        ctx.patchState({ popups });
+
+        const order = {};
+        popups.forEach((popup, i) => order[i] = popup.id);
+
+        ctx.patchState({loading: true});
+        return this.popups.changePopupsOrder(order).pipe(
+            finalize(() => ctx.patchState({loading: false}))
+        );
+    }
+
 }

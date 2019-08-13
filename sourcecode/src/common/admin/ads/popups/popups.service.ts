@@ -9,8 +9,8 @@ import {Popup} from '../../../../app/models/popup';
 export class PopupService {
     constructor(private http: AppHttpClient) {}
 
-    public get(popupId: number): BackendResponse<{popup: Popup}> {
-        return this.http.get('popups/' + popupId);
+    public get(): BackendResponse<{popups: Popup[]}> {
+        return this.http.get('popups');
     }
 
     public create(payload: Partial<Popup>): BackendResponse<{popup: Popup}> {
@@ -23,5 +23,9 @@ export class PopupService {
 
     public delete(ids: number[]): BackendResponse<void> {
         return this.http.delete('popups', {ids});
+    }
+
+    public changePopupsOrder(order: {[key: number]: number}) {
+        return this.http.post('popups/change-order', {ids: order});
     }
 }

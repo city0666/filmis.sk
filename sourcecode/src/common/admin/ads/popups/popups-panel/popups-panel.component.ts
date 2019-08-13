@@ -5,9 +5,9 @@ import {
     Input,
     OnChanges,
     SimpleChange,
-    ViewChild, OnInit, OnDestroy
+    ViewChild, OnInit
 } from '@angular/core';
-import {Store} from '@ngxs/store';
+import {Select, Store} from '@ngxs/store';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import { Toast } from 'common/core/ui/toast.service';
@@ -19,6 +19,9 @@ import { PopupService } from '../popups.service';
 import { CurrentUser } from 'common/auth/current-user';
 import { Settings } from 'common/core/config/settings.service';
 import { Router } from '@angular/router';
+import { CrupdatePopupState } from '../../crupdate-popups.state';
+import { Observable } from 'rxjs';
+import { HydratePopup, ChangePopupOrder } from '../../crupdate-popups.actions';
 
 @Component({
     selector: 'popups-panel',
@@ -27,28 +30,39 @@ import { Router } from '@angular/router';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PopupsPanelComponent implements OnDestroy, OnInit {
+export class PopupsPanelComponent implements OnInit {
     @ViewChild(MatSort) matSort: MatSort;
-    public dataSource: PaginatedDataTableSource<Popup>;
+    @Select(CrupdatePopupState.popups) popups$: Observable<Popup[]>;
+    public dataSource = new MatTableDataSource([]);
 
     constructor(
-        public paginator: UrlAwarePaginator,
-        private popupService: PopupService,
-        private modal: Modal,
-        public currentUser: CurrentUser,
-        public settings: Settings,
-        public router: Router,
+        private store: Store,
+        private dialog: Modal,
+        private toast: Toast,
     ) {}
 
     ngOnInit () {
-        this.dataSource = new PaginatedDataTableSource<Popup>({
-            uri: 'popups',
-            dataPaginator: this.paginator,
-            matSort: this.matSort
+        this.dataSource.sort = this.matSort;
+        this.popups$.subscribe(popups => {
+            this.dataSource.data = popups;
         });
+        this.hydratePopups();
     }
 
-    ngOnDestroy() {
-        this.paginator.destroy();
+    public applyFilter(value: string) {
+        this.dataSource.filter = value;
     }
+
+    public hydratePopups() {
+        this.store.dispatch(new HydratePopup()).subscribe(() => {
+            const popups = this.store.selectSnapshot(CrupdatePopupState.popups);
+            this.dataSource.data = popups;
+        })
+    }
+
+    public changePopupsOrder(e: CdkDragDrop<Popup>) {
+        if (this.store.selectSnapshot(CrupdatePopupState.loading)) return ;
+        this.store.dispatch(new ChangePopupOrder(e.previousIndex, e.currentIndex));
+    }
+
 }
