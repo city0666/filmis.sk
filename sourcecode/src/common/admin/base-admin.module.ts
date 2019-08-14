@@ -59,6 +59,7 @@ import { BannerComponent } from './ads/banner/banner.component';
 import { PopupsComponent } from './ads/popups/popups.component';
 import { PopupsPanelComponent } from './ads/popups/popups-panel/popups-panel.component';
 import { ChipInputModule } from 'common/core/ui/chip-input/chip-input.module';
+import { AddPopupModalComponent } from './ads/popups/add-popup-modal/add-popup-modal.component';
 
 @NgModule({
     imports: [
@@ -126,6 +127,7 @@ import { ChipInputModule } from 'common/core/ui/chip-input/chip-input.module';
         BannerComponent,
         PopupsComponent,
         PopupsPanelComponent,
+        AddPopupModalComponent,
     ],
     entryComponents: [
         CrupdateUserModalComponent,
@@ -140,6 +142,8 @@ import { ChipInputModule } from 'common/core/ui/chip-input/chip-input.module';
         // billing
         CrupdatePlanModalComponent,
         CrupdateSubscriptionModalComponent,
+
+        AddPopupModalComponent,
     ],
     exports: [
         RouterModule,

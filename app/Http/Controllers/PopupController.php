@@ -34,10 +34,10 @@ class PopupController extends Controller
     public function index() {
         // $this->authorize('index', Popup::class);
 
-        $paginator = (new Paginator($this->popup));
-        
-        $pagination = $paginator->paginate($this->request->all());
-        return $this->success(['pagination' => $pagination]);
+        // $paginator = (new Paginator($this->popup));
+        $popups = Popup::orderBy('order', 'ASC')->get();
+        // $pagination = $paginator->paginate($this->request->all());
+        return $this->success(['popups' => $popups]);
     }
 
     public function store() {
