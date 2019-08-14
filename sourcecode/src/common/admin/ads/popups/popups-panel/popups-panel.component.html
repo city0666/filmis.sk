@@ -1,6 +1,6 @@
 <div class="table-header">
     <div class="button-container">
-        <button mat-raised-button color="accent" trans>Add Popup</button>
+        <button mat-raised-button type="button" color="accent" (click)="openCrupdatePopupModal()" trans>Add Popup</button>
     </div>
 
     <div class="input-container">
@@ -34,10 +34,10 @@
     <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let popup">
-            <button mat-icon-button>
+            <button type="button" mat-icon-button (click)="openCrupdatePopupModal(popup)">
                 <mat-icon svgIcon="edit"></mat-icon>
             </button>
-            <button mat-icon-button>
+            <button type="button" mat-icon-button (click)="deletePopup(popup)">
                 <mat-icon svgIcon="close"></mat-icon>
             </button>
         </mat-cell>

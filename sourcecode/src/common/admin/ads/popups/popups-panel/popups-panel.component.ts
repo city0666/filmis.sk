@@ -21,7 +21,9 @@ import { Settings } from 'common/core/config/settings.service';
 import { Router } from '@angular/router';
 import { CrupdatePopupState } from '../../crupdate-popups.state';
 import { Observable } from 'rxjs';
-import { HydratePopup, ChangePopupOrder } from '../../crupdate-popups.actions';
+import { HydratePopup, ChangePopupOrder, DeletePopup, UpdatePopup, CreatePopup } from '../../crupdate-popups.actions';
+import { ConfirmModalComponent } from 'common/core/ui/confirm-modal/confirm-modal.component';
+import { AddPopupModalComponent } from '../add-popup-modal/add-popup-modal.component';
 
 @Component({
     selector: 'popups-panel',
@@ -47,6 +49,36 @@ export class PopupsPanelComponent implements OnInit {
             this.dataSource.data = popups;
         });
         this.hydratePopups();
+    }
+
+    public deletePopup(popup: Popup) {
+        this.dialog.open(ConfirmModalComponent, {
+            title: 'Delete Popup',
+            body: 'Are you sure you want to delete this popup?',
+            ok: 'Delete'
+        }).afterClosed().subscribe(confirmed => {
+            if ( ! confirmed) return;
+            this.store.dispatch(new DeletePopup(popup)).subscribe(() => {
+                this.toast.open('Popup deleted.');
+            })
+        })
+    }
+
+    public openCrupdatePopupModal(oldPopup?: Popup) {
+        // const title = this.store.selectSnapshot()
+        this.dialog.open(
+            AddPopupModalComponent,
+            {popup: oldPopup},
+            {panelClass: 'crupdate-video-modal-container'}
+        ).beforeClosed().subscribe(newPopup => {
+            if (newPopup) {
+                if (oldPopup) {
+                    this.store.dispatch(new UpdatePopup(newPopup));
+                } else {
+                    this.store.dispatch(new CreatePopup(newPopup));
+                }
+            }
+        })
     }
 
     public applyFilter(value: string) {
