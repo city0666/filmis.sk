@@ -26,7 +26,7 @@ class PopupOrderController extends Controller
      * @param int $popupId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function changeOrder($popupId) {
+    public function changeOrder() {
         $this->validate($this->request, [
             'ids'   => 'array|min:1',
             'ids.*' => 'integer'
