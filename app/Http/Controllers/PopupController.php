@@ -33,9 +33,13 @@ class PopupController extends Controller
 
     public function index() {
         // $this->authorize('index', Popup::class);
-
-        $popups = Popup::orderBy('order', 'ASC')->get();
+        $popups = $this->popup->orderBy('order', 'ASC')->orderBy('created_at', 'DESC')->get();
         return $this->success(['popups' => $popups]);
+    }
+
+    public function show($id) {
+        $popup = $this->popup->where('id', '=', $id)->get();
+        return $this->success(['popup' => $popup]);
     }
 
     public function store() {
@@ -47,7 +51,6 @@ class PopupController extends Controller
         ]);
 
         $popup = app(CrupdatePopup::class)->execute($this->request->all());
-
         return $this->success(['popup' => $popup]);
     }
 
@@ -59,8 +62,7 @@ class PopupController extends Controller
             'url'  => 'required:max:250',
         ]);
 
-        $popup = app(CrupdatePopup::class)->execute($thi->request->all(), $id);
-
+        $popup = app(CrupdatePopup::class)->execute($this->request->all(), $id);
         return $this->success(['popup' => $popup]);
     }
 
@@ -68,7 +70,6 @@ class PopupController extends Controller
         // $this->authorize('destroy', Popup::class);
 
         $this->popup->whereIn('id', $this->request->get('ids'))->delete();
-
         return $this->success();
     }
 }

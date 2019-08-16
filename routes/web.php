@@ -94,6 +94,7 @@ Route::group(['prefix' => 'secure'], function () {
 
     // popups
     Route::get('popups', 'PopupController@index');
+    Route::get('popups/{id}', 'PopupController@show');
     Route::post('popups', 'PopupController@store');
     Route::put('popups/{id}', 'PopupController@update');
     Route::delete('popups', 'PopupController@destroy');
