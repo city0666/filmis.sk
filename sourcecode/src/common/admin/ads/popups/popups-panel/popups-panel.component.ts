@@ -58,7 +58,7 @@ export class PopupsPanelComponent implements OnInit {
             ok: 'Delete'
         }).afterClosed().subscribe(confirmed => {
             if ( ! confirmed) return;
-            this.store.dispatch(new DeletePopup(popup)).subscribe(() => {
+            this.store.dispatch(new DeletePopup(popup.id)).subscribe(() => {
                 this.toast.open('Popup deleted.');
             })
         })
@@ -73,7 +73,7 @@ export class PopupsPanelComponent implements OnInit {
         ).beforeClosed().subscribe(newPopup => {
             if (newPopup) {
                 if (oldPopup) {
-                    this.store.dispatch(new UpdatePopup(newPopup));
+                    this.store.dispatch(new UpdatePopup(oldPopup.id, newPopup));
                 } else {
                     this.store.dispatch(new CreatePopup(newPopup));
                 }

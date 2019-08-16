@@ -11,6 +11,8 @@ import { Popup } from 'app/models/popup';
 import { finalize } from 'rxjs/operators';
 import { openUploadWindow } from 'common/uploads/utils/open-upload-window';
 import { UploadInputTypes } from 'common/uploads/upload-input-config';
+import { UpdatePopup, CreatePopup } from '../../crupdate-popups.actions';
+import { Store } from '@ngxs/store';
 
 interface AddPopupModalData {
     popup?: Popup;
@@ -36,6 +38,7 @@ export class AddPopupModalComponent implements OnInit {
         private fb: FormBuilder,
         private popups: PopupService,
         private toast: Toast,
+        private store: Store,
         private uploadQueue: UploadQueueService,
         private settings: Settings,
         private dialogRef: MatDialogRef<AddPopupModalComponent>,
@@ -49,33 +52,12 @@ export class AddPopupModalComponent implements OnInit {
 
     public confirm() {
         this.loading$.next(true);
-        if (this.data.popup) {
-            this.updateVideo();
-        } else {
-            this.createVideo();
-        }
-    }
-
-    private createVideo() {
-        this.popups.create(this.getPayload())
-            .pipe(finalize(() => this.loading$.next(false)))
-            .subscribe(response => {
-                this.toast.open('Popup created.');
-                this.close(response.popup);
-            }, () => {
-                this.toast.open('Popup failed.');
-            });
-    }
-
-    private updateVideo() {
-        this.popups.update(this.data.popup.id, this.getPayload())
-            .pipe(finalize(() => this.loading$.next(false)))
-            .subscribe(response => {
-                this.toast.open('Popup updated.');
-                this.close(response.popup);
-            }, () => {
-                this.toast.open('Popup update failed.');
-            });
+        this.close(this.getPayload());
+        // if (this.data.popup) {
+        //     this.store.dispatch(new UpdatePopup(this.data.popup.id, this.getPayload()));
+        // } else {
+        //     this.store.dispatch(new CreatePopup(this.getPayload()));
+        // }
     }
 
     public close(popup?: Popup) {

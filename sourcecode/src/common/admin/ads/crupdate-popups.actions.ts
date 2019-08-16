@@ -12,12 +12,12 @@ export class CreatePopup {
 
 export class UpdatePopup {
     static readonly type = '[CrupdatePopup] Update Popup';
-    constructor(public payload: Partial<Popup>) {}
+    constructor(public id: number, public payload: Partial<Popup>) {}
 }
 
 export class DeletePopup {
     static readonly type = '[Crupdate] Delete Popup';
-    constructor(public popup: Popup) {}
+    constructor(public id: number) {}
 }
 
 export class ChangePopupOrder {

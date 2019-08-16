@@ -58,6 +58,13 @@ export class CrupdatePopupState {
     createPopup(ctx: StateContext<CrupdatePopupStateModel>, action: CreatePopup) {
         ctx.patchState({ loading: true });
         return this.popups.create(action.payload).pipe(tap(response => {
+            console.log(response.popup);
+            const popups = [
+                response.popup,
+                ...ctx.getState().popups.slice()
+            ];
+            console.log(popups);
+            ctx.patchState({ popups });
             this.toast.open('Popup created.');
         }), finalize(() => ctx.patchState({loading: false})));
     }
@@ -65,7 +72,11 @@ export class CrupdatePopupState {
     @Action(UpdatePopup)
     crupdatePopup(ctx: StateContext<CrupdatePopupStateModel>, action: UpdatePopup) {
         ctx.patchState({loading: true});
-        return this.popups.update(1, action.payload).pipe(tap(() => {
+        return this.popups.update(action.id, action.payload).pipe(tap(response => {
+            const popups = ctx.getState().popups.slice();
+            const i = popups.findIndex(v => v.id === action.id);
+            popups[i] = response.popup;
+            ctx.patchState({ popups });
             this.toast.open('Popup updated.');
         }, () => {
             this.toast.open('Popup update failed.');
@@ -87,4 +98,18 @@ export class CrupdatePopupState {
         );
     }
 
+    @Action(DeletePopup)
+    deletePopup(ctx: StateContext<CrupdatePopupStateModel>, action: DeletePopup) {
+        ctx.patchState({loading: true});
+
+        return this.popups.delete([action.id]).pipe(
+            tap(() => {
+                const popups = ctx.getState().popups.slice();
+                const i = popups.findIndex(v => v.id === action.id);
+                popups.splice(i, 1);
+                ctx.patchState({ popups });
+            }),
+            finalize(() => ctx.patchState({ loading: false }))
+        );
+    }
 }
