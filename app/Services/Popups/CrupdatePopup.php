@@ -27,12 +27,11 @@ class CrupdatePopup
      */
     public function execute($params, $popupId = null)
     {
-        $params['views'] = 0;
-
         if ($popupId) {
             $popup = $this->popup->findOrFail($popupId);
             $popup->fill($params)->save();
         } else {
+            $params['views'] = 0;
             $popup = $this->popup->create($params);
         }
 

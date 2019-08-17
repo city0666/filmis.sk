@@ -46,7 +46,6 @@ export class CrupdatePopupState {
     hydratePopup(ctx: StateContext<CrupdatePopupStateModel>, action: HydratePopup) {
         ctx.patchState({ loading: true });
         return this.popups.get().pipe(tap(response => {
-            console.log(action, response);
             ctx.patchState({
                 popups: response.popups,
                 loading: false
@@ -58,14 +57,11 @@ export class CrupdatePopupState {
     createPopup(ctx: StateContext<CrupdatePopupStateModel>, action: CreatePopup) {
         ctx.patchState({ loading: true });
         return this.popups.create(action.payload).pipe(tap(response => {
-            console.log(response.popup);
             const popups = [
                 response.popup,
                 ...ctx.getState().popups.slice()
             ];
-            console.log(popups);
             ctx.patchState({ popups });
-            this.toast.open('Popup created.');
         }), finalize(() => ctx.patchState({loading: false})));
     }
 
@@ -77,9 +73,6 @@ export class CrupdatePopupState {
             const i = popups.findIndex(v => v.id === action.id);
             popups[i] = response.popup;
             ctx.patchState({ popups });
-            this.toast.open('Popup updated.');
-        }, () => {
-            this.toast.open('Popup update failed.');
         }), finalize(() => ctx.patchState({loading: false})));
     }
 
@@ -87,15 +80,14 @@ export class CrupdatePopupState {
     changePopupsOrder(ctx: StateContext<CrupdatePopupStateModel>, action: ChangePopupOrder) {
         const popups = ctx.getState().popups.slice();
         moveItemInArray(popups, action.currentIndex, action.newIndex);
-        ctx.patchState({ popups });
 
         const order = {};
         popups.forEach((popup, i) => order[i] = popup.id);
 
         ctx.patchState({loading: true});
-        return this.popups.changePopupsOrder(order).pipe(
-            finalize(() => ctx.patchState({loading: false}))
-        );
+        return this.popups.changePopupsOrder(order).pipe(tap(response => {
+            ctx.patchState({ popups });
+        }), finalize(() => ctx.patchState({loading: false})));
     }
 
     @Action(DeletePopup)

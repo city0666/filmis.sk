@@ -6,7 +6,7 @@ export class Video {
     url: string;
     type: string;
     thumbnail?: string;
-    source: 'local'|'tmdb';
+    source: 'local'|'tmdb'|'video';
     quality: string;
     title?: Title;
     positive_votes?: number;

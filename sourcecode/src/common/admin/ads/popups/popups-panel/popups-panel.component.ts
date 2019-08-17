@@ -2,9 +2,6 @@ import {
     Component,
     ViewEncapsulation,
     ChangeDetectionStrategy,
-    Input,
-    OnChanges,
-    SimpleChange,
     ViewChild, OnInit
 } from '@angular/core';
 import {Select, Store} from '@ngxs/store';
@@ -12,13 +9,7 @@ import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import { Toast } from 'common/core/ui/toast.service';
 import { Modal } from 'common/core/ui/dialogs/modal.service';
-import { PaginatedDataTableSource } from 'common/admin/data-table/data/paginated-data-table-source';
 import { Popup } from 'app/models/popup';
-import { UrlAwarePaginator } from 'common/admin/pagination/url-aware-paginator.service';
-import { PopupService } from '../popups.service';
-import { CurrentUser } from 'common/auth/current-user';
-import { Settings } from 'common/core/config/settings.service';
-import { Router } from '@angular/router';
 import { CrupdatePopupState } from '../../crupdate-popups.state';
 import { Observable } from 'rxjs';
 import { HydratePopup, ChangePopupOrder, DeletePopup, UpdatePopup, CreatePopup } from '../../crupdate-popups.actions';
@@ -65,7 +56,6 @@ export class PopupsPanelComponent implements OnInit {
     }
 
     public openCrupdatePopupModal(oldPopup?: Popup) {
-        // const title = this.store.selectSnapshot()
         this.dialog.open(
             AddPopupModalComponent,
             {popup: oldPopup},
@@ -73,9 +63,13 @@ export class PopupsPanelComponent implements OnInit {
         ).beforeClosed().subscribe(newPopup => {
             if (newPopup) {
                 if (oldPopup) {
-                    this.store.dispatch(new UpdatePopup(oldPopup.id, newPopup));
+                    this.store.dispatch(new UpdatePopup(oldPopup.id, newPopup)).subscribe(() => {
+                        this.toast.open('Popup updated.');
+                    });
                 } else {
-                    this.store.dispatch(new CreatePopup(newPopup));
+                    this.store.dispatch(new CreatePopup(newPopup)).subscribe(() => {
+                        this.toast.open('Popup created.');
+                    });
                 }
             }
         })
@@ -94,7 +88,9 @@ export class PopupsPanelComponent implements OnInit {
 
     public changePopupsOrder(e: CdkDragDrop<Popup>) {
         if (this.store.selectSnapshot(CrupdatePopupState.loading)) return ;
-        this.store.dispatch(new ChangePopupOrder(e.previousIndex, e.currentIndex));
+        this.store.dispatch(new ChangePopupOrder(e.previousIndex, e.currentIndex)).subscribe(() => {
+            this.hydratePopups();
+        });
     }
 
 }

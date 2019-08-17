@@ -1,8 +1,8 @@
-import {Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ChangeDetectorRef} from '@angular/core';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ChangeDetectorRef, OnInit} from '@angular/core';
 import {Modal} from '../../../../common/core/ui/dialogs/modal.service';
 import {AddVideoModalComponent} from '../add-video-modal/add-video-modal.component';
-import {Store} from '@ngxs/store';
-import {BehaviorSubject} from 'rxjs';
+import {Store, Select} from '@ngxs/store';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Video} from '../../../models/video';
 import {VideoService} from '../video.service';
 import {finalize} from 'rxjs/operators';
@@ -13,6 +13,11 @@ import {CurrentUser} from '../../../../common/auth/current-user';
 import {ConfirmModalComponent} from '../../../../common/core/ui/confirm-modal/confirm-modal.component';
 import {getFaviconFromUrl} from '../../../../common/core/utils/get-favicon-from-url';
 import {Router} from '@angular/router';
+import { Settings } from 'common/core/config/settings.service';
+import { PopupService } from 'common/admin/ads/popups/popups.service';
+import { HydratePopup, UpdatePopup } from 'common/admin/ads/crupdate-popups.actions';
+import { CrupdatePopupState } from 'common/admin/ads/crupdate-popups.state';
+import { Popup } from 'app/models/popup';
 
 @Component({
     selector: 'videos-panel',
@@ -21,9 +26,14 @@ import {Router} from '@angular/router';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VideosPanelComponent {
+export class VideosPanelComponent implements OnInit{
     @Input() mediaItem: Title|Episode;
+    @Select(CrupdatePopupState.popups) popups$: Observable<Popup[]>;
+
     public loading$ = new BehaviorSubject(false);
+    private adsCounter = 0;
+    private currentVideoId = -1;
+    private popups: Popup[];
 
     constructor(
         private modal: Modal,
@@ -32,7 +42,15 @@ export class VideosPanelComponent {
         private changeDetector: ChangeDetectorRef,
         public currentUser: CurrentUser,
         private router: Router,
+        public settings: Settings,
     ) {}
+
+    ngOnInit () {
+        this.popups$.subscribe(popups => {
+            this.popups = popups;
+        });
+        this.hydratePopups();
+    }
 
     public openAddVideoModal() {
         if (this.currentUser.isLoggedIn()) {
@@ -100,11 +118,49 @@ export class VideosPanelComponent {
     }
 
     public playVideo(video: Video) {
-        if (video.type === 'external') {
-            window.open(video.url, '_blank');
-        } else {
-            this.store.dispatch(new PlayVideo(video, this.mediaItem));
+        // console.log(this.popups.length, video);                                                                                                                     
+        if (this.showVideo(video)) {
+            this.adsCounter = 0;
+            if (video.type === 'external') {
+                window.open(video.url, '_blank');
+            } else {
+                this.store.dispatch(new PlayVideo(video, this.mediaItem));
+            }
         }
+    }
+
+    public showVideo(video: Video): boolean {
+        if (this.currentVideoId != video.id) {
+            this.currentVideoId = video.id;
+            this.adsCounter = 0;
+        }
+        if (!this.settings.get('popups.disable')) {
+            let flag = false;
+            if (
+                this.settings.get('popups.full_movie') && video.source == 'local' || 
+                this.settings.get('popups.trailer') && video.source == 'tmdb' ||
+                this.settings.get('popups.video') && video.source == 'video'
+            ) {
+                flag = true;
+            }
+            const countPopups = this.popups.length;
+            const itemsToShow = this.settings.get('popups.items_count');
+            const max = countPopups > itemsToShow ? itemsToShow : countPopups;
+            if (flag && max > this.adsCounter) {
+                let popup;
+                if (this.settings.get('popups.random')) {
+                    const rand = Math.floor(Math.random() * countPopups);
+                    popup = this.popups[rand];
+                } else {
+                    popup = this.popups[this.adsCounter];
+                }
+                this.store.dispatch(new UpdatePopup(popup.id, this.addViews(popup)));
+                window.open(popup.url, '_blank', 'toolbar=0,location=0,menubar=0');
+                this.adsCounter++;
+                return false;
+            }
+        }
+        return true;
     }
 
     public getThumbnail(video: Video) {
@@ -117,5 +173,21 @@ export class VideosPanelComponent {
 
     public getApproval(permission: string, userId: number) {
         return this.currentUser.isLoggedIn() && (this.currentUser.hasPermission(permission) || this.currentUser.get('id') == userId);
+    }
+
+    private hydratePopups() {
+        this.store.dispatch(new HydratePopup()).subscribe(() => {
+            this.popups = this.store.selectSnapshot(CrupdatePopupState.popups);
+        })
+    }
+    
+    private addViews(popup: Popup): Popup {
+        const views = +JSON.parse(JSON.stringify(popup.views)) + 1;
+        const newPopup = new Popup({
+            name: popup.name,
+            url: popup.url,
+            views: views
+        });
+        return newPopup;
     }
 }
