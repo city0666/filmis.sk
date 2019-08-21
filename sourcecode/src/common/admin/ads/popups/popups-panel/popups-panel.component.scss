@@ -4,6 +4,10 @@ popups-panel {
   display: block;
   margin-bottom: 40px;
 
+  .mat-cell {
+    word-break: break-all;
+  }
+
   .mat-column-name {
     margin-right: 40px;
 
@@ -68,8 +72,11 @@ popups-panel {
     max-width: 100px;
     color: $site-text-color-300;
   }
-
+  .titleWidth {
+    flex: 0 0 28%;
+  }
   .viewWidth {
-    flex: 0 0 75px;
+    flex: 0 0 10%;
+    padding-left: 20px;
   }
 }

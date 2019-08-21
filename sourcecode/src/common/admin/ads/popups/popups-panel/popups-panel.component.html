@@ -11,8 +11,8 @@
 
 <mat-table [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="changePopupsOrder($event)">
     <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef trans>Title</mat-header-cell>
-        <mat-cell *matCellDef="let popup">
+        <mat-header-cell *matHeaderCellDef trans [ngClass]="'titleWidth'">Title</mat-header-cell>
+        <mat-cell *matCellDef="let popup" [ngClass]="'titleWidth'">
             <button type="button" mat-icon-button cdkDragHandle>
                 <mat-icon svgIcon="drag-handle"></mat-icon>
             </button>
