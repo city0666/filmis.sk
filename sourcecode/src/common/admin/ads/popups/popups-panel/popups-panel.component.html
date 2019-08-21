@@ -27,8 +27,8 @@
     </ng-container>
 
     <ng-container matColumnDef="views">
-        <mat-header-cell *matHeaderCellDef trans>Views</mat-header-cell>
-        <mat-cell *matCellDef="let popup"> {{popup.views}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef trans [ngClass]="'viewWidth'">Views</mat-header-cell>
+        <mat-cell *matCellDef="let popup" [ngClass]="'viewWidth'"> {{popup.views}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="edit">

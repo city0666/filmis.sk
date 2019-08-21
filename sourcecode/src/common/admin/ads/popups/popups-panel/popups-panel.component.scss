@@ -68,4 +68,8 @@ popups-panel {
     max-width: 100px;
     color: $site-text-color-300;
   }
+
+  .viewWidth {
+    flex: 0 0 75px;
+  }
 }
