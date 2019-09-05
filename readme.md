@@ -1,8 +1,7 @@
+# Filmis.sk Movie Databases
 <p align="center">
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
-
-# Filmis.sk Movie Databases
 
 ## Requirements
 * PHP => 7
