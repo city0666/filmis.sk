@@ -289,7 +289,8 @@ export class CrupdateTitleState {
         let credits: TitleCredit[] = [];
 
         if (action.creditable.type === MEDIA_TYPE.TITLE) {
-            credits = ctx.getState().title.credits;
+            credits = ctx.getState().title.credits.slice();
+            console.log(credits, action.currentIndex, action.newIndex);
             moveItemInArray(credits, action.currentIndex, action.newIndex);
             ctx.patchState({title: {...ctx.getState().title, credits}});
         } else if (action.creditable.type === MEDIA_TYPE.SEASON) {
@@ -321,9 +322,7 @@ export class CrupdateTitleState {
         const order = {};
         credits
             .filter(c => c.pivot.department === 'cast')
-            .forEach((credit, index) => {
-                order[index] = credit.pivot.id;
-            });
+            .forEach((credit, index) => order[index] = credit.pivot.id);
 
         ctx.patchState({loading: true});
         return this.titles.changeCreditsOrder(order).pipe(
