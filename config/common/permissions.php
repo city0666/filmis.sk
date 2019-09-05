@@ -42,6 +42,12 @@ return [
             'news.update',
             'news.delete',
         ],
+        'images' => [
+            'images.view',
+            'images.create',
+            'images.update',
+            'images.delete',
+        ],
         'videos' => [
             'videos.rate',
             'videos.view',
