@@ -49,4 +49,11 @@ export class TitlePageContainerComponent implements OnInit {
             data: {images, currentImage}
         });
     }
+
+    public normalize(str: String) {
+        let result = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        result = result.replace(" ", "-");
+        result = result.replace(/[!@#$%^&*()?{}:";'<>,.+_=]/g, "-");
+        return result;
+    }
 }

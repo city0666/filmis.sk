@@ -10,7 +10,7 @@
 
         <videos-panel [mediaItem]="title" *ngIf="title.show_videos || settings.get('titles.show_videos_panel')"></videos-panel>
         <div class="ads-download">
-            <a [href]="settings.get('button.website') + title.name + settings.get('button.referral')" target="_blank" class="mat-flat-button mat-accent ng-star-inserted">
+            <a *ngIf="!settings.get('button.disable')" [href]="settings.get('button.website') + (!!settings.get('button.useTitle') ? normalize(title.name) : '') + settings.get('button.referral')" target="_blank" class="mat-flat-button mat-accent ng-star-inserted">
                 {{ 'Download ' | trans }}
             </a>
         </div>

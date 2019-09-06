@@ -74,7 +74,11 @@
 
     <ng-container matColumnDef="user_id">
         <mat-header-cell *matHeaderCellDef mat-sort-header="user_id" trans class="small-column">User</mat-header-cell>
-        <mat-cell *matCellDef="let video" class="small-column">{{ video.user_id || 'TmDb' }}</mat-cell>
+        <mat-cell *matCellDef="let video" class="small-column text-initial">
+            {{ video.user_id ? 
+                (video.user.first_name ? video.user.first_name + ' ' + video.user.last_name : video.user.email) : 
+                'TmDb' }}
+        </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="edit">

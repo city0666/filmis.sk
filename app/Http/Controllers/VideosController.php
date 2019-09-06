@@ -46,6 +46,8 @@ class VideosController extends Controller
         $paginator = (new Paginator($this->video));
         $paginator->with(['title' => function(BelongsTo $query) {
             $query->select('id', 'name', 'backdrop', 'is_series', 'season_count');
+        }, 'user' => function(BelongsTo $query) {
+            $query->select('id', 'first_name', 'last_name', 'email');
         }]);
 
         if ($titleId = $this->request->get('titleId')) {

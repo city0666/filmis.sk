@@ -37,5 +37,7 @@ export class DownloadComponent implements OnInit {
     public hydrate() {
         this.model['button.website'] = this.settings.get('button.website');
         this.model['button.referral'] = this.settings.get('button.referral');
+        this.model['button.useTitle'] = this.settings.get('button.useTitle');
+        this.model['button.disable'] = this.settings.get('button.disable');
     }
 }

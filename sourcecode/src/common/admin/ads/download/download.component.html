@@ -21,5 +21,15 @@
         </div>
     </div>
 
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="button.useTitle" id="button.useTitle" [(ngModel)]="model['button.useTitle']" trans>Enable Title Link</mat-slide-toggle>
+        <p trans>Use title of movie to link.</p>
+    </div>
+
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="button.disable" id="button.disable" [(ngModel)]="model['button.disable']" trans>Disable Download Button</mat-slide-toggle>
+        <p trans>Disable download button functionality.</p>
+    </div>
+
     <button type="submit" mat-raised-button color="accent" class="save-button" [disabled]="loading" trans>Update</button>
 </form>
