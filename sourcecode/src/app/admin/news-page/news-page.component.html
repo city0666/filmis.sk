@@ -9,7 +9,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header trans>Title</mat-header-cell>
         <mat-cell *matCellDef="let article">
             <img [src]="article?.meta?.image">
-            <a [routerLink]="urls.mediaItem(article)">{{article.title}}</a>
+            <a [routerLink]="['/admin/news', article.id, 'edit']">{{article.title}}</a>
         </mat-cell>
     </ng-container>
 
