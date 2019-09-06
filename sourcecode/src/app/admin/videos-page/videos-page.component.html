@@ -5,8 +5,15 @@
 
     <ng-container headerFilters>
         <div class="input-container">
-            <select name="" id="" [formControl]="sourceControl">
+            <select name="" id="" [formControl]="userControl">
                 <option [ngValue]="null" trans>All Sources</option>
+                <option value="withUserId" trans>Users</option>
+                <option value="none" trans>TmDb</option>
+            </select>
+        </div>
+        <div class="input-container">
+            <select name="" id="" [formControl]="sourceControl">
+                <option [ngValue]="null" trans>Type</option>
                 <option value="tmdb" trans>Trailer</option>
                 <option value="local" trans>Full Movie</option>
                 <option value="video" trans>Video</option>

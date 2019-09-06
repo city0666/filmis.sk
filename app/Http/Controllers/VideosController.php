@@ -56,6 +56,14 @@ class VideosController extends Controller
             $paginator->where('source', $source);
         }
 
+        if ($source = $this->request->get('user')) {
+            if ($source == 'withUserId') {
+                $paginator->where('user_id', '>', 0);
+            } else if ($source == 'none'){
+                $paginator->where('user_id', null);
+            }
+        }
+
         $pagination = $paginator->paginate($this->request->all());
 
         return $this->success(['pagination' => $pagination]);

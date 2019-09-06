@@ -19,14 +19,6 @@
                     <option value="video" trans>Video</option>
                 </select>
             </div>
-
-            <div class="input-container">
-                <select name="" id="" [formControl]="userControl">
-                    <option [ngValue]="null" trans>All Sources</option>
-                    <option value="withUserId" trans>Users</option>
-                    <option value="none" trans>TmDb</option>
-                </select>
-            </div>
         </ng-container>
 
         <button mat-icon-button [matTooltip]="'Delete selected' | trans" (click)="maybeDeleteSelectedPeople()" headerSelectedActions>

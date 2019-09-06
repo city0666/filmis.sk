@@ -23,6 +23,7 @@ export class VideosPageComponent implements OnInit, OnDestroy {
     @ViewChild(MatSort) matSort: MatSort;
     public dataSource: PaginatedDataTableSource<Video>;
     public sourceControl = new FormControl(null);
+    public userControl = new FormControl(null);
 
     constructor(
         public paginator: UrlAwarePaginator,
@@ -42,6 +43,10 @@ export class VideosPageComponent implements OnInit, OnDestroy {
 
         this.sourceControl.valueChanges.subscribe(value => {
             this.dataSource.refresh({source: value});
+        });
+
+        this.userControl.valueChanges.subscribe(value => {
+            this.dataSource.refresh({user: value});
         });
     }
 
