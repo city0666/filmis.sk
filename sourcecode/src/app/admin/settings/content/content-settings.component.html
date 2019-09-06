@@ -193,6 +193,11 @@
         <p trans>Enable or disable all reviews functionality across the site.</p>
     </div>
 
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="titles.tabs_theme" id="titles.tabs_theme" [(ngModel)]="state.client['titles.tabs_theme']" trans>Enable New Theme For Cast/Comments/Photos</mat-slide-toggle>
+        <p trans>Enable or disable new theme for cast/comments/photos.</p>
+    </div>
+    
     <button mat-raised-button color="accent" class="button primary update-button" [disabled]="loading" type="submit" trans>Update</button>
     <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading"></mat-progress-bar>
 </form>
