@@ -46,6 +46,7 @@ export const MTDB_CONFIG = {
             {name: 'Shared', slot: 'ads.shared', description: 'This ad will appear near the top on most pages.'},
             {name: 'Homepage', slot: 'ads.homepage', description: 'This ad will appear between lists on the homepage.'},
             {name: 'Title Page', slot: 'ads.title', description: 'This ad will appear after cast list on movie and tv series pages.'},
+            {name: 'Title Page 2', slot: 'ads.title-2', description: 'This ad will appear after the first title page ad.'},
             {name: 'Person Page', slot: 'ads.person', description: 'This ad will appear after credits list person page.'},
             {name: 'Sticky Ads Browse Page', slot: 'ads.sidebar_browse', description: 'This ad will appear under reset filter in browse page.'},
             {name: 'Sticky Ads Person Page', slot: 'ads.sidebar_person', description: 'This ad will appear under information of person.'},

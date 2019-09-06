@@ -23,6 +23,12 @@
                     <review-tab></review-tab>
                 </ng-template>
             </mat-tab>
+        
+        </mat-tab-group>
+
+        <ad-host slot="ads.title" class="title-ad-host"></ad-host>
+
+        <mat-tab-group color="accent" animationDuration="0ms">
             <mat-tab [label]="'Images' | trans" *ngIf="title.images?.length">
                 <ng-template matTabContent>
                     <div class="images-container">
@@ -31,10 +37,10 @@
                 </ng-template>
             </mat-tab>
         </mat-tab-group>
-
-        <ad-host slot="ads.title" class="title-ad-host"></ad-host>
+        
+        <ad-host slot="ads.title-2" class="title-ad-host"></ad-host>
     </div>
-
+    
     <div class="tagline" *ngIf="title?.tagline">
         <q class="container">{{title.tagline}}</q>
     </div>
