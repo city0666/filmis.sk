@@ -193,7 +193,7 @@ class Title extends Model
     public function allVideos()
     {
         return $this->hasMany(Video::class)
-            ->orderBy('order', 'desc');
+            ->orderBy('order', 'asc');
     }
 
     /**

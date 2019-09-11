@@ -286,25 +286,22 @@ export class CrupdateTitleState {
 
     @Action(ChangeCreditOrder)
     changeCreditOrder(ctx: StateContext<CrupdateTitleStateModel>, action: ChangeCreditOrder) {
-        let credits: TitleCredit[] = [];
+        let credits = ctx.getState().title.credits.slice();
+        let seasons = ctx.getState().title.seasons.slice();
 
         if (action.creditable.type === MEDIA_TYPE.TITLE) {
-            credits = ctx.getState().title.credits.slice();
-            console.log(credits, action.currentIndex, action.newIndex);
             moveItemInArray(credits, action.currentIndex, action.newIndex);
-            ctx.patchState({title: {...ctx.getState().title, credits}});
         } else if (action.creditable.type === MEDIA_TYPE.SEASON) {
-            const seasons = ctx.getState().title.seasons.map(season => {
+            seasons = seasons.map(season => {
                 if (season.id === action.creditable.id) {
                     credits = season.credits;
                     moveItemInArray(credits, action.currentIndex, action.newIndex);
                 }
                 return {...season};
             });
-            ctx.patchState({title: {...ctx.getState().title, seasons}});
         } else if (action.creditable.type === MEDIA_TYPE.EPISODE) {
             const creditable = action.creditable as Episode;
-            const seasons = ctx.getState().title.seasons.map(season => {
+            seasons = seasons.map(season => {
                 if (season.number === creditable.season_number) {
                     season.episodes.map(episode => {
                         if (episode.id === action.creditable.id) {
@@ -316,7 +313,6 @@ export class CrupdateTitleState {
                 }
                 return {...season};
             });
-            ctx.patchState({title: {...ctx.getState().title, seasons}});
         }
 
         const order = {};
@@ -326,6 +322,13 @@ export class CrupdateTitleState {
 
         ctx.patchState({loading: true});
         return this.titles.changeCreditsOrder(order).pipe(
+            tap(() => {
+                if (action.creditable.type === MEDIA_TYPE.TITLE) {
+                    ctx.patchState({title: {...ctx.getState().title, credits}});
+                } else {
+                    ctx.patchState({title: {...ctx.getState().title, seasons}});
+                }
+            }),
             finalize(() => ctx.patchState({loading: false}))
         );
     }
@@ -334,13 +337,14 @@ export class CrupdateTitleState {
     changeVideosOrder(ctx: StateContext<CrupdateTitleStateModel>, action: ChangeVideosOrder) {
         const videos = ctx.getState().title.all_videos.slice();
         moveItemInArray(videos, action.currentIndex, action.newIndex);
-        ctx.patchState({title: {...ctx.getState().title, all_videos: videos}});
 
         const order = {};
         videos.forEach((video, i) => order[i] = video.id);
 
         ctx.patchState({loading: true});
-        return this.titles.changeVideosOrder(ctx.getState().title.id, order).pipe(
+        return this.titles.changeVideosOrder(ctx.getState().title.id, order).pipe(tap(() => {
+            ctx.patchState({title: {...ctx.getState().title, all_videos: videos}});
+        }),
             finalize(() => ctx.patchState({loading: false}))
         );
     }

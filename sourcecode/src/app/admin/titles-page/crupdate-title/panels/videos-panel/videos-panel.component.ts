@@ -14,10 +14,12 @@ import {
     AddVideo,
     ChangeVideosOrder,
     DeleteVideo,
-    UpdateVideo
+    UpdateVideo,
+    HydrateTitle
 } from '../../state/crupdate-title-actions';
 import {MESSAGES} from '../../../../../toast-messages';
 import {Video} from '../../../../../models/video';
+import {Title} from '../../../../../models/title';
 import {AddVideoModalComponent} from '../../../../../site/videos/add-video-modal/add-video-modal.component';
 import {CrupdateTitleState} from '../../state/crupdate-title-state';
 import {Observable} from 'rxjs';
@@ -33,7 +35,9 @@ import {CdkDragDrop} from '@angular/cdk/drag-drop';
 export class VideosPanelComponent implements OnInit {
     @ViewChild(MatSort) matSort: MatSort;
     @Select(CrupdateTitleState.allVideos) videos$: Observable<Video[]>;
+    @Select(CrupdateTitleState.title) title$: Observable<Title>;
     public dataSource = new MatTableDataSource([]);
+    private title: Title;
 
     constructor(
         private store: Store,
@@ -45,6 +49,9 @@ export class VideosPanelComponent implements OnInit {
         this.dataSource.sort = this.matSort;
         this.videos$.subscribe(videos => {
             this.dataSource.data = videos;
+        });
+        this.title$.subscribe(title => {
+            this.title = title;
         });
     }
 
@@ -80,10 +87,19 @@ export class VideosPanelComponent implements OnInit {
 
     public changeVideosOrder(e: CdkDragDrop<Video>) {
         if (this.store.selectSnapshot(CrupdateTitleState.loading)) return;
-        this.store.dispatch(new ChangeVideosOrder(e.previousIndex, e.currentIndex));
+        this.store.dispatch(new ChangeVideosOrder(e.previousIndex, e.currentIndex)).subscribe(() => {
+            this.hydrateVideos();
+        });
     }
 
     public applyFilter(value: string) {
         this.dataSource.filter = value;
+    }
+
+    public hydrateVideos() {
+        this.store.dispatch(new HydrateTitle(this.title.id)).subscribe(() => {
+            const videos = this.store.selectSnapshot(CrupdateTitleState.allVideos);
+            this.dataSource.data = videos;
+        });
     }
 }

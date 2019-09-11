@@ -57,7 +57,9 @@ export class CreditsPanelComponent implements OnChanges, OnInit {
     
     ngOnChanges(changes: {mediaItem?: SimpleChange}) {
         if (changes.mediaItem && changes.mediaItem.currentValue) {
-            this.hydrateCredits();
+            this.dataSource.data = this.type === 'cast' ?
+                this.getCast(this.mediaItem.credits) :
+                this.getCrew(this.mediaItem.credits);
         }
     }
 
@@ -83,10 +85,7 @@ export class CreditsPanelComponent implements OnChanges, OnInit {
 
     public changeCreditsOrder(e: CdkDragDrop<Person>) {
         if (this.store.selectSnapshot(CrupdateTitleState.loading)) return;
-        this.store.dispatch(new ChangeCreditOrder(this.mediaItem, e.previousIndex, e.currentIndex)).subscribe(() => {
-            console.log('hydrate credits');
-            this.hydrateCredits();
-        });
+        this.store.dispatch(new ChangeCreditOrder(this.mediaItem, e.previousIndex, e.currentIndex));
     }
 
     public applyFilter(value: string) {
@@ -101,11 +100,5 @@ export class CreditsPanelComponent implements OnChanges, OnInit {
     public getCrew(credits: TitleCredit[]) {
         if ( ! credits) return [];
         return credits.filter(credit => credit.pivot.department !== 'cast');
-    }
-
-    private hydrateCredits () {
-        this.dataSource.data = 
-            this.type === 'cast' ? this.getCast(this.mediaItem.credits) : this.getCrew(this.mediaItem.credits);
-        console.log(this.mediaItem.credits);
     }
 }
