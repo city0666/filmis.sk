@@ -4,9 +4,19 @@
     <article class="news-article" *ngIf="article$ | async as article">
         <ad-host slot="ads.shared" class="shared-ad-host"></ad-host>
 
-        <h1 class="title">
-            <a [routerLink]="['/news', article.id]">{{article.title}}</a>
-        </h1>
+        <div class="title-container">
+            <h1 class="title">
+                <a [routerLink]="['/news', article.id]">{{article.title}}</a>
+            </h1>
+            <a 
+                mat-icon-button
+                *ngIf="currentUser.hasPermission('news.update')" 
+                [routerLink]="'/admin/news/'+(article).id+'/edit'"  
+                [matTooltip]="'Edit article' | trans"
+            >
+                <mat-icon svgIcon="edit"></mat-icon>
+            </a>
+        </div>
         <div class="meta">
             <div class="date">{{article.created_at | formattedDate}}</div>
             <ng-container *ngIf="article?.meta?.source">

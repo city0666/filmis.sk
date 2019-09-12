@@ -5,6 +5,7 @@ import {Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {NewsArticle} from '../../../models/news-article';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { CurrentUser } from 'common/auth/current-user';
 
 @Component({
     selector: 'news-article',
@@ -23,6 +24,7 @@ export class NewsArticleComponent implements OnInit {
         private news: NewsService,
         private route: ActivatedRoute,
         private sanitizer: DomSanitizer,
+        public currentUser: CurrentUser
     ) {}
 
     ngOnInit() {

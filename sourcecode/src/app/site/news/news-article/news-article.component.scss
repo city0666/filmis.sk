@@ -52,6 +52,10 @@ news-article {
       font-size: 3rem;
       line-height: 1;
       margin: 0 0 15px;
+      &-container {
+        display: flex;
+        justify-content: space-between;
+      }
 
       a {
         color: inherit;
