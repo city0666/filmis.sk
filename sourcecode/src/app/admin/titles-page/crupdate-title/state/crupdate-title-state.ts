@@ -286,50 +286,59 @@ export class CrupdateTitleState {
 
     @Action(ChangeCreditOrder)
     changeCreditOrder(ctx: StateContext<CrupdateTitleStateModel>, action: ChangeCreditOrder) {
-        let credits = ctx.getState().title.credits.slice();
-        let seasons = ctx.getState().title.seasons.slice();
+        let credits = JSON.parse(JSON.stringify(ctx.getState().title.credits.slice()));
+        let seasons = JSON.parse(JSON.stringify(ctx.getState().title.seasons.slice()));
 
         if (action.creditable.type === MEDIA_TYPE.TITLE) {
+            let notCast = credits.filter(c => c.pivot.department !== 'cast'); 
+            credits = credits.filter(c => c.pivot.department === 'cast');
             moveItemInArray(credits, action.currentIndex, action.newIndex);
+            credits = [...credits, ...notCast];
+
+            ctx.patchState({ title: {...ctx.getState().title, credits} });
         } else if (action.creditable.type === MEDIA_TYPE.SEASON) {
             seasons = seasons.map(season => {
                 if (season.id === action.creditable.id) {
-                    credits = season.credits;
+                    credits = season.credits.filter(c => c.pivot.department === 'cast');
                     moveItemInArray(credits, action.currentIndex, action.newIndex);
+                    credits = [...credits, ...season.credits.filter(c => c.pivot.department != 'cast')];
+                    season.credits = credits;
                 }
                 return {...season};
+                
             });
+
+            ctx.patchState({title: {...ctx.getState().title, seasons}});
         } else if (action.creditable.type === MEDIA_TYPE.EPISODE) {
             const creditable = action.creditable as Episode;
             seasons = seasons.map(season => {
                 if (season.number === creditable.season_number) {
                     season.episodes.map(episode => {
                         if (episode.id === action.creditable.id) {
-                            credits = episode.credits;
+                            credits = episode.credits.filter(c => c.pivot.department === 'cast');
                             moveItemInArray(credits, action.currentIndex, action.newIndex);
+                            credits = [...credits, ...episode.credits.filter(c => c.pivot.department != 'cast')];
+                            episode.credits = credits;
                         }
                         return {...episode};
                     });
                 }
                 return {...season};
             });
+
+            ctx.patchState({title: {...ctx.getState().title, seasons}});
         }
 
-        const order = {};
+        const order = {}
         credits
             .filter(c => c.pivot.department === 'cast')
-            .forEach((credit, index) => order[index] = credit.pivot.id);
+            .forEach((credit, i) => order[i] = credit.pivot.id);
 
-        ctx.patchState({loading: true});
+        ctx.patchState({ loading: true });
         return this.titles.changeCreditsOrder(order).pipe(
             tap(() => {
-                if (action.creditable.type === MEDIA_TYPE.TITLE) {
-                    ctx.patchState({title: {...ctx.getState().title, credits}});
-                } else {
-                    ctx.patchState({title: {...ctx.getState().title, seasons}});
-                }
             }),
-            finalize(() => ctx.patchState({loading: false}))
+            finalize(() => ctx.patchState({ loading: false }))
         );
     }
 

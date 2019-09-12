@@ -84,6 +84,7 @@ export class CreditsPanelComponent implements OnChanges, OnInit {
     }
 
     public changeCreditsOrder(e: CdkDragDrop<Person>) {
+        console.log("ReOrder", this.mediaItem);
         if (this.store.selectSnapshot(CrupdateTitleState.loading)) return;
         this.store.dispatch(new ChangeCreditOrder(this.mediaItem, e.previousIndex, e.currentIndex));
     }
