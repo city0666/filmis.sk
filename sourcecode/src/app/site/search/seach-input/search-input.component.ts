@@ -26,7 +26,7 @@ import {TitleUrlsService} from '../../titles/title-urls.service';
 import {MEDIA_TYPE} from '../../media-type';
 import {GetPersonResponse, PeopleService} from '../../people/people.service';
 import {SetPerson} from '../../people/state/person-state-actions';
-import {SetTitle} from '../../titles/state/title-actions';
+import {SetTitle, LoadReviews} from '../../titles/state/title-actions';
 import {SearchResult} from '../search-result';
 
 @Component({
@@ -106,7 +106,7 @@ export class SearchInputComponent implements OnInit {
             }
         }
 
-        this.router.navigate(this.urls.mediaItem(mediaItem));
+        this.router.navigate(this.urls.mediaItem(mediaItem)).then(() => this.store.dispatch(new LoadReviews()));
     }
 
     private loadResult(result: SearchResult): Observable<GetPersonResponse|GetTitleResponse> {

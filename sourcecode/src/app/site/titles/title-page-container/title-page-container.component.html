@@ -16,16 +16,16 @@
         </div>
 
         <ng-container *ngIf="!!settings.get('titles.tabs_theme')">
-            <div class="row">
-                <div class="col">
+            <div class="row__">
+                <div class="col__">
                     <mat-tab-group color="accent" animationDuration="0ms">
                         <mat-tab [label]="'Cast' | trans">
                             <title-cast-panel></title-cast-panel>
                         </mat-tab>
                     </mat-tab-group>
                 </div>
-                <div class="col-margin"></div>
-                <div class="col">
+                <div class="col__margin"></div>
+                <div class="col__">
                     <mat-tab-group color="accent" animationDuration="0ms">
                         <mat-tab [label]="'Reviews' | trans" *ngIf="settings.get('titles.enable_reviews')">
                             <ng-template matTabContent>
