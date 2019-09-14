@@ -61,7 +61,6 @@ export class AddVideoModalComponent implements OnInit {
 
     ngOnInit() {
         this.hydrateForm();
-        // console.log(this.languages$);
         this.getLanguages();
     }
 

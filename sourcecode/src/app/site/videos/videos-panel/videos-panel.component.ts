@@ -118,7 +118,6 @@ export class VideosPanelComponent implements OnInit{
     }
 
     public playVideo(video: Video) {
-        // console.log(this.popups.length, video);                                                                                                                     
         if (this.showVideo(video)) {
             this.adsCounter = 0;
             if (video.type === 'external') {

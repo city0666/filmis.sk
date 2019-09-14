@@ -14,7 +14,7 @@ import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap} 
 import {Observable, of} from 'rxjs';
 import {SearchService} from '../search.service';
 import {Title} from '../../../models/title';
-import {Router} from '@angular/router';
+import {Router, ActivatedRouteSnapshot, ActivatedRoute} from '@angular/router';
 import {Person} from '../../../models/person';
 import {GetTitleResponse, TitlesService} from '../../titles/titles.service';
 import {Select, Store} from '@ngxs/store';
@@ -47,7 +47,7 @@ export class SearchInputComponent implements OnInit {
     @Input() resetInputOnSelect = true;
 
     public searchControl = new FormControl();
-
+    private activeRoute: ActivatedRouteSnapshot;
     constructor(
         private search: SearchService,
         private router: Router,
@@ -55,9 +55,11 @@ export class SearchInputComponent implements OnInit {
         private people: PeopleService,
         private store: Store,
         private urls: TitleUrlsService,
-    ) {}
-
+        private route: ActivatedRoute
+        ) {}
+        
     ngOnInit() {
+        this.activeRoute = this.route.snapshot;
         this.bindToSearchQueryControl();
     }
 
@@ -99,6 +101,9 @@ export class SearchInputComponent implements OnInit {
         } else {
             const titleResponse = response as GetTitleResponse;
             this.store.dispatch(new SetTitle(titleResponse, {titleId: titleResponse.title.id}));
+            if (this.route.snapshot.params.titleId == titleResponse.title.id) {
+                this.store.dispatch(new ToggleGlobalLoader(false));
+            }
         }
 
         this.router.navigate(this.urls.mediaItem(mediaItem));

@@ -47,13 +47,9 @@ export class TagsPanelComponent implements OnInit {
         ).beforeClosed().subscribe(newTag => {
             newTag.type = this.type;
             if (tag) {
-                console.log("UPDATE");
                 this.store.dispatch(new UpdateTag(newTag));
             } else if (newTag) {
-                console.log("NEW");
                 this.store.dispatch(new CreateTag(newTag));
-            } else {
-                console.log(newTag);
             }
         });
     }

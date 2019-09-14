@@ -506,7 +506,6 @@ export class CrupdateTitleState {
 
     @Action(UpdateTag)
     updateTag(ctx: StateContext<CrupdateTitleStateModel>, action: UpdateTag) {
-        console.log(action);
         ctx.patchState({loading: true});
         return this.titles.updateTag(ctx.getState().title.id, action.tag).pipe(
             tap(response => {
@@ -549,7 +548,6 @@ export class CrupdateTitleState {
                 const oldTags = ctx.getState().title[type];
                 const exists = (oldTags as Tag[]).find(tag => tag.id === response.tag.id);
                 if (exists) {
-                    console.log(response, exists, action, ...oldTags);
                     let newTags: Tag[] = [];
                     for(let tag of (oldTags as Tag[])) {
                         if (tag.id === exists.id) {
