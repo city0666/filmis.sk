@@ -24,6 +24,9 @@ export class TitleSecondaryDetailsPanelComponent implements OnChanges {
 
     @Input() item: Title|Episode;
 
+    private expanded = false;
+    public buttonText = "more";
+
     public credits: {
         director?: TitleCredit,
         writers?: TitleCredit[],
@@ -36,6 +39,8 @@ export class TitleSecondaryDetailsPanelComponent implements OnChanges {
     ngOnChanges(changes: {item: SimpleChange}) {
         if (changes.item.currentValue && changes.item.currentValue.credits) {
             this.setCrew();
+            this.expanded = false;
+            this.buttonText = "more";
         }
     }
 
@@ -72,5 +77,20 @@ export class TitleSecondaryDetailsPanelComponent implements OnChanges {
 
     private getCreators(credits: TitleCredit[]) {
         return credits.filter(person => person.pivot.department === 'creators');
+    }
+
+    public showDescription(description: string) {
+        let limit = 320;
+        let SUFFIX = "...";
+        if (description.length <= limit || this.expanded) {
+            return description;
+        } else if (this.expanded == false) {
+            return description.slice(0, limit - SUFFIX.length) + SUFFIX
+        }
+    }
+
+    public buttonClick() {
+        this.expanded = !this.expanded;
+        this.buttonText = this.expanded ? "less" : "more";
     }
 }
