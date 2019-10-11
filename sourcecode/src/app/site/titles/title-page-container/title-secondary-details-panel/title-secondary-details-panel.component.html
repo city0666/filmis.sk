@@ -40,7 +40,7 @@
                 <div class="value">
                     <ng-container *ngIf="item.description; else noDescription">
                         <span>{{ showDescription(item.description) }}</span>
-                        <button class="no-style more-less-button" (click)="buttonClick()" *ngIf="item.description.length > 320">{{ buttonText }}</button>
+                        <button class="no-style more-less-button" (click)="buttonClick()" *ngIf="item.description.length > 320">{{ buttonText | trans }}</button>
                     </ng-container>
                     <ng-template #noDescription>{{'No overview has been added yet.' | trans}}</ng-template>
                 </div>
