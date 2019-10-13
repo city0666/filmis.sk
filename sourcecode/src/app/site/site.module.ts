@@ -78,6 +78,7 @@ import { AccountSettingsResolve } from 'common/account-settings/account-settings
 import { AccountVideosComponent } from 'common/account-videos/account-videos.component';
 import { BaseAdminModule } from 'common/admin/base-admin.module';
 import { CrupdatePopupState } from 'common/admin/ads/crupdate-popups.state';
+import { CrupdatePlotModalComponent } from './plot/crupdate-plot-modal/crupdate-plot-modal.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -165,6 +166,7 @@ import { CrupdatePopupState } from 'common/admin/ads/crupdate-popups.state';
         KnownForWidgetComponent,
         ImageGalleryOverlayComponent,
         ImportMediaModalComponent,
+        CrupdatePlotModalComponent,
     ],
     entryComponents: [
         ConnectSocialAccountsPanelComponent,
@@ -174,6 +176,7 @@ import { CrupdatePopupState } from 'common/admin/ads/crupdate-popups.state';
         AddVideoModalComponent,
         ImageGalleryOverlayComponent,
         ImportMediaModalComponent,
+        CrupdatePlotModalComponent,
     ],
     exports: [
         MediaImageComponent,

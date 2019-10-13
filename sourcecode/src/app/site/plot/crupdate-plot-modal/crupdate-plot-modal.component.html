@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title trans>Update Plot</h2>
+    <button type="button" (click)="close()" tabindex="-1" class="close-button no-style icon-button">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form autocomplete="off" (ngSubmit)="confirm()" [formGroup]="form" ngNativeValidate>
+    <mat-dialog-content class="many-inputs" *ngIf="errors$ | async as errors">
+        <div class="input-container">
+            <label for="description" trans>Description</label>
+            <textarea
+                    id="description"
+                    formControlName="description"
+                    required
+                    minlength="1"
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="6"
+                    cdkAutosizeMaxRows="20"
+            ></textarea>
+            <div class="error" *ngIf="errors.description">{{errors.description}}</div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button class="button cancel" trans>Cancel</button>
+        <button type="submit" class="button primary" mat-raised-button color="accent" [disabled]="loading$ | async" trans>Save</button>
+    </mat-dialog-actions>
+</form>

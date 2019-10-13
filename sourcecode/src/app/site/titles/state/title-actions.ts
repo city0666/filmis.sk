@@ -1,5 +1,6 @@
 import {GetTitleQueryParams, GetTitleResponse} from '../titles.service';
 import {Review} from '../../../models/review';
+import { Title } from 'app/models/title';
 
 export class LoadTitle {
     static readonly type = '[Title] Load Title';
@@ -20,6 +21,11 @@ export class LoadRelatedTitles {
 
 export class LoadReviews {
     static readonly type = '[Title] Load Reviews';
+}
+
+export class UpdateTitle {
+    static readonly type = '[Title] Update Title';
+    constructor(public title: Partial<Title>) {}
 }
 
 export class CrupdateReview {

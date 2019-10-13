@@ -1,13 +1,17 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChange, ViewEncapsulation} from '@angular/core';
-import {Select, Store} from '@ngxs/store';
-import {TitleState} from '../../state/title-state';
-import {Observable} from 'rxjs';
-import {Title, TitleCredit} from '../../../../models/title';
-import {Video} from '../../../../models/video';
-import {PlayVideo} from '../../../player/state/player-state-actions';
-import {Episode} from '../../../../models/episode';
-import {MEDIA_TYPE} from '../../../media-type';
-import {Season} from '../../../../models/season';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChange, ViewEncapsulation } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { TitleState } from '../../state/title-state';
+import { Observable } from 'rxjs';
+import { Title, TitleCredit } from '../../../../models/title';
+import { Video } from '../../../../models/video';
+import { PlayVideo } from '../../../player/state/player-state-actions';
+import { Episode } from '../../../../models/episode';
+import { MEDIA_TYPE } from '../../../media-type';
+import { Season } from '../../../../models/season';
+import { CurrentUser } from 'common/auth/current-user';
+import { UpdateTitle } from '../../state/title-actions';
+import { CrupdatePlotModalComponent } from 'app/site/plot/crupdate-plot-modal/crupdate-plot-modal.component';
+import { Modal } from 'common/core/ui/dialogs/modal.service';
 
 @Component({
     selector: 'title-secondary-details-panel',
@@ -22,7 +26,7 @@ export class TitleSecondaryDetailsPanelComponent implements OnChanges {
     @Select(TitleState.trailer) trailer$: Observable<Video>;
     @Select(TitleState.seasons) seasons$: Observable<Season[]>;
 
-    @Input() item: Title|Episode;
+    @Input() item: Title | Episode;
 
     private expanded = false;
     public buttonText = "more";
@@ -34,9 +38,9 @@ export class TitleSecondaryDetailsPanelComponent implements OnChanges {
         cast?: TitleCredit[],
     };
 
-    constructor(private store: Store) {}
+    constructor(private store: Store, public currentUser: CurrentUser, private modal: Modal) { }
 
-    ngOnChanges(changes: {item: SimpleChange}) {
+    ngOnChanges(changes: { item: SimpleChange }) {
         if (changes.item.currentValue && changes.item.currentValue.credits) {
             this.setCrew();
             this.expanded = false;
@@ -47,6 +51,17 @@ export class TitleSecondaryDetailsPanelComponent implements OnChanges {
     public playVideo(video: Video) {
         const title = this.store.selectSnapshot(TitleState.title);
         this.store.dispatch(new PlayVideo(video, title));
+    }
+
+    public openUpdatePlotModal() {
+        const title = this.store.selectSnapshot(TitleState.title);
+        this.modal.open(
+            CrupdatePlotModalComponent,
+            { title },
+            'crupdate-plot-modal-container'
+        ).beforeClosed().subscribe(updatedTitle => {
+            this.store.dispatch(new UpdateTitle(updatedTitle));
+        });
     }
 
     public isSeries() {

@@ -42,7 +42,10 @@
                         <span>{{ showDescription(item.description) }}</span>
                         <button class="no-style more-less-button" (click)="buttonClick()" *ngIf="item.description.length > 320">{{ buttonText | trans }}</button>
                     </ng-container>
-                    <ng-template #noDescription>{{'No overview has been added yet.' | trans}}</ng-template>
+                    <ng-template #noDescription>
+                        {{'No overview has been added yet.' | trans}} 
+                        <a (click)="openUpdatePlotModal()" class="text-primary" *ngIf="currentUser.hasPermission('titles.update')">{{'Add plot.' | trans}}</a>
+                    </ng-template>
                 </div>
             </div>
         </div>

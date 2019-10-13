@@ -19,7 +19,7 @@
                     <div class="input-container">
                         <label for="episode_number" trans>Number</label>
                         <input type="number" formControlName="episode_number" id="episode_number" min="1" required>
-                        <div class="error" *ngIf="(errors$ | async).episode_number as epNumError">{{epNumError}}</div>
+                        <div class="error" *ngIf="(errors$ | async).episode_number as epNumError">{{epNumError | trans}}</div>
                     </div>
 
                     <div class="input-container">

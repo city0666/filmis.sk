@@ -22,6 +22,7 @@ export class LazyLoaderService {
             this.loadedScripts[url] = new Promise((resolve, reject) => {
                 const s: HTMLScriptElement = document.createElement('script');
                 s.async = true;
+                s.defer = true;
                 s.id = params.id || url.split('/').pop();
                 s.src = url.indexOf('//') > -1 ? url : this.config.getAssetUrl() + url;
 

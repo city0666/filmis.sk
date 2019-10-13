@@ -61,7 +61,7 @@ class EpisodeController extends Controller
             'episode_number' => [
                 'integer',
                 Rule::unique('episodes')
-                    ->ignore($episode->episode_number)
+                    ->ignore($episode->id)
                     ->where(function (Builder $query) use($episode) {
                         $query->where('season_number', $episode->season_number)
                             ->where('title_id', $episode->title_id);

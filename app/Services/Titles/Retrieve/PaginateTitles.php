@@ -39,6 +39,8 @@ class PaginateTitles
     public function execute($params)
     {
         $paginator = new Paginator($this->title);
+        $paginator->query()->select('titles.*');
+        $paginator->query()->distinct();
         $paginator->where('adult', false);
         $paginator->setDefaultOrderColumns('popularity', 'desc');
 
@@ -47,13 +49,13 @@ class PaginateTitles
         }
 
         if ($genre = Arr::get($params, 'genre')) {
+            $paginator->query()->join('taggables', 'titles.id', '=', 'taggables.taggable_id')
+                ->join('tags', 'tags.id', '=', 'taggables.tag_id');
             $genres = explode(',', $genre);
-            $paginator->query()->whereHas('genres', function(Builder $query) use($genres) {
-                $genres = array_map(function($genre) {
-                    return Str::slug($genre, ' ');
-                }, $genres);
-                $query->whereIn('name', $genres);
-            });
+            $paginator->where('tags.name', $genres[0]);
+            for ($i = 1; $i < count($genres); $i++) {
+                $paginator->query()->orWhere('tags.name', $genres[$i]);
+            }
         }
 
         if ($released = Arr::get($params, 'released')) {

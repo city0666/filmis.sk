@@ -8,7 +8,8 @@ import {
     LoadRelatedTitles,
     LoadReviews,
     LoadTitle,
-    SetTitle
+    SetTitle,
+    UpdateTitle
 } from './title-actions';
 import {TitlesService} from '../titles.service';
 import {tap} from 'rxjs/operators';
@@ -154,6 +155,16 @@ export class TitleState {
         }
 
         ctx.patchState(newState);
+    }
+
+    @Action(UpdateTitle)
+    updateTitle(ctx: StateContext<TitleStateModel>, action: UpdateTitle) {
+        ctx.patchState({
+            title: {
+                ...ctx.getState().title,
+                ...action.title
+            }
+        });
     }
 
     @Action(LoadRelatedTitles)
