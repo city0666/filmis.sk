@@ -25,6 +25,7 @@ export interface GetTitleQueryParams {
     seasons?: boolean;
     countries?: boolean;
     skipUpdating?: boolean;
+    allVideos?: boolean;
 }
 
 export interface BrowseTitlesQueryParams {

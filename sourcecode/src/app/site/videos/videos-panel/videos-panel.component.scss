@@ -106,7 +106,12 @@ videos-panel {
       }
     }
   }
-
+  .d-flex {
+    display: flex;
+  }
+  .season-select {
+    margin-left: 20px;
+  }
   .title {
     display: flex;
     align-items: center;

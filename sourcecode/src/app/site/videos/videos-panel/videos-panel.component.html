@@ -1,5 +1,12 @@
 <div class="title">
-    <div class="text" trans>Videos</div>
+    <div class="d-flex">
+        <div class="text" trans>Videos</div>
+        <div class="input-container season-select" *ngIf="title.season_count">
+            <select (change)="handleOnChange($event)">
+                <option *ngFor="let season of title.seasons" [value]="season.number">{{ 'Season' | trans }} {{ season.number }}</option>
+            </select>
+        </div>
+    </div>
     <button mat-flat-button class="add-video-btn" color="accent" (click)="openAddVideoModal()" *ngIf="currentUser.hasPermission('videos.create') || currentUser.isLoggedIn() === false" trans>Add Video</button>
 </div>
 

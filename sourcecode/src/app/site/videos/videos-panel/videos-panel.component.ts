@@ -34,6 +34,7 @@ export class VideosPanelComponent implements OnInit{
     private adsCounter = 0;
     private currentVideoId = -1;
     private popups: Popup[];
+    public title: any;
 
     constructor(
         private modal: Modal,
@@ -46,10 +47,21 @@ export class VideosPanelComponent implements OnInit{
     ) {}
 
     ngOnInit () {
+        console.log(this.mediaItem);
         this.popups$.subscribe(popups => {
             this.popups = popups;
         });
         this.hydratePopups();
+        this.title = this.mediaItem;
+        if (this.title.season_count) {
+            this.handleOnChange({ target: { value: this.title.seasons[0].number }});
+        }
+    }
+
+    public handleOnChange(e) {
+        const season = e.target.value;
+        const title: any = this.mediaItem;
+        this.mediaItem.videos = title.all_videos.filter(video => video.season == season);
     }
 
     public openAddVideoModal() {

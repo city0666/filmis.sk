@@ -19,6 +19,7 @@ export class TitleResolverService implements Resolve<{seo: MetaTag[]}> {
     resolve(route: ActivatedRouteSnapshot): Observable<{seo: MetaTag[]}> {
         const params = {...route.params};
         if (route.data.fullCredits) params.fullCredits = true;
+        params.allVideos = true;
         return this.store.dispatch(new LoadTitle(params.titleId, params))
             .pipe(
                 catchError(() => {
