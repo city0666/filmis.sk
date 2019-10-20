@@ -28,7 +28,7 @@
              window.dataLayer = window.dataLayer || [];
              function gtag(){dataLayer.push(arguments);}
              gtag('js', new Date());
-
+             gtag('set', {'user_id': '{!! Auth::id() !!}' }); // Set the user ID using signed-in user_id.
              gtag('config', 'UA-140902921-2');
         </script>
 	</head>
@@ -57,6 +57,7 @@
 
                 ga('create', '{{ $settings->get('analytics.tracking_code') }}', 'auto');
                 ga('send', 'pageview');
+                ga('set', 'userId', '{!! Auth::id() !!}'); // Set the user ID using signed-in user_id.
             </script>
         @endif
 
