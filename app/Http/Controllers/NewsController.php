@@ -7,6 +7,7 @@ use Common\Core\Controller;
 use Common\Database\Paginator;
 use Common\Pages\Page;
 use Illuminate\Http\Request;
+use App\Helpers\AppHelper;
 
 class NewsController extends Controller
 {
@@ -53,6 +54,8 @@ class NewsController extends Controller
                 return $article;
             })->values();
         }
+
+        AppHelper::instance()->logActivity('/news');
 
         return $this->success(['pagination' => $pagination]);
     }

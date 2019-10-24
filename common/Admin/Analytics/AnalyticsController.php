@@ -6,6 +6,7 @@ use Common\Core\Controller;
 use Common\Admin\Analytics\Actions\GetAnalyticsData;
 use Common\Admin\Analytics\Actions\GetAnalyticsHeaderDataAction;
 use Exception;
+use App\User;
 
 class AnalyticsController extends Controller
 {
@@ -51,7 +52,12 @@ class AnalyticsController extends Controller
         return $this->success([
             'mainData' => $mainData,
             'headerData' => $headerData,
+            'logs' => $this->getLogs(),
         ]);
+    }
+
+    private function getLogs () {
+        return User::select('avatar', 'first_name', 'last_name', 'email', 'id')->with('logs')->whereHas('logs')->get();
     }
 
     private function getMainData() {

@@ -2,7 +2,7 @@
 
 @section('angular-styles')
     {{--angular styles begin--}}
-		<link rel="stylesheet" href="client/styles.41ed79c668654979db39.css">
+		<link rel="stylesheet" href="client/styles.3fabc5e1e4bf6a57b6cd.css">
 	{{--angular styles end--}}
 @endsection
 

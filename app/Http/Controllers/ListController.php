@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use App\Helpers\AppHelper;
 
 class ListController extends Controller
 {
@@ -59,6 +60,8 @@ class ListController extends Controller
 
         $pagination = $paginator->paginate($this->request->all());
 
+        AppHelper::instance()->logActivity('/lists');
+
         return $this->success(['pagination' => $pagination]);
     }
 
@@ -80,6 +83,9 @@ class ListController extends Controller
             $this->request->get('sortDir') === 'desc'
         )->values();
         $paginator = new LengthAwarePaginator($items, $items->count(), 10);
+
+        AppHelper::instance()->logActivity('/lists/'.$id);
+
         return $this->success([
             'list' => $list,
             'items' => $paginator,

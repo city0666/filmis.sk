@@ -13,6 +13,7 @@ use Common\Database\Paginator;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use App\Helpers\AppHelper;
 
 class PersonController extends Controller
 {
@@ -56,6 +57,8 @@ class PersonController extends Controller
             $person->setRelation('popular_credits', $person->popularCredits->slice(0, 1));
             return $person;
         });
+
+        AppHelper::instance()->logActivity('/people');
 
         return $this->success(['pagination' => $pagination]);
     }
