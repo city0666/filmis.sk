@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Settings} from '../../../../core/config/settings.service';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Settings } from '../../../../core/config/settings.service';
 import { AppHttpClient } from '../../../../core/http/app-http-client.service';
-import { SiteAnalyticsData } from '../../types/site-analytics-data';
+import { SiteAnalyticsData, LogData } from '../../types/site-analytics-data';
 import { transformWeeklyData } from '../../transformers/weekly-data-transformer';
 import { transformMonthlyData } from '../../transformers/monthly-data-transformer';
 import { transformBrowserData } from '../../transformers/browser-data-transformer';
@@ -11,6 +11,8 @@ import { ChartConfigs } from '../../types/chart-configs';
 import { AnalyticsHeaderData, AnalyticsResponse } from '../../types/analytics-response';
 import { finalize } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material';
 
 @Component({
     selector: 'analytics-container',
@@ -21,9 +23,14 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AnalyticsContainerComponent implements OnInit {
     public headerData: AnalyticsHeaderData[];
+    public logs: LogData[];
     public loading = new BehaviorSubject(true);
     public charts: Partial<ChartConfigs> = {};
 
+    public dataSource = new MatTableDataSource();
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    
     constructor(
         public settings: Settings,
         private route: ActivatedRoute,
@@ -38,11 +45,16 @@ export class AnalyticsContainerComponent implements OnInit {
                     this.generateCharts(response.mainData);
                 }
 
+                if (response.logs.length) {
+                    this.dataSource.data = response.logs;
+                }
+
                 if (response.headerData.length) {
                     this.headerData = response.headerData;
                 }
             });
     }
+
 
     private generateCharts(data: SiteAnalyticsData) {
         this.charts = {

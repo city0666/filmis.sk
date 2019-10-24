@@ -2,15 +2,15 @@
 
 @section('angular-styles')
     {{--angular styles begin--}}
-		<link rel="stylesheet" href="client/styles.3fabc5e1e4bf6a57b6cd.css">
+		<link rel="stylesheet" href="client/styles.41ed79c668654979db39.css">
 	{{--angular styles end--}}
 @endsection
 
 @section('angular-scripts')
     {{--angular scripts begin--}}
-		<script type="text/javascript" src="client/runtime.1f6c6d27eaf4224adcf4.js"></script>
+		<script type="text/javascript" src="client/runtime.99f14bc153bdb2ea7f8e.js"></script>
 		<script type="text/javascript" src="client/polyfills.ed3f4f27a6f3d39acb2e.js"></script>
-		<script type="text/javascript" src="client/main.3ed7cdd4b606f335d0b2.js"></script>
+		<script type="text/javascript" src="client/main.e339e5b55f6c19c39a8e.js"></script>
 	{{--angular scripts end--}}
 @endsection
 

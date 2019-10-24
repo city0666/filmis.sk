@@ -1,4 +1,4 @@
-import { SiteAnalyticsData } from './site-analytics-data';
+import { SiteAnalyticsData, LogData } from './site-analytics-data';
 import { BackendResponse } from '../../../core/types/backend-response';
 
 export interface AnalyticsHeaderData {
@@ -10,5 +10,6 @@ export interface AnalyticsHeaderData {
 
 export type AnalyticsResponse = BackendResponse<{
     mainData: SiteAnalyticsData,
-    headerData: AnalyticsHeaderData[]
+    headerData: AnalyticsHeaderData[],
+    logs: LogData[],
 }>;

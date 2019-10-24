@@ -13,4 +13,33 @@ analytics-container {
     height: 400px;
     margin-bottom: 25px;
   }
+
+  .logs {
+    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.05) !important;
+    margin-right: 25px;
+    max-width: 100%;
+    min-width: calc(50% - 25px);
+    mat-header-cell {
+      padding-right: 5px;
+      word-break: break-word;
+    }
+    mat-cell {
+      padding-right: 5px;
+      word-break: break-word;
+    }
+    &-header {
+      background: white;
+      border-bottom: 1px solid #E0E0E0;
+      padding: 15px;
+      .title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87);
+      }
+      .subtitle {
+        font-size: 1.2rem;
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+  }
 }

@@ -18,14 +18,40 @@
     </div>
 
     <div class="chart-row">
-        <chart [chartConfig]="charts.monthlyPageViews">
-            <div class="title" trans>This Month vs Last Month</div>
-            <div class="subtitle" trans>By page views</div>
-            <div class="chart-legend">
-                <div class="legend-item" trans>This month</div>
-                <div class="legend-item" trans>Last month</div>
+        <div class="logs">
+            <div class="logs-header">
+                <div class="title" trans="">Monthly sessions</div>
+                <div class="subtitle" trans="">By unique users</div>
             </div>
-        </chart>
+            <mat-table [dataSource]="dataSource" matSort class="logs-table">
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header trans>User ID</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                        <span>{{user.id}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header trans>Email</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="sessions">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header trans>Sessions</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.logs.length}}</mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="['id', 'email', 'sessions']"></mat-header-row>
+                <mat-row *matRowDef="let myRowData; columns: ['id', 'email', 'sessions']">
+                </mat-row>
+            </mat-table>
+
+            <no-results-message *ngIf="!dataSource.data.length">
+                <span primary-text trans>Nothing to Display.</span>
+                <span secondary-text trans>There are no credits attached yet.</span>
+            </no-results-message>
+        </div>
 
         <chart [chartConfig]="charts.countries">
             <div class="title" trans>Top Countries</div>

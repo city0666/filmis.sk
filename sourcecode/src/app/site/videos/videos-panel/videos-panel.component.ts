@@ -47,7 +47,6 @@ export class VideosPanelComponent implements OnInit{
     ) {}
 
     ngOnInit () {
-        console.log(this.mediaItem);
         this.popups$.subscribe(popups => {
             this.popups = popups;
         });
@@ -175,6 +174,10 @@ export class VideosPanelComponent implements OnInit{
     }
 
     public getThumbnail(video: Video) {
+        const title: any = this.mediaItem;
+        if (title.episodes && title.episodes.length && video.episode_id) {
+            return title.episodes.find(t => t.id == video.episode_id).poster;
+        } 
         return video.thumbnail || this.mediaItem['backdrop'] || this.mediaItem.poster;
     }
 

@@ -32,9 +32,13 @@ class ShowTitle
         }
 
         $videos = Arr::get($params, 'allVideos') ? 'allVideos' : 'videos';
-        $title->load(['images', $videos, 'genres', 'seasons' => function(HasMany $query) {
-            $query->select(['id', 'number', 'episode_count', 'title_id']);
-        }]);
+        $title->load([
+            'images', $videos, 'genres', 
+            'episodes',
+            'seasons' => function(HasMany $query) {
+                $query->select(['id', 'number', 'episode_count', 'title_id']);
+            }]
+        );
 
         $this->loadCredits($title, $params);
 
