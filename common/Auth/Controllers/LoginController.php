@@ -6,8 +6,6 @@ use Common\Core\Controller;
 use Common\Core\BootstrapData;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-use App\Helpers\AppHelper;
-
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
@@ -58,8 +56,6 @@ class LoginController extends Controller
     protected function authenticated()
     {
         $data = $this->bootstrapData->get();
-
-        AppHelper::instance()->logActivity('/login');
         return $this->success(['data' => $data]);
     }
 

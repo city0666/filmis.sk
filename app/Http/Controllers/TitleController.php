@@ -18,7 +18,6 @@ use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use App\Helpers\AppHelper;
 
 class TitleController extends Controller
 {
@@ -50,8 +49,6 @@ class TitleController extends Controller
         $this->authorize('index', Title::class);
 
         $pagination = app(PaginateTitles::class)->execute($this->request->all());
-
-        AppHelper::instance()->logActivity('/browse');
 
         return $this->success(['pagination' => $pagination]);
     }

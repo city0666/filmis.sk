@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\ListModel;
 use Common\Core\Controller;
 use Common\Settings\Settings;
-use App\Helpers\AppHelper;
 
 class HomepageContentController extends Controller
 {
@@ -54,8 +53,6 @@ class HomepageContentController extends Controller
                 'config' => 'home.show'
             ]
         ];
-
-        AppHelper::instance()->logActivity('/');
 
         return $this->success(['lists' => $lists], 200, $options);
     }
