@@ -9,9 +9,10 @@ import { Episode } from '../../../../models/episode';
 import { MEDIA_TYPE } from '../../../media-type';
 import { Season } from '../../../../models/season';
 import { CurrentUser } from 'common/auth/current-user';
-import { UpdateTitle } from '../../state/title-actions';
+import { UpdateTitle, CrupdateReview } from '../../state/title-actions';
 import { CrupdatePlotModalComponent } from 'app/site/plot/crupdate-plot-modal/crupdate-plot-modal.component';
 import { Modal } from 'common/core/ui/dialogs/modal.service';
+import { CrupdateReviewModalComponent } from 'app/site/reviews/crupdate-review-modal/crupdate-review-modal.component';
 
 @Component({
     selector: 'title-secondary-details-panel',
@@ -52,6 +53,22 @@ export class TitleSecondaryDetailsPanelComponent implements OnChanges {
         const title = this.store.selectSnapshot(TitleState.title);
         this.store.dispatch(new PlayVideo(video, title));
     }
+
+    public openCrupdateReviewModal() {
+        const review = (this.store.selectSnapshot(TitleState.reviews) || [])
+            .find(curr => curr.user_id === this.currentUser.get('id'));
+        const mediaId = this.store.selectSnapshot(TitleState.title).id;
+        this.modal.open(
+            CrupdateReviewModalComponent,
+            {review, mediaId},
+            'crupdate-review-modal-container'
+        ).beforeClosed().subscribe(newReview => {
+            if (newReview) {
+                this.store.dispatch(new CrupdateReview(newReview));
+            }
+        });
+    }
+
 
     public openUpdatePlotModal() {
         const title = this.store.selectSnapshot(TitleState.title);

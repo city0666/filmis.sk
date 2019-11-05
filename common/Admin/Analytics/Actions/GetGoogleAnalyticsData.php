@@ -27,7 +27,8 @@ class GetGoogleAnalyticsData implements GetAnalyticsData
         return [
             'browsers' =>  $this->analytics->getTopBrowsers(7),
             'countries' => $this->getCountries(),
-            'weeklyPageViews' => $this->weeklyPageViews(),
+            // 'weeklyPageViews' => $this->weeklyPageViews(),
+            'monthlyAudience' => $this->monthlyAudience(),
             'monthlyPageViews' => $this->monthlyPageViews(),
         ];
     }
@@ -46,6 +47,39 @@ class GetGoogleAnalyticsData implements GetAnalyticsData
             'current' => $this->getPageViews(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()),
             'previous' => $this->getPageViews(Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth())
         ];
+    }
+    private function monthlyAudience()
+    {
+        return [
+            'current' => $this->getAudienceOverview(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()),
+            'previous' => $this->getAudienceOverview(Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth())
+        ];
+    }
+
+    private function getAudienceOverview(Carbon $start, Carbon $end) {
+        $data = $this->analytics->performQuery(
+            $start,
+            $end,
+            'ga:users',
+            ['dimensions' => 'ga:date']
+        );
+
+        if (is_null($data->rows)) {
+            return new Collection([]);
+        }
+
+        $rows = [];
+        foreach ($data->rows as $row) {
+            $rows[] = [
+                'pageViews' => (int)$row[1],
+                'date' => $this->transformDate($row[0])
+            ];
+        }
+        return $rows;
+    }
+
+    private function transformDate($date) {
+        return strtotime(substr($date, 0, 4).'-'.substr($date, 4, 2).'-'.substr($date, 6, 2));
     }
 
     private function getPageViews(Carbon $start, Carbon $end)

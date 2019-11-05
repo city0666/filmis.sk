@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Settings } from '../../../../core/config/settings.service';
 import { AppHttpClient } from '../../../../core/http/app-http-client.service';
 import { SiteAnalyticsData } from '../../types/site-analytics-data';
-import { transformWeeklyData } from '../../transformers/weekly-data-transformer';
 import { transformMonthlyData } from '../../transformers/monthly-data-transformer';
 import { transformBrowserData } from '../../transformers/browser-data-transformer';
 import { transformCountryData } from '../../transformers/country-data-transformer';
@@ -47,7 +46,7 @@ export class AnalyticsContainerComponent implements OnInit {
 
     private generateCharts(data: SiteAnalyticsData) {
         this.charts = {
-            weeklyPageViews: transformWeeklyData(data.weeklyPageViews),
+            monthlyAudience: transformMonthlyData(data.monthlyAudience),
             monthlyPageViews: transformMonthlyData(data.monthlyPageViews),
             browsers: transformBrowserData(data.browsers),
             countries: transformCountryData(data.countries)

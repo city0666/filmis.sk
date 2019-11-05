@@ -44,7 +44,7 @@
                     </ng-container>
                     <ng-template #noDescription>
                         {{'No overview has been added yet.' | trans}} 
-                        <a (click)="openUpdatePlotModal()" class="text-primary" *ngIf="currentUser.hasPermission('titles.update')">{{'Add plot.' | trans}}</a>
+                        <a (authClick)="openCrupdateReviewModal()" class="text-primary pointer">{{'Add plot.' | trans}}</a>
                     </ng-template>
                 </div>
             </div>

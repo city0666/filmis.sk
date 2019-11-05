@@ -27,5 +27,5 @@ export interface SiteAnalyticsData {
     browsers: BrowserData[];
     countries: CountryData[];
     monthlyPageViews: MonthlyPageViews;
-    weeklyPageViews: WeeklyPageViews;
+    monthlyAudience: MonthlyPageViews;
 }

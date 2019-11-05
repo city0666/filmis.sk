@@ -4,6 +4,10 @@ title-secondary-details-panel {
   display: flex;
   overflow: hidden;
 
+  .pointer {
+    cursor: pointer;
+  }
+  
   .left {
     display: flex;
     flex: 1 1 auto;

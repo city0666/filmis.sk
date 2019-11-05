@@ -57,6 +57,13 @@ export class VideosPanelComponent implements OnInit{
         }
     }
 
+    ngOnChanges () {
+        this.title = this.mediaItem;
+        if (this.title.season_count) {
+            this.handleOnChange({ target: { value: this.title.seasons[0].number }});
+        }
+    }
+
     public handleOnChange(e) {
         const season = e.target.value;
         const title: any = this.mediaItem;

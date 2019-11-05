@@ -30,13 +30,4 @@ class User extends BaseUser
             ->select('id', 'reviewable_id', 'reviewable_type', 'score')
             ->limit(500);
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function logs()
-    {
-        return $this->hasMany(Log::class, 'user_id', 'id')
-            ->whereBetween('created_at', array(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()));
-    }
 }

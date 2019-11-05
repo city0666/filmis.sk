@@ -41,9 +41,7 @@ class AnalyticsController extends Controller
     {
         $this->authorize('index', 'ReportPolicy');
 
-        $mainData = $data = Cache::remember('analytics.data.main', Carbon::now()->addDay(), function() {
-            return $this->getMainData();
-        }) ?: [];
+        $mainData = $this->getMainData();
 
         $headerData = $data = Cache::remember('analytics.data.header', Carbon::now()->addDay(), function() {
             return $this->getHeaderDataAction->execute();
@@ -51,13 +49,8 @@ class AnalyticsController extends Controller
 
         return $this->success([
             'mainData' => $mainData,
-            'headerData' => $headerData,
-            'logs' => $this->getLogs(),
+            'headerData' => $headerData
         ]);
-    }
-
-    private function getLogs () {
-        return User::select('avatar', 'first_name', 'last_name', 'email', 'id')->with('logs')->whereHas('logs')->get();
     }
 
     private function getMainData() {

@@ -1,7 +1,7 @@
 import { ChartConfig } from '../base-chart';
 
 export interface ChartConfigs {
-    weeklyPageViews: ChartConfig;
+    monthlyAudience: ChartConfig;
     monthlyPageViews: ChartConfig;
     countries: ChartConfig;
     browsers: ChartConfig;
