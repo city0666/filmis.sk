@@ -31,6 +31,7 @@ export class CrupdateArticleComponent implements OnInit {
         title: [''],
         body: [''],
         image: [''],
+        source: [''],
     });
 
     constructor(
@@ -84,6 +85,7 @@ export class CrupdateArticleComponent implements OnInit {
             title: article.title,
             body: article.body,
             image: article.meta.image,
+            source: article.meta.source,
         });
     }
 

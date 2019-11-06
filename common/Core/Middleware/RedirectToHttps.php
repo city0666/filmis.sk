@@ -24,9 +24,9 @@ class RedirectToHttps
 
     public function handle(Request $request, Closure $next)
     {
-        if ( ! $request->secure() && $this->settings->get('site.force_https')) {
-            return redirect()->secure($request->getRequestUri());
-        }
+        // if ( ! $request->secure() && $this->settings->get('site.force_https')) {
+        //     return redirect()->secure($request->getRequestUri());
+        // }
 
         return $next($request);
     }

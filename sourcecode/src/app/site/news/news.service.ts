@@ -10,7 +10,7 @@ import {NewsArticle} from '../../models/news-article';
 export class NewsService {
     constructor(private http: AppHttpClient) {}
 
-    public getAll(params: {perPage?: number, page?: number, stripHtml?: boolean}): PaginatedBackendResponse<NewsArticle> {
+    public getAll(params: {perPage?: number, page?: number, stripHtml?: boolean, visible?: boolean}): PaginatedBackendResponse<NewsArticle> {
         return this.http.get('news', params);
     }
 

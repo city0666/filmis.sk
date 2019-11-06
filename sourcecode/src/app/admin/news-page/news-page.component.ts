@@ -11,6 +11,9 @@ import {NewsArticle} from '../../models/news-article';
 import {NewsService} from '../../site/news/news.service';
 import {Toast} from '../../../common/core/ui/toast.service';
 import {MESSAGES} from '../../toast-messages';
+import { ArtisanService } from '../../../common/admin/artisan.service';
+import {finalize} from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'news-page',
@@ -22,6 +25,8 @@ import {MESSAGES} from '../../toast-messages';
 export class NewsPageComponent implements OnInit, OnDestroy {
     @ViewChild(MatSort) matSort: MatSort;
     public dataSource: PaginatedDataTableSource<NewsArticle>;
+    public loading$ = new BehaviorSubject(false);
+    public loading = false;
 
     constructor(
         public paginator: UrlAwarePaginator,
@@ -31,6 +36,7 @@ export class NewsPageComponent implements OnInit, OnDestroy {
         public settings: Settings,
         public urls: TitleUrlsService,
         private toast: Toast,
+        private artisan: ArtisanService,
     ) {}
 
     ngOnInit() {
@@ -43,6 +49,37 @@ export class NewsPageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.paginator.destroy();
+    }
+
+    public updateNews() {
+        this.loading = true;
+        this.artisan.call({command: 'news:update'})
+            .pipe(finalize(() => this.loading = false))
+            .subscribe(() => {
+                this.toast.open(MESSAGES.NEWS_MANUALLY_UPDATE_SUCCESS);
+            });
+    }
+
+    public onChangeVisible(event, article: NewsArticle) {
+        // console.log(event.checked, article);
+        this.loading$.next(true);
+        let payload = {
+            title: article.title,
+            body: article.body,
+            image: article.meta.image,
+            source: article.meta.source,
+            visible: article.meta.visible,
+        };
+        const request = this.news.update(article.id, payload)
+
+        request
+            .pipe(finalize(() => this.loading$.next(false)))
+            .subscribe(() => {
+                this.toast.open(MESSAGES.NEWS_UPDATE_SUCCESS);
+                // this.router.navigate(['/admin/news']);
+            }, errResponse => {
+                this.toast.open(errResponse.messages);
+            });
     }
 
     public deleteSelectedArticles() {

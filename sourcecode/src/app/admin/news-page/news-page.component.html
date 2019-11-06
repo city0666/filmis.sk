@@ -1,6 +1,8 @@
 <data-table [dataSource]="dataSource" itemsName="articles" matSort>
     <a mat-raised-button routerLink="/admin/news/create" color="accent" *ngIf="currentUser.hasPermission('news.create')" headerActions trans>Add</a>
 
+    <button mat-raised-button color="accent" class="button" (click)="updateNews()" [disabled]="loading" type="button" headerActions trans>Update News Now</button>
+
     <button mat-icon-button [matTooltip]="'Delete selected' | trans" (click)="maybeDeleteSelectedArticles()" headerSelectedActions *ngIf="currentUser.hasPermission('news.delete')">
         <mat-icon svgIcon="delete"></mat-icon>
     </button>
@@ -23,6 +25,13 @@
         <mat-cell *matCellDef="let article">{{article.created_at | formattedDate}}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="visible">
+        <mat-header-cell *matHeaderCellDef>View in News</mat-header-cell>
+        <mat-cell *matCellDef="let article">
+            <mat-slide-toggle [(ngModel)]="article.meta.visible" (change)="onChangeVisible($event, article)" trans></mat-slide-toggle>
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let article">
@@ -32,3 +41,5 @@
         </mat-cell>
     </ng-container>
 </data-table>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>

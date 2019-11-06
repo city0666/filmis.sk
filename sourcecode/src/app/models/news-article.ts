@@ -9,6 +9,7 @@ export class NewsArticle {
     meta: {
         image: string,
         source: string,
+        visible?: boolean,
     };
 
     constructor(params: Object = {}) {

@@ -29,7 +29,7 @@ export class NewsIndexComponent extends InfiniteScroll implements OnInit {
     private loadArticles() {
         this.loading$.next(true);
         const page = this.articles$.value ? (this.articles$.value.current_page + 1) : 1;
-        this.news.getAll({perPage: 10, page, stripHtml: true})
+        this.news.getAll({perPage: 10, page, stripHtml: true, visible: true})
             .pipe(finalize(() => this.loading$.next(false)))
             .subscribe(response => {
                 if (this.articles$.value) {

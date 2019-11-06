@@ -8,6 +8,13 @@
     </div>
 
     <div class="input-container">
+        <label for="source" trans>Source</label>
+        <div class="input-with-action">
+            <input type="text" id="source" placeholder="Source..." formControlName="source">
+        </div>
+    </div>
+
+    <div class="input-container">
         <label for="image" trans>Image</label>
         <div class="input-with-action">
             <button mat-flat-button color="accent" type="button" (click)="openUploadImageDialog()">
@@ -19,6 +26,7 @@
 
     <div class="errors" *ngIf="errors$ | async as errors">
         <div class="error" *ngIf="errors.title" trans>{{errors.title}}</div>
+        <div class="error" *ngIf="errors.source" trans>{{errors.source}}</div>
         <div class="error" *ngIf="errors.body" trans>{{errors.body}}</div>
         <div class="error" *ngIf="errors.image" trans>{{errors.image}}</div>
     </div>
