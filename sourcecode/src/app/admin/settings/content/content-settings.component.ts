@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {SettingsPanelComponent} from '../../../../common/admin/settings/settings-panel.component';
 import {finalize} from 'rxjs/operators';
 import {MESSAGES} from '../../../toast-messages';
+import { CurrentUser } from '../../../../common/auth/current-user';
 
 @Component({
     selector: 'content-settings',

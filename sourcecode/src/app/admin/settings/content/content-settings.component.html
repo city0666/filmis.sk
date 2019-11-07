@@ -9,7 +9,7 @@
         <p trans>When enabled, news will be automatically updated using 3rd party sites.</p>
     </div>
 
-    <button mat-flat-button color="accent" class="button" (click)="updateNews()" [disabled]="loading" type="button" trans>Update News Now</button>
+    <button mat-flat-button color="accent" class="button" (click)="updateNews()" [disabled]="loading" type="button" *ngIf="currentUser.hasPermission('news.visible.newsbutton')" trans>Update News Now</button>
 
     <div class="settings-separator"></div>
 

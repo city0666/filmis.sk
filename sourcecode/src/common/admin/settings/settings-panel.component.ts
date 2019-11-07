@@ -10,6 +10,7 @@ import {CustomHomepage} from '../../core/pages/custom-homepage.service';
 import { AppHttpClient } from '../../core/http/app-http-client.service';
 import {ArtisanService} from '../artisan.service';
 import {SettingsPayload} from '../../core/config/settings-payload';
+import {CurrentUser} from '../../auth/current-user';
 
 @Component({
     selector: 'settings-panel',
@@ -29,6 +30,7 @@ export class SettingsPanelComponent implements OnDestroy {
         protected pages: Pages,
         protected artisan: ArtisanService,
         protected customHomepage: CustomHomepage,
+        public currentUser: CurrentUser,
         public state: SettingsState,
     ) {}
 

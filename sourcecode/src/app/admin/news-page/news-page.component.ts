@@ -56,6 +56,7 @@ export class NewsPageComponent implements OnInit, OnDestroy {
         this.artisan.call({command: 'news:update'})
             .pipe(finalize(() => this.loading = false))
             .subscribe(() => {
+                this.dataSource.refresh();
                 this.toast.open(MESSAGES.NEWS_MANUALLY_UPDATE_SUCCESS);
             });
     }

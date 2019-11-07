@@ -37,7 +37,7 @@ export class NewsArticleComponent implements OnInit {
     }
     
     private getSidebarArticles() {
-        return this.news.getAll({perPage: 10}).subscribe(response => {
+        return this.news.getAll({perPage: 10, visible: true}).subscribe(response => {
             this.sidebarArticles$.next(response.pagination.data);
         });
     }
