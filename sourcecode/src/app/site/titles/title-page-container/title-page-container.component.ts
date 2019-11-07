@@ -51,8 +51,9 @@ export class TitlePageContainerComponent implements OnInit {
     }
 
     public normalize(str: String) {
-        let result = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        result = result.replace(/[ !@#$%^&*()?{}:";'<>,.+_=]/g, "-");
+        const symbol = this.settings.get('button.symbol');
+        let result = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        result = result.replace(/[ !@#$%^&*()?{}:";'<>,.+_=]/g, symbol || '-');
         return result;
     }
 }

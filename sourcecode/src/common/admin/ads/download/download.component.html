@@ -21,6 +21,11 @@
         </div>
     </div>
 
+    <div class="input-container">
+        <label for="" trans>Symbol</label>
+        <input type="text" name="button.symbol" [(ngModel)]="model['button.symbol']" [ngModelOptions]="{standalone:true}">
+    </div>
+
     <div class="setting-toggle-container margin-top margin-bottom">
         <mat-slide-toggle name="button.useTitle" id="button.useTitle" [(ngModel)]="model['button.useTitle']" trans>Enable Title Link</mat-slide-toggle>
         <p trans>Use title of movie to link.</p>

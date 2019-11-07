@@ -41,6 +41,8 @@ return [
             'news.create',
             'news.update',
             'news.delete',
+            'news.visible.newsbutton',
+            'news.visible.onoff',
         ],
         'images' => [
             'images.view',

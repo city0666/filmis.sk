@@ -25,7 +25,7 @@
         <mat-cell *matCellDef="let article">{{article.created_at | formattedDate}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="visible">
+    <ng-container matColumnDef="visible" *ngIf="currentUser.hasPermission('news.visible.onoff')">
         <mat-header-cell *matHeaderCellDef>View in News</mat-header-cell>
         <mat-cell *matCellDef="let article">
             <mat-slide-toggle [(ngModel)]="article.meta.visible" (change)="onChangeVisible($event, article)" trans></mat-slide-toggle>

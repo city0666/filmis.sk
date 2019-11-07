@@ -61,22 +61,20 @@ export class NewsPageComponent implements OnInit, OnDestroy {
     }
 
     public onChangeVisible(event, article: NewsArticle) {
-        // console.log(event.checked, article);
         this.loading$.next(true);
-        let payload = {
+        const payload = {
             title: article.title,
             body: article.body,
             image: article.meta.image,
             source: article.meta.source,
             visible: article.meta.visible,
         };
-        const request = this.news.update(article.id, payload)
+        const request = this.news.update(article.id, payload);
 
         request
             .pipe(finalize(() => this.loading$.next(false)))
             .subscribe(() => {
                 this.toast.open(MESSAGES.NEWS_UPDATE_SUCCESS);
-                // this.router.navigate(['/admin/news']);
             }, errResponse => {
                 this.toast.open(errResponse.messages);
             });
