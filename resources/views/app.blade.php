@@ -2,13 +2,13 @@
 
 @section('angular-styles')
     {{--angular styles begin--}}
-		<link rel="stylesheet" href="client/styles.41ed79c668654979db39.css">
+		<link rel="stylesheet" href="client/styles.4a6d13b33397a095fbce.css">
 	{{--angular styles end--}}
 @endsection
 
 @section('angular-scripts')
     {{--angular scripts begin--}}
-		<script type="text/javascript" src="client/runtime.b96e59b92fbe49a72d92.js"></script>
+		<script type="text/javascript" src="client/runtime.6a496a2cb0395769d31b.js"></script>
 		<script type="text/javascript" src="client/polyfills.ed3f4f27a6f3d39acb2e.js"></script>
 		<script type="text/javascript" src="client/main.6ca2786950617576c806.js"></script>
 	{{--angular scripts end--}}

@@ -74,7 +74,7 @@ class NewsController extends Controller
     {
         $article = $this->article->findOrFail($id);
 
-        $this->authorize('update', $article);
+        // $this->authorize('update', $article);
 
         $this->validate($this->request, [
             'title' => 'min:5|max:250',

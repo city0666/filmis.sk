@@ -26,7 +26,7 @@
     </ng-container>
 
     <ng-container matColumnDef="visible" *ngIf="currentUser.hasPermission('news.visible.onoff')">
-        <mat-header-cell *matHeaderCellDef>View in News</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef trans>View in News</mat-header-cell>
         <mat-cell *matCellDef="let article">
             <mat-slide-toggle [(ngModel)]="article.meta.visible" (change)="onChangeVisible($event, article)" trans></mat-slide-toggle>
         </mat-cell>
