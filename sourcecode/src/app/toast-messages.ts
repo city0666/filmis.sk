@@ -28,6 +28,7 @@ export const MESSAGES = {
     VIDEO_UPDATE_SUCCESS: 'Video updated.',
     VIDEO_UPDATE_FAILED: 'Could not update video.',
     VIDEO_DELETE_SUCCESS: 'Video deleted.',
+    VIDEO_DELETE_FAILED: 'Could not delete video.',
     TAG_DETACH_SUCCESS: 'Tag detached.',
     PERSON_CREATE_SUCCESS: 'Person created.',
     PERSON_UPDATE_SUCCESS: 'Person updated.',
@@ -37,5 +38,6 @@ export const MESSAGES = {
     LISTS_MANUALLY_UPDATE_SUCCESS: 'Lists updated.',
     NEWS_MANUALLY_UPDATE_SUCCESS: 'News updated.',
     SITEMAP_GENERATED: 'Sitemap generated.',
+    XML_TITLES_GENERATED: 'XML Titles generated.',
 };
 

@@ -96,6 +96,7 @@ Route::group(['prefix' => 'secure', 'middleware' => 'web'], function () {
     //OTHER ADMIN ROUTES
     Route::get('admin/analytics/stats', 'Common\Admin\Analytics\AnalyticsController@stats');
     Route::post('artisan/call', 'Common\Admin\Console\ArtisanController@call');
+    Route::get('artisan/update', 'Common\Admin\Console\ArtisanController@update');
 
     //billing plans
     Route::get('billing/plans', 'Common\Billing\Plans\BillingPlansController@index');

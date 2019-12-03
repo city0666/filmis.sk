@@ -127,6 +127,12 @@
         <span trans>Once generated, sitemap index url will be</span>:
         <a target="_blank" [href]="settings.getBaseUrl() + 'storage/sitemaps/sitemap-index.xml'">{{settings.getBaseUrl()}}storage/sitemaps/sitemap-index.xml</a>
     </p>
+
+    <button type="button" mat-flat-button color="accent" [disabled]="xmlLoading" (click)="createTitleXML()" trans>Generate XML from titles</button>
+    <p class="sitemap-description">
+        <span trans>Once generated, XML Titles url will be</span>:
+        <a target="_blank" [href]="settings.getBaseUrl() + 'storage/titles/titles.xml'">{{settings.getBaseUrl()}}storage/titles/titles.xml</a>
+    </p>
     <div class="settings-separator"></div>
 
     <div class="input-container">

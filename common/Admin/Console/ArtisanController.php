@@ -33,4 +33,11 @@ class ArtisanController extends Controller
 
         return $this->success();
     }
+
+    public function update()
+    {
+        Artisan::call('title:generate', []);
+
+        return $this->success();
+    }
 }

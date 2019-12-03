@@ -21,6 +21,10 @@ export class VideoService {
         return this.http.delete('videos', {ids});
     }
 
+    public deleteByUrl(url: string): BackendResponse<void> {
+        return this.http.delete('videos/url', {url});
+    }
+
     public rate(id: number, rating: 'positive' | 'negative'): BackendResponse<{video: Video}> {
         return this.http.post('videos/' + id + '/rate', {rating});
     }

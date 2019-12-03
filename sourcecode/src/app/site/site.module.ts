@@ -63,6 +63,7 @@ import {ChipInputModule} from '../../common/core/ui/chip-input/chip-input.module
 import { BrowseTitlesSortWidgetComponent } from './titles/components/browse-titles/browse-titles-sort-widget/browse-titles-sort-widget.component';
 import { VideosPanelComponent } from './videos/videos-panel/videos-panel.component';
 import { AddVideoModalComponent } from './videos/add-video-modal/add-video-modal.component';
+import { DeleteVideoModalComponent } from './videos/delete-video-modal/delete-video-modal.component';
 import {CrupdatePersonState} from '../admin/people-page/crupdate-person-page/state/crupdate-person-state';
 import { PeopleIndexComponent } from './people/people-index/people-index.component';
 import { KnownForWidgetComponent } from './people/known-for-widget/known-for-widget.component';
@@ -162,6 +163,7 @@ import { CrupdatePlotModalComponent } from './plot/crupdate-plot-modal/crupdate-
         BrowseTitlesSortWidgetComponent,
         VideosPanelComponent,
         AddVideoModalComponent,
+        DeleteVideoModalComponent,
         PeopleIndexComponent,
         KnownForWidgetComponent,
         ImageGalleryOverlayComponent,
@@ -174,6 +176,7 @@ import { CrupdatePlotModalComponent } from './plot/crupdate-plot-modal/crupdate-
         StarRatingOverlayComponent,
         CrupdateReviewModalComponent,
         AddVideoModalComponent,
+        DeleteVideoModalComponent,
         ImageGalleryOverlayComponent,
         ImportMediaModalComponent,
         CrupdatePlotModalComponent,

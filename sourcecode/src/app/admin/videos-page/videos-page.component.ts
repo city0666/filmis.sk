@@ -10,6 +10,7 @@ import {ConfirmModalComponent} from '../../../common/core/ui/confirm-modal/confi
 import {VideoService} from '../../site/videos/video.service';
 import {Video} from '../../models/video';
 import {AddVideoModalComponent} from '../../site/videos/add-video-modal/add-video-modal.component';
+import { DeleteVideoModalComponent } from '../../site/videos/delete-video-modal/delete-video-modal.component';
 import {FormControl} from '@angular/forms';
 
 @Component({
@@ -59,6 +60,16 @@ export class VideosPageComponent implements OnInit, OnDestroy {
         this.videos.delete(ids).subscribe(() => {
             this.paginator.refresh();
             this.dataSource.selectedRows.clear();
+        });
+    }
+
+    public maybeDeleteByUrl() {
+        this.modal.open(
+            DeleteVideoModalComponent,
+            null,
+            {panelClass: 'delete-video-modal-container'}
+        ).beforeClosed().subscribe(() => {
+            this.dataSource.refresh();
         });
     }
 

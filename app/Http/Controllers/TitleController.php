@@ -41,6 +41,20 @@ class TitleController extends Controller
         $this->title = $title;
     }
 
+    public function xml () {
+        $titles = $this->title
+            ->join('videos', function ($q) {
+                $q->on('titles.id', '=', 'videos.title_id')
+                    ->where('videos.type', '=', 'embed');
+            })
+            ->with('videos', 'genres')
+            ->where('is_series', false)
+            ->limit(10)
+            ->get();
+
+        return $this->success(['data' => $titles]);
+    }
+
     /**
      * @return JsonResponse
      */

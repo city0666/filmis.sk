@@ -11,6 +11,8 @@ import { CurrentUser } from '../../../../common/auth/current-user';
     encapsulation: ViewEncapsulation.None,
 })
 export class ContentSettingsComponent extends SettingsPanelComponent implements OnInit {
+    public xmlLoading = false;
+    
     public browseGenres: string[] = [];
     public ageRatings: string[] = [];
     public videoLanguages: string[] = [];
@@ -56,6 +58,15 @@ export class ContentSettingsComponent extends SettingsPanelComponent implements 
             .pipe(finalize(() => this.loading = false))
             .subscribe(() => {
                 this.toast.open(MESSAGES.SITEMAP_GENERATED);
+            });
+    }
+
+    public createTitleXML() {
+        this.xmlLoading = true;
+        return this.artisan.call({command: 'title:generate'})
+            .pipe(finalize(() => this.xmlLoading = false))
+            .subscribe(() => {
+                this.toast.open(MESSAGES.XML_TITLES_GENERATED);
             });
     }
 }

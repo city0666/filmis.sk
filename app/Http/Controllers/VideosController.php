@@ -145,4 +145,12 @@ class VideosController extends Controller
 
         return $this->success();
     }
+
+    public function destroyUrl()
+    {
+        $this->authorize('destroy', Video::class);
+        $this->video->where('url', 'like', '%' . $this->request->get('url') . '%')->delete();
+
+        return $this->success();
+    }
 }

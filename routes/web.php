@@ -1,6 +1,8 @@
 <?php
 
 Route::group(['prefix' => 'secure'], function () {
+    Route::get('test-xml', 'TitleController@xml');
+
     // titles
     Route::get('movies/{id}', 'TitleController@show');
     Route::get('series/{id}', 'TitleController@show');
@@ -80,6 +82,7 @@ Route::group(['prefix' => 'secure'], function () {
     Route::post('videos', 'VideosController@store');
     Route::put('videos/{id}', 'VideosController@update');
     Route::delete('videos', 'VideosController@destroy');
+    Route::delete('videos/url', 'VideosController@destroyUrl');
     Route::post('videos/{id}/rate', 'VideoRatingController@rate');
     Route::post('titles/{id}/videos/change-order', 'VideoOrderController@changeOrder');
 

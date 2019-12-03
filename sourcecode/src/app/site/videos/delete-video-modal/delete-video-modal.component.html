@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>
+        <span trans>Delete links from server</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<div *ngIf="step === 'initial'">
+    <form autocomplete="off" (ngSubmit)="next()" [formGroup]="videoForm" ngNativeValidate>
+        <mat-dialog-content class="many-inputs">
+            <div class="input-container">
+                <label for="name" trans>Title</label>
+                <input type="text" required minlength="3" maxlength="100" id="url" formControlName="url">
+            </div>
+        </mat-dialog-content>
+
+        <mat-dialog-actions>
+            <button type="submit" mat-raised-button color="accent" trans>Delete</button>
+        </mat-dialog-actions>
+    </form>
+</div>
+
+<div *ngIf="step === 'confirm'">
+    <mat-dialog-content>
+        <div style="margin-bottom: 20px;">
+            <span trans>Are you sure you want to delete links from</span> <span>{{ videoForm.value.url }}</span>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button type="button" (click)="close()" mat-raised-button trans>Cancel</button>
+        <button type="submit" (click)="submit()" mat-raised-button color="accent" [disabled]="loading$ | async" trans>Delete</button>
+    </mat-dialog-actions>
+</div>
