@@ -91,95 +91,95 @@ class XMLTitleGenerator {
     public function generate()
     {
         $string = '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-            '<movies>'."\n";
+            '<Titles>'."\n";
         
-
-        $titles = Title::join('videos', function ($q) {
-            $q->on('titles.id', '=', 'videos.title_id')
+        $titles = Title::whereHas('videos', function ($q) {
+            $q->where('videos.source', '=', 'local')
                 ->where('videos.type', '=', 'embed');
         })
-        ->with('videos')
+        ->with('videos', 'genres', 'credits')
         ->where('is_series', false)
         ->limit($this->queryLimit)
         ->get();
 
         foreach ($titles as $title) {
-            $string .= '<film>';
-            $string .= '<id>'.$title->id.'</id>';
-            $string .= '<name>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->name).'</name>';
-            $string .= '<release_date>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->release_date).'</release_date>';
-            $string .= '<year>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->year).'</year>';
-            $string .= '<description>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->description).'</description>';
-            $string .= '<tagline>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->tagline).'</tagline>';
-            $string .= '<poster>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->poster).'</poster>';
-            $string .= '<backdrop>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->backdrop).'</backdrop>';
-            $string .= '<runtime>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->runtime).'</runtime>';
-            $string .= '<trailer>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->trailer).'</trailer>';
-            $string .= '<budget>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->budget).'</budget>';
-            $string .= '<revenue>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->revenue).'</revenue>';
-            $string .= '<views>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->views).'</views>';
-            $string .= '<popularity>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->popularity).'</popularity>';
-            $string .= '<imdb_id>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->imdb_id).'</imdb_id>';
-            $string .= '<tmdb_id>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->tmdb_id).'</tmdb_id>';
-            $string .= '<season_count>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->season_count).'</season_count>';
-            $string .= '<fully_synced>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->fully_synced).'</fully_synced>';
-            $string .= '<allow_update>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->allow_update).'</allow_update>';
-            $string .= '<created_at>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->created_at).'</created_at>';
-            $string .= '<updated_at>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->updated_at).'</updated_at>';
-            $string .= '<language>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->language).'</language>';
-            $string .= '<country>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->country).'</country>';
-            $string .= '<original_title>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->original_title).'</original_title>';
-            $string .= '<affiliate_link>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->affiliate_link).'</affiliate_link>';
-            $string .= '<certification>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->certification).'</certification>';
-            $string .= '<episode_count>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->episode_count).'</episode_count>';
-            $string .= '<series_ended>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->series_ended).'</series_ended>';
-            $string .= '<adult>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->adult).'</adult>';
-            $string .= '<thumbnail>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->thumbnail).'</thumbnail>';
-            $string .= '<url>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->url).'</url>';
-            $string .= '<quality>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->quality).'</quality>';
-            $string .= '<title_id>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->title_id).'</title_id>';
-            $string .= '<episode_id>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->episode_id).'</episode_id>';
-            $string .= '<season>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->season).'</season>';
-            $string .= '<episode>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->episode).'</episode>';
-            $string .= '<source>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->source).'</source>';
-            $string .= '<negative_votes>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->negative_votes).'</negative_votes>';
-            $string .= '<positive_votes>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->positive_votes).'</positive_votes>';
-            $string .= '<reports>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->reports).'</reports>';
-            $string .= '<approved>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->approved).'</approved>';
-            $string .= '<subtitles>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->subtitles).'</subtitles>';
-            $string .= '<rating>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->rating).'</rating>';
-
-            $string .= '<genres>';
+            $string .= '<Film>';
+            $string .= '<Type>Movie</Type>';
+            $string .= '<Certification>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->certification).'</Certification>';
+            $string .= '<Title>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->name).'</Title>';
+            $string .= '<OriginalTitle>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->original_title).'</OriginalTitle>';
+            $string .= '<CzTitle/>';
+            $string .= '<Tagline>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->tagline).'</Tagline>';
+            $string .= '<Poster>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $title->poster)).'</Poster>';
+            $string .= '<MainBackdrop>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->backdrop).'</MainBackdrop>';
+            $string .= '<Backdrops/>';
+            $string .= '<ID-Filmis>'.$title->id.'</ID-Filmis>';
+            $string .= '<ID-IMDb>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->imdb_id).'</ID-IMDb>';
+            $string .= '<IMDbVoteAverage>'.$title->local_vote_average.'</IMDbVoteAverage>';
+            $string .= '<IMDbVoteCount></IMDbVoteCount>';
+            $string .= '<ID-TMDb>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->tmdb_id).'</ID-TMDb>';
+            $string .= '<TMDbVoteAverage>'.$title->tmdb_vote_average.'</TMDbVoteAverage>';
+            $string .= '<TMDbVoteCount>'.$title->tmdb_vote_count.'</TMDbVoteCount>';
+            $string .= '<Budget>'.$title->budget.'</Budget>';
+            $string .= '<Revenue>'.$title->revenue.'</Revenue>';
+            $string .= '<RunTime>'.$title->runtime.'</RunTime>';
+            $string .= '<Country>'.'USA'.'</Country>';
+            $string .= '<Genres>';
             for ($i = 0; $i < count($title->genres); $i++) {
                 $string .= preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->genres[$i]->display_name);
                 if ($i + 1 != count($title->genres)) {
                     $string .= ', ';
                 }
             }
-            $string .= '</genres>';
-
-            $string .= '<videos>';
-            foreach ($title->videos as $video) {
-                $string .= '<video>';
-                $string .= '<video_name>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->name).'</video_name>';
-                $string .= '<video_url>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->url).'</video_url>';
-                $string .= '<video_type>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->type).'</video_type>';
-                $string .= '<video_quality>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->quality).'</video_quality>';
-                $string .= '<video_source>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->source).'</video_source>';
-                $string .= '<video_negative_votes>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->negative_votes).'</video_negative_votes>';
-                $string .= '<video_positive_votes>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->positive_votes).'</video_positive_votes>';
-                $string .= '<video_approved>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->approved).'</video_approved>';
-                $string .= '<video_order>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->order).'</video_order>';
-                $string .= '<video_language>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->language).'</video_language>';
-                $string .= '<video_subtitles>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->subtitles).'</video_subtitles>';
-                $string .= '</video>';
+            $string .= '</Genres>';
+            if (!empty($title->credits)) {
+                foreach ($title->credits as $credit) {
+                    if (!empty($credit->pivot) && $credit->pivot->department == 'directing') {
+                        $string .= '<DirectorName>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).'</DirectorName>';
+                        $string .= '<DirectorPhoto>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $credit->poster)).'</DirectorPhoto>';
+                        $string .= '<DirectorNamePhoto>['.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $credit->poster)).';'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).']</DirectorNamePhoto>';
+                        break;
+                    }
+                }
+    
+                $string .= '<Cast>';
+                foreach ($title->credits as $credit) {
+                    if (!empty($credit->pivot) && $credit->pivot->department == 'cast') {
+                        $string .= '['.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $credit->poster)).';'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).','.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->pivot->character).']';
+                    }
+                }
+                $string .= '</Cast>';
             }
-            $string .= '</videos>';
 
-            $string .= '</film>';
+
+
+            $string .= '<Year>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->year).'</Year>';
+            $string .= '<ReleaseDate>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->release_date).'</ReleaseDate>';
+            $string .= '<Plot>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->description).'</Plot>';
+            
+
+            $string .= '<IframeVideos>';
+            foreach ($title->videos as $video) {
+                $string .= '<Video>';
+                $string .= '<VideoName>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->name).'</VideoName>';
+                $string .= '<VideoUrl>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->url).'</VideoUrl>';
+                $string .= '<VideoType>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->type).'</VideoType>';
+                $string .= '<VideoQuality>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->quality).'</VideoQuality>';
+                $string .= '<VideoSource>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->source).'</VideoSource>';
+                $string .= '<VideoNegative_votes>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->negative_votes).'</VideoNegative_votes>';
+                $string .= '<VideoPositive_votes>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->positive_votes).'</VideoPositive_votes>';
+                $string .= '<VideoApproved>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->approved).'</VideoApproved>';
+                $string .= '<VideoOrder>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->order).'</VideoOrder>';
+                $string .= '<VideoLanguage>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->language).'</VideoLanguage>';
+                $string .= '<VideoSubtitles>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $video->subtitles).'</VideoSubtitles>';
+                $string .= '</Video>';
+            }
+            $string .= '</IframeVideos>';
+
+            $string .= '</Film>';
         }
 
-        $string .= '</movies>';
+        $string .= '</Titles>';
 
         Storage::disk('public')->put('titles/titles.xml', $string);
 

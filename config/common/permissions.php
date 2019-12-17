@@ -56,6 +56,7 @@ return [
             'videos.create',
             'videos.update',
             'videos.delete',
+            'videos.delete.server',
         ],
         'lists' => [
             'lists.rate',

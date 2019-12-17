@@ -38,4 +38,9 @@ class VideoPolicy
     {
         return $user->hasPermission('videos.delete');
     }
+
+    public function destroyUrl(User $user)
+    {
+        return $user->hasPermission('videos.delete.server');
+    }
 }

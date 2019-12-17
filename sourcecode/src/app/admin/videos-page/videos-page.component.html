@@ -4,9 +4,11 @@
     </ng-container>
 
     <ng-container headerFilters>
-        <button class="header-btn" mat-raised-button color="accent" [matTooltip]="'Delete Server' | trans" (click)="maybeDeleteByUrl()" *ngIf="currentUser.hasPermission('videos.delete')" trans>
-            Delete Server
-        </button>
+        <div style="width: auto;">
+            <button class="header-btn" mat-raised-button color="accent" [matTooltip]="'Delete Server' | trans" (click)="maybeDeleteByUrl()" *ngIf="currentUser.hasPermission('videos.delete.server')" trans>
+                Delete Server
+            </button>
+        </div>
         <div class="input-container">
             <select name="" id="" [formControl]="userControl">
                 <option [ngValue]="null" trans>All Sources</option>

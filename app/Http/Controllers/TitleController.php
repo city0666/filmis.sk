@@ -43,11 +43,11 @@ class TitleController extends Controller
 
     public function xml () {
         $titles = $this->title
-            ->join('videos', function ($q) {
-                $q->on('titles.id', '=', 'videos.title_id')
+            ->whereHas('videos', function ($q) {
+                $q->where('videos.source', '=', 'local')
                     ->where('videos.type', '=', 'embed');
             })
-            ->with('videos', 'genres')
+            ->with('videos', 'genres', 'credits')
             ->where('is_series', false)
             ->limit(10)
             ->get();
