@@ -18,6 +18,7 @@ use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use App\Services\Data\Tmdb\TmdbApi;
 
 class TitleController extends Controller
 {
@@ -49,10 +50,13 @@ class TitleController extends Controller
             })
             ->with('videos', 'genres', 'credits')
             ->where('is_series', false)
-            ->limit(10)
+            ->limit(1)
             ->get();
 
-        return $this->success(['data' => $titles]);
+        $data = app(TmdbApi::class)->getTitle($titles[0]);
+        
+
+        return $this->success(['data' => $data]);
     }
 
     /**
