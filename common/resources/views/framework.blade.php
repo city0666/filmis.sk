@@ -1,14 +1,82 @@
+<?php
+switch (\Route::getFacadeRoot()->current()->uri()) {
+    case '/':
+        $title = 'MTDb - Movies, TV and Celebrities';
+        $description = 'The Movie Database (MTDb) is a popular database for movies, TV shows and celebrities.';
+        $keywords = 'movies, films, movie database, actors, actresses, directors, stars, synopsis, trailers, credits, cast';
+        break;
+    case 'titles/{id}/season/{season}/episode/{episode}':
+        $cont = App\Title::find(request()->id);
+        $title = $cont->name.' ('.$cont->year.') - Season '.request()->season.' - Episode '.request()->episode.' - MTDb';
+        $description = $cont->name.': Season '.request()->season.' - Episode '.request()->episode;
+        $keywords = 'reviews,photos,user ratings,synopsis,trailers,credits';
+        break;
+    case 'titles/{id}/season/{season}':
+        $cont = App\Title::find(request()->id);
+        $title = $cont->name.' ('.$cont->year.') - Season '.request()->season.' - MTDb';
+        $description = 'List of episodes for '.$cont->name.': Season '.request()->season;
+        $keywords = 'reviews,photos,user ratings,synopsis,trailers,credits';
+        break;
+    case 'browse':
+        $title = 'Browse - MTDb';
+        $description = 'Browse movies and series based on specified filters.';
+        $keywords = 'movies, tv, browse, filters, search';
+        break;
+    case 'titles/{id}':
+        $cont = App\Title::find(request()->id);
+        $title = $cont->name;
+        $description = substr(!empty($cont->description) ? $cont->description : 'No overview has been added yet.', 0, 160);
+        $keywords = 'reviews,photos,user ratings,synopsis,trailers,credits';
+        break;
+    case 'lists/{id}':
+        $cont = App\ListModel::find(request()->id);
+        $title = $cont->name.' - MTDb';
+        $description = substr($cont->description, 0, 160);
+        $keywords = 'movies, films, movie database, actors, actresses, directors, stars, synopsis, trailers, credits, cast';
+        break;
+    case 'news':
+        $title = 'Latest News - MTDb';
+        $description = 'The Movie Database (MTDb) is a popular database for movies, TV shows and celebrities.';
+        $keywords = 'movies, films, movie database, actors, actresses, directors, stars, synopsis, trailers, credits, cast';
+        break;
+    case 'news/{id}':
+        $cont = App\NewsArticle::find(request()->id);
+        $title = $cont->title.' - MTDb';
+        $description = 'The Movie Database (MTDb) is a popular database for movies, TV shows and celebrities.';
+        $keywords = 'movies, films, movie database, actors, actresses, directors, stars, synopsis, trailers, credits, cast';
+        break;
+    case 'people':
+        $title = 'People - MTDb';
+        $description = 'The Movie Database (MTDb) is a popular database for movies, TV shows and celebrities.';
+        $keywords = 'movies, films, movie database, actors, actresses, directors, stars, synopsis, trailers, credits, cast';
+        break;
+    case 'people/{id}':
+        $cont = App\Person::find(request()->id);
+        $title = $cont->name;
+        $description = $cont->description;
+        $keywords = 'biography, facts, photos, credits';
+        break;
+}
+?>
+
 <!doctype html>
 <html>
     <head>
+        <meta charset="utf-8">
         <title class="dst">{{ $settings->get('branding.site_name') }}</title>
 
         <base href="{{ $htmlBaseUri }}">
+        @if(!empty($title))
+            <meta name="title" content="{{$title}}">
+            <meta name="description" content="{{$description}}">
+            <meta name="author" content="Filmis">
+            <meta name="robots" content="All, Follow">
+            <meta name="keywords" content="{{$keywords}}">
+        @endif
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{{$settings->get('branding.favicon')}}">
-
         @yield('progressive-app-tags')
 
         @yield('angular-styles')

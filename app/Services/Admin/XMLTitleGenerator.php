@@ -86,6 +86,17 @@ class XMLTitleGenerator {
     {
     }
 
+    private function parseImage($image) {
+        if (empty($image)) {
+            $image = 'https://www.filmis.sk/client/assets/images/default_title_poster.jpg';
+        } else if (strrpos($image, 'storage') !== false) {
+            $image = 'https://www.filmis.sk/'.$image;
+        } else {
+            $image = substr($image, strrpos($image, '/'));
+        }
+        return preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $image);
+    }
+
     /**
      * @return bool
      */
@@ -113,9 +124,24 @@ class XMLTitleGenerator {
                 $string .= '<OriginalTitle>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->original_title).'</OriginalTitle>';
                 $string .= '<CzTitle/>';
                 $string .= '<Tagline>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->tagline).'</Tagline>';
-                $string .= '<Poster>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $title->poster)).'</Poster>';
-                $string .= '<MainBackdrop>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->backdrop).'</MainBackdrop>';
-                $string .= '<Backdrops/>';
+                
+                $string .= '<Poster>';
+                $string .= $this->parseImage($title->poster);
+                $string .= '</Poster>';
+
+                
+                $string .= '<MainBackdrop>';
+                $string .= $this->parseImage($title->backdrop);
+                $string .= '</MainBackdrop>';
+                
+                $string .= '<Backdrops>';
+                foreach ($title->images as $image) {
+                    if ($image->type === 'backdrop') {
+                        $string .= $this->parseImage($image->url)."\n";
+                    }
+                }
+                $string .= '</Backdrops>';
+                $string .= '<Views>'.$title->views.'</Views>';
                 $string .= '<ID-Filmis>'.$title->id.'</ID-Filmis>';
                 $string .= '<ID-IMDb>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->imdb_id).'</ID-IMDb>';
                 $string .= '<IMDbVoteAverage>'.Arr::get($data, 'tmdb_vote_average').'</IMDbVoteAverage>';
@@ -150,8 +176,8 @@ class XMLTitleGenerator {
                     foreach ($title->credits as $credit) {
                         if (!empty($credit->pivot) && $credit->pivot->department == 'directing') {
                             $string .= '<DirectorName>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).'</DirectorName>';
-                            $string .= '<DirectorPhoto>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $credit->poster)).'</DirectorPhoto>';
-                            $string .= '<DirectorNamePhoto>['.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $credit->poster)).';'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).']</DirectorNamePhoto>';
+                            $string .= '<DirectorPhoto>'.$this->parseImage($credit->poster).'</DirectorPhoto>';
+                            $string .= '<DirectorNamePhoto>['.$this->parseImage($credit->poster).';'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).']</DirectorNamePhoto>';
                             break;
                         }
                     }
@@ -159,21 +185,36 @@ class XMLTitleGenerator {
                     $string .= '<Cast>';
                     foreach ($title->credits as $credit) {
                         if (!empty($credit->pivot) && $credit->pivot->department == 'cast') {
-                            $string .= '['.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', str_replace('https://image.tmdb.org/t/p/original', '', $credit->poster)).';'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).','.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->pivot->character).']';
+                            $string .= '[';
+                            $string .= $this->parseImage($credit->poster);
+                            $string .= ';'.
+                                preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->name).','.
+                                preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $credit->pivot->character).']'."\n";
                         }
                     }
                     $string .= '</Cast>';
+
+                    $string .= '<Casts>';
+                    for ($i = 0; $i < count($title->credits); $i++) {
+                        if (!empty($title->credits[$i]->pivot) && $title->credits[$i]->pivot->department == 'cast') {
+                            $string .= preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->credits[$i]->name);
+                            if ($i + 1 != count($title->credits)) {
+                                $string .= ', ';
+                            }
+                        }
+                    }
+                    $string .= '</Casts>';
                 }
 
                 $string .= '<Year>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->year).'</Year>';
-                $string .= '<ReleaseDate>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->release_date).'</ReleaseDate>';
+                $string .= '<ReleaseDate>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', substr($title->release_date, 0, -9)).'</ReleaseDate>';
                 $string .= '<Plot>'.preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->description).'</Plot>';
 
                 $string .= '<Videos>'.'a:'.count($title->videos).':{';
                 for ($i = 0; $i < count($title->videos); $i++) {
                     $vname = preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->videos[$i]->name);
                     $vurl = preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->videos[$i]->url);
-                    $vlang = preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->videos[$i]->language);
+                    $vlang = preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $title->videos[$i]->language);    
                     $string .= 'i:'.$i.';a:4:{';
                     $string .= 's:4:"name";';
                     $string .= 's:'.strlen($vname).':"'.$vname.'";';

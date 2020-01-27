@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://filmis.sk/storage/sitemaps/sitemap-index.xml
