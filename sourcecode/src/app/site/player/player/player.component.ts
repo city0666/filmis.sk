@@ -37,7 +37,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.store.dispatch(new PlayerOverlayOpened());
         this.activeVideo$.subscribe(video => {
-            this.safeUrl$.next(this.sanitizer.bypassSecurityTrustResourceUrl(video.url + youtubePlayerUrlParams()));
+            let url = video.url;
+            if (video.url.includes('youtube')) {
+                url = url + youtubePlayerUrlParams();
+            }
+            this.safeUrl$.next(this.sanitizer.bypassSecurityTrustResourceUrl(url));
         });
 
         // hide sidebar on mobile
