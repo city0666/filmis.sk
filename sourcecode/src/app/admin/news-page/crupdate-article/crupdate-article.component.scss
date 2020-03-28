@@ -1,0 +1,36 @@
+@import "../../../../scss/variables";
+
+$input-height: 45px;
+
+crupdate-article {
+  display: block;
+  padding: 25px;
+
+  form {
+    background-color: $site-bg-color-100;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: $admin-card-box-shadow;
+    border: $admin-card-border;
+
+    .submit-button {
+      margin-left: 10px;
+    }
+  }
+
+  .errors {
+    color: $danger-bg-color;
+
+    > .error {
+      padding: 5px 0;
+    }
+  }
+
+  .editor-container {
+    height: calc(100vh - 345px);
+
+    text-editor {
+      max-height: none;
+    }
+  }
+}

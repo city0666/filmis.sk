@@ -7,7 +7,7 @@ return [
     ],
     [
         'property' => 'og:title',
-        'content' => 'Popular People - {{SITE_NAME}}',
+        'content' => 'People - {{SITE_NAME}}',
     ],
     [
         'property' => 'og:description',

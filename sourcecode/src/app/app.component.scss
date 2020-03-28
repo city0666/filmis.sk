@@ -1,0 +1,10 @@
+@import "../scss/variables";
+
+app-root {
+  display: block;
+  min-height: 100vh;
+  background-color: $site-bg-color-100;
+  color: $site-text-color-400;
+
+  @import "../../src/common/scss/container";
+}

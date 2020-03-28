@@ -1,0 +1,14 @@
+{
+  "/secure": {
+    "target": "http://webfilm:8888",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/storage": {
+    "target": "http://webfilm:8888",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

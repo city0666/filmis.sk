@@ -18,6 +18,7 @@ use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use App\Services\Data\Tmdb\TmdbApi;
 
 class TitleController extends Controller
 {
@@ -39,6 +40,23 @@ class TitleController extends Controller
     {
         $this->request = $request;
         $this->title = $title;
+    }
+
+    public function xml () {
+        $titles = $this->title
+            ->whereHas('videos', function ($q) {
+                $q->where('videos.source', '=', 'local')
+                    ->where('videos.type', '=', 'embed');
+            })
+            ->with('videos', 'genres', 'credits')
+            ->where('is_series', false)
+            ->limit(1)
+            ->get();
+
+        $data = app(TmdbApi::class)->getTitle($titles[0]);
+        
+
+        return $this->success(['data' => $data]);
     }
 
     /**

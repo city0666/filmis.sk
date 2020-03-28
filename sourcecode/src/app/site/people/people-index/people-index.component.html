@@ -1,0 +1,26 @@
+<media-item-header></media-item-header>
+
+<ad-host slot="ads.shared" class="shared-ad-host"></ad-host>
+
+<div class="container main-container">
+    <div [class]="'page_left left__sidebar-' + settings.get('ads.sidebar_browse_people')">
+            <div class="sticky-sidebar">
+                <ad-host slot="ads.sidebar_person" class="shared-ad-host"></ad-host>
+            </div>
+    </div>
+    <div class="page_right">
+        <h1 class="page-title" trans>People</h1>
+    
+        <ng-container *ngIf="people$ | async as people">
+            <media-grid [items]="people.data" class="partial-width small-titles"></media-grid>
+            <no-results-message *ngIf="!people.data.length">
+                <span primary-text trans>Nothing To Display.</span>
+                <span secondary-text trans>Seems like no people match specified filters.</span>
+            </no-results-message>
+        </ng-container>
+    </div>
+</div>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>
+
+<footer></footer>

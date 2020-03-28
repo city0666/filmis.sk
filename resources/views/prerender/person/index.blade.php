@@ -5,7 +5,7 @@
 @section('body')
     @include('prerender.menu')
 
-    <h1>{{ __('Popular People') }}</h1>
+    <h1>{{ __('People') }}</h1>
 
     <p>{{ $meta->getDescription() }}</p>
 

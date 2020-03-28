@@ -1,14 +1,22 @@
 <!doctype html>
 <html>
     <head>
-        <title class="dst">{{ $settings->get('branding.site_name') }}</title>
-
+        <meta charset="utf-8">
+        
         <base href="{{ $htmlBaseUri }}">
+        @if(!empty($seo['title']))
+            <title class="dst">{{ $seo['title'] }}</title>
+            <meta name="description" content="{{$seo['description']}}">
+            <meta name="author" content="Filmis">
+            <meta name="robots" content="All, Follow">
+            <meta name="keywords" content="{{$seo['keywords']}}">
+        @else
+            <title class="dst">{{ $settings->get('branding.site_name') }}</title>
+        @endif
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="{{$settings->get('branding.favicon')}}">
-
         @yield('progressive-app-tags')
 
         @yield('angular-styles')
@@ -22,6 +30,15 @@
         @if ($settings->has('custom_code.load_css'))
             <link rel="stylesheet" href="{{asset('storage/custom-code/custom-styles.css')}}">
         @endif
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140902921-2"></script>
+        <script>
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+             gtag('set', {'user_id': '{!! Auth::id() !!}' }); // Set the user ID using signed-in user_id.
+             gtag('config', 'UA-140902921-2');
+        </script>
 	</head>
 
     <body id="theme">
@@ -48,6 +65,7 @@
 
                 ga('create', '{{ $settings->get('analytics.tracking_code') }}', 'auto');
                 ga('send', 'pageview');
+                ga('set', 'userId', '{!! Auth::id() !!}'); // Set the user ID using signed-in user_id.
             </script>
         @endif
 

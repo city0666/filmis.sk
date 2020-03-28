@@ -182,8 +182,6 @@ class Title extends Model
     public function videos()
     {
         return $this->hasMany(Video::class)
-            ->whereNull('episode_id')
-            ->where('approved', true)
             ->orderBy('order', 'asc');
     }
 
@@ -193,7 +191,7 @@ class Title extends Model
     public function allVideos()
     {
         return $this->hasMany(Video::class)
-            ->orderBy('order', 'desc');
+            ->orderBy('order', 'asc');
     }
 
     /**

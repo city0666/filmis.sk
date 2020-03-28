@@ -46,6 +46,38 @@ class VideosController extends Controller
         $paginator = (new Paginator($this->video));
         $paginator->with(['title' => function(BelongsTo $query) {
             $query->select('id', 'name', 'backdrop', 'is_series', 'season_count');
+        }, 'user' => function(BelongsTo $query) {
+            $query->select('id', 'first_name', 'last_name', 'email');
+        }]);
+
+        if ($titleId = $this->request->get('titleId')) {
+            $paginator->where('title_id', $titleId);
+        }
+
+        if ($source = $this->request->get('source')) {
+            $paginator->where('source', $source);
+        }
+
+        if ($source = $this->request->get('user')) {
+            if ($source == 'withUserId') {
+                $paginator->where('user_id', '>', 0);
+            } else if ($source == 'none'){
+                $paginator->where('user_id', null);
+            }
+        }
+
+        $pagination = $paginator->paginate($this->request->all());
+
+        return $this->success(['pagination' => $pagination]);
+    }
+    
+    public function getUserVideos($userId) {
+        // $this->authorize('index', Video::class);
+
+        $paginator = (new Paginator($this->video));
+        $paginator->where('user_id', '=', $userId);
+        $paginator->with(['title' => function(BelongsTo $query) {
+            $query->select('id', 'name', 'backdrop', 'is_series', 'season_count');
         }]);
 
         if ($titleId = $this->request->get('titleId')) {
@@ -63,7 +95,7 @@ class VideosController extends Controller
 
     public function store()
     {
-        $this->authorize('store', Video::class);
+        // $this->authorize('store', Video::class);
 
         $this->validate($this->request, [
             'name' => 'required|string|min:3|max:250',
@@ -73,6 +105,9 @@ class VideosController extends Controller
             'title_id' => 'required|integer',
             'season' => 'nullable|integer',
             'episode' => 'requiredWith:season|integer|nullable',
+            'language' => 'string|nullable',
+            'subtitles' => 'string|nullable',
+            'user_id' => 'integer|nullable',
         ]);
 
         $video = app(CrupdateVideo::class)->execute($this->request->all());
@@ -82,7 +117,7 @@ class VideosController extends Controller
 
     public function update($id)
     {
-        $this->authorize('update', Video::class);
+        // $this->authorize('update', Video::class);
 
         $this->validate($this->request, [
             'name' => 'string|min:3|max:250',
@@ -92,6 +127,9 @@ class VideosController extends Controller
             'title_id' => 'integer',
             'season' => 'nullable|integer',
             'episode' => 'requiredWith:season|integer|nullable',
+            'language' => 'string|nullable',
+            'subtitles' => 'string|nullable',
+            'user_id' => 'integer|nullable',
         ]);
 
         $video = app(CrupdateVideo::class)->execute($this->request->all(), $id);
@@ -101,9 +139,17 @@ class VideosController extends Controller
 
     public function destroy()
     {
-        $this->authorize('destroy', Video::class);
+        // $this->authorize('destroy', Video::class);
 
         $this->video->whereIn('id', $this->request->get('ids'))->delete();
+
+        return $this->success();
+    }
+
+    public function destroyUrl()
+    {
+        $this->authorize('destroyUrl', Video::class);
+        $this->video->where('url', 'like', '%' . $this->request->get('url') . '%')->delete();
 
         return $this->success();
     }

@@ -1,0 +1,55 @@
+<div class="table-header">
+    <div class="button-container">
+        <button mat-raised-button type="button" color="accent" (click)="openCrupdatePopupModal()" trans>Add Popup</button>
+    </div>
+
+    <div class="input-container">
+        <input type="text" (keyup)="applyFilter($event.target.value)" placeholder="Search..." trans-placeholder>
+        <mat-icon svgIcon="search"></mat-icon>
+    </div>
+</div>
+
+<mat-table [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="changePopupsOrder($event)">
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef trans [ngClass]="'titleWidth'">Title</mat-header-cell>
+        <mat-cell *matCellDef="let popup" [ngClass]="'titleWidth'">
+            <button type="button" mat-icon-button cdkDragHandle>
+                <mat-icon svgIcon="drag-handle"></mat-icon>
+            </button>
+            <img *ngIf="popup.thumbnail" [src]="popup.thumbnail" alt="Popup thumbnail">
+            <span>{{popup.name}}</span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+        <mat-header-cell *matHeaderCellDef trans>Link</mat-header-cell>
+        <mat-cell *matCellDef="let popup"> {{popup.url || '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="views">
+        <mat-header-cell *matHeaderCellDef trans [ngClass]="'viewWidth'">Views</mat-header-cell>
+        <mat-cell *matCellDef="let popup" [ngClass]="'viewWidth'"> {{popup.views}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let popup">
+            <button type="button" mat-icon-button (click)="openCrupdatePopupModal(popup)">
+                <mat-icon svgIcon="edit"></mat-icon>
+            </button>
+            <button type="button" mat-icon-button (click)="deletePopup(popup)">
+                <mat-icon svgIcon="close"></mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['name', 'url', 'views', 'edit']"></mat-header-row>
+    <mat-row cdkDrag *matRowDef="let myRowData; columns: ['name', 'url', 'views', 'edit']">
+        <span *cdkDragPreview></span>
+    </mat-row>
+</mat-table>
+
+<no-results-message *ngIf="!dataSource.data?.length">
+    <span primary-text trans>Nothing to Display.</span>
+    <span secondary-text trans>This section does not have any popups yet.</span>
+</no-results-message>

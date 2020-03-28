@@ -1,0 +1,65 @@
+<div class="table-header">
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="openCrupdateVideoModal()" trans>Add Video</button>
+    </div>
+
+    <div class="input-container">
+        <input type="text" (keyup)="applyFilter($event.target.value)" placeholder="Search..." trans-placeholder>
+        <mat-icon svgIcon="search"></mat-icon>
+    </div>
+</div>
+
+<mat-table [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="changeVideosOrder($event)">
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let video">
+            <button type="button" mat-icon-button cdkDragHandle>
+                <mat-icon svgIcon="drag-handle"></mat-icon>
+            </button>
+            <img *ngIf="video.thumbnail" [src]="video.thumbnail" alt="Video thumbnail">
+            <span>{{video.name}}</span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef trans>Type</mat-header-cell>
+        <mat-cell *matCellDef="let video"> {{video.type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="quality">
+        <mat-header-cell *matHeaderCellDef trans>Quality</mat-header-cell>
+        <mat-cell *matCellDef="let video"> {{video.quality}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="season">
+        <mat-header-cell *matHeaderCellDef trans>Season</mat-header-cell>
+        <mat-cell *matCellDef="let video"> {{video.season || '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="episode">
+        <mat-header-cell *matHeaderCellDef trans>Episode</mat-header-cell>
+        <mat-cell *matCellDef="let video"> {{video.episode || '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let video">
+            <button mat-icon-button (click)="openCrupdateVideoModal(video)">
+                <mat-icon svgIcon="edit"></mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteVideo(video)">
+                <mat-icon svgIcon="close"></mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['name', 'type', 'quality', 'season', 'episode', 'edit']"></mat-header-row>
+    <mat-row cdkDrag *matRowDef="let myRowData; columns: ['name', 'type', 'quality', 'season', 'episode', 'edit']">
+        <span *cdkDragPreview></span>
+    </mat-row>
+</mat-table>
+
+<no-results-message *ngIf="!dataSource.data?.length">
+    <span primary-text trans>Nothing to Display.</span>
+    <span secondary-text trans>This title does not have any videos yet.</span>
+</no-results-message>

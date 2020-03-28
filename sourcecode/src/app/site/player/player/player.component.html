@@ -1,0 +1,47 @@
+<mat-sidenav-container>
+    <mat-sidenav-content>
+        <header class="header-bar"></header>
+
+        <div class="player-object">
+            <div class="iframe-container" *ngIf="activeVideo$ | async as video">
+                <iframe *ngIf="video.type === 'embed'" [src]="safeUrl$ | async" height="100%" width="100%" allowfullscreen frameborder="0"></iframe>
+                <video *ngIf="video.type === 'video'" [src]="safeUrl$ | async" height="100%" width="100%" controls autoplay></video>
+            </div>
+        </div>
+    </mat-sidenav-content>
+    <mat-sidenav [mode]="isTableOrMobile() ? 'over' : 'side'" position="end" [opened]="sidebarOpen$ | async">
+        <div class="header" trans>Related Videos</div>
+        <div class="title-info" *ngIf="mediaItem$ | async as mediaItem">
+            <div class="img-container">
+                <img [src]="mediaItem.poster" alt="{{mediaItem.name}} poster">
+            </div>
+            <div class="media-body">
+                <div class="title">{{mediaItem.name}}</div>
+                <div class="year">{{mediaItem.year}}</div>
+            </div>
+        </div>
+        <div class="related-videos">
+            <div class="related-video" *ngFor="let video of relatedVideos$ | async" (click)="playVideo(video)" [class.active]="video.id === (activeVideo$ | async).id">
+                <div class="img-container">
+                    <img [src]="video.title.backdrop" alt="Title backdrop">
+                </div>
+                <div class="media-body">
+                    <div class="title">{{video.name}}</div>
+                    <div class="secondary-title">{{video.title.name}}</div>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav>
+</mat-sidenav-container>
+
+<div class="action-toolbar">
+    <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon svgIcon="last-page" *ngIf="sidebarOpen$ | async; else openIcon"></mat-icon>
+        <ng-template #openIcon>
+            <mat-icon svgIcon="first-page"></mat-icon>
+        </ng-template>
+    </button>
+    <button mat-icon-button (click)="close()">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>

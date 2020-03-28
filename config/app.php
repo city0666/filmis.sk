@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -236,6 +236,7 @@ return [
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
+        'AppHelper' => App\Helpers\AppHelper::class,
     ],
 
 ];

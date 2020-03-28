@@ -41,6 +41,14 @@ return [
             'news.create',
             'news.update',
             'news.delete',
+            'news.visible.newsbutton',
+            'news.visible.onoff',
+        ],
+        'images' => [
+            'images.view',
+            'images.create',
+            'images.update',
+            'images.delete',
         ],
         'videos' => [
             'videos.rate',
@@ -48,6 +56,7 @@ return [
             'videos.create',
             'videos.update',
             'videos.delete',
+            'videos.delete.server',
         ],
         'lists' => [
             'lists.rate',

@@ -1,0 +1,42 @@
+<div class="header">
+    <div class="title" trans>Popups</div>
+    <div class="subtitle" trans>Settings of popups.</div>
+</div>
+
+<form class="panel many-inputs" (ngSubmit)="saveAds()" ngNativeValidate>
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="popups.disable" id="popups.disable" [(ngModel)]="model['popups.disable']" trans>Disable Popups</mat-slide-toggle>
+        <p trans>Disable all popups related functionality.</p>
+    </div>
+
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="popups.random" id="popups.random" [(ngModel)]="model['popups.random']" trans>Show Popups Random</mat-slide-toggle>
+        <p trans>Enabling this will show popups random.</p>
+    </div>
+
+
+    <div class="input-container">
+        <label for="popups.items_count" trans>Popup Items</label>
+        <input type="number" id="popups.items_count" name="popups.items_count" [(ngModel)]="model['popups.items_count']" required min="1" max="10">
+        <p trans>How many popups should show.</p>
+    </div>
+
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="popups.full_movie" id="popups.full_movie" [(ngModel)]="model['popups.full_movie']" trans>Popups in Full Movie</mat-slide-toggle>
+        <p trans>Enabling this will show popups in "Full Movie".</p>
+    </div>
+
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="popups.trailer" id="popups.trailer" [(ngModel)]="model['popups.trailer']" trans>Popups in Trailer</mat-slide-toggle>
+        <p trans>Enabling this will show popups in "Trailer".</p>
+    </div>
+
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="popups.video" id="popups.video" [(ngModel)]="model['popups.video']" trans>Popups in Video</mat-slide-toggle>
+        <p trans>Enabling this will show popups in "Video".</p>
+    </div>
+    
+    <popups-panel></popups-panel>
+    
+    <button type="submit" mat-raised-button color="accent" class="save-button" [disabled]="loading" trans>Update</button>
+</form>

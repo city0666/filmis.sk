@@ -6,6 +6,7 @@ use Common\Core\Controller;
 use Common\Admin\Analytics\Actions\GetAnalyticsData;
 use Common\Admin\Analytics\Actions\GetAnalyticsHeaderDataAction;
 use Exception;
+use App\User;
 
 class AnalyticsController extends Controller
 {
@@ -40,9 +41,7 @@ class AnalyticsController extends Controller
     {
         $this->authorize('index', 'ReportPolicy');
 
-        $mainData = $data = Cache::remember('analytics.data.main', Carbon::now()->addDay(), function() {
-            return $this->getMainData();
-        }) ?: [];
+        $mainData = $this->getMainData();
 
         $headerData = $data = Cache::remember('analytics.data.header', Carbon::now()->addDay(), function() {
             return $this->getHeaderDataAction->execute();
@@ -50,7 +49,7 @@ class AnalyticsController extends Controller
 
         return $this->success([
             'mainData' => $mainData,
-            'headerData' => $headerData,
+            'headerData' => $headerData
         ]);
     }
 

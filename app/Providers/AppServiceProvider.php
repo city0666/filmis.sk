@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(
             DataProvider::class,
-            $concrete
+            LocalDataProvider::class
         );
     }
 

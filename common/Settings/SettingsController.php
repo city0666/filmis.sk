@@ -59,7 +59,7 @@ class SettingsController extends Controller {
     {
         $this->authorize('update', Setting::class);
 
-        $clientSettings = json_decode(base64_decode($this->request->get('client')), true);
+        $clientSettings = json_decode($this->request->get('client'), true);
         $serverSettings = json_decode(base64_decode($this->request->get('server')), true);
 
         // need to handle files before validating

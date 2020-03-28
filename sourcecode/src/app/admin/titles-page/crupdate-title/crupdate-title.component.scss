@@ -1,0 +1,118 @@
+@import "../../../../scss/variables";
+
+crupdate-title {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 25px;
+
+  .material-panel {
+    flex: 1 1 auto;
+    padding: 20px;
+
+    // same as sidebar menu height, prevent
+    // height flashes while content is not loaded
+    min-height: 412px;
+
+    // only add margin to direct children
+    form > .input-container, .inline-container {
+      margin-bottom: 25px;
+    }
+  }
+
+  .inline-container {
+    display: flex;
+
+    .input-container {
+      flex: 1 1 auto;
+
+      &.size-small {
+        flex: 1 1 30%;
+      }
+
+      &:first-of-type {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .sidebar {
+    flex: 0 0 260px;
+    margin-left: 30px;
+    padding: 0;
+
+    .header {
+      background-color: $site-primary-color-200;
+      color: $site-text-color-100;
+      padding: 15px 20px;
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+
+    .list {
+      .list-item {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+        white-space: nowrap;
+        text-transform: capitalize;
+
+        &:disabled {
+          color: $site-text-color-200;
+          cursor: default;
+        }
+
+        &.active {
+          font-weight: 500;
+        }
+
+        &:not(:disabled):hover {
+          background-color: $admin-hover-color;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .message {
+      margin: 8px 20px;
+      padding-top: 8px;
+      font-size: 1.3rem;
+      color: $site-text-color-300;
+      border-top: 1px solid $site-border-color-100;
+    }
+  }
+}
+
+.crupdate-title-panel, crupdate-episode-modal {
+  .table-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .mat-raised-button {
+      text-transform: capitalize;
+    }
+
+    .input-container {
+      max-width: 300px;
+      margin-left: auto;
+      position: relative;
+
+      .mat-icon {
+        position: absolute;
+        top: 11px;
+        right: 8px;
+      }
+    }
+  }
+
+  no-results-message {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .mat-column-edit {
+    max-width: 100px;
+    color: $site-text-color-300;
+  }
+}

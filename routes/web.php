@@ -1,6 +1,8 @@
 <?php
 
 Route::group(['prefix' => 'secure'], function () {
+    Route::get('test-xml', 'TitleController@xml');
+
     // titles
     Route::get('movies/{id}', 'TitleController@show');
     Route::get('series/{id}', 'TitleController@show');
@@ -76,19 +78,32 @@ Route::group(['prefix' => 'secure'], function () {
 
     // videos
     Route::get('videos', 'VideosController@index');
+    Route::get('videos/user/{userId}', 'VideosController@getUserVideos');
     Route::post('videos', 'VideosController@store');
     Route::put('videos/{id}', 'VideosController@update');
     Route::delete('videos', 'VideosController@destroy');
+    Route::delete('videos/url', 'VideosController@destroyUrl');
     Route::post('videos/{id}/rate', 'VideoRatingController@rate');
     Route::post('titles/{id}/videos/change-order', 'VideoOrderController@changeOrder');
 
     // title tags
     Route::post('titles/{titleId}/tags', 'TitleTagsController@store');
     Route::delete('titles/{titleId}/tags/{type}/{tagId}', 'TitleTagsController@destroy');
+    Route::put('tags/{titleId}', 'TitleTagsController@update');
 
     // import
     Route::post('media/import', 'ImportMediaController@importMediaItem');
     Route::get('tmdb/import', 'ImportMediaController@importViaBrowse');
+
+    // popups
+    Route::get('popups', 'PopupController@index');
+    Route::get('popups/{id}', 'PopupController@show');
+    Route::post('popups', 'PopupController@store');
+    Route::put('popups/{id}', 'PopupController@update');
+    Route::delete('popups', 'PopupController@destroy');
+    // Route::post('popups/{id}/views', 'VideoRatingController@rate');
+    Route::post('popups/change-order', 'PopupOrderController@changeOrder');
+
 });
 
 // FRONT-END ROUTES THAT NEED TO BE PRE-RENDERED

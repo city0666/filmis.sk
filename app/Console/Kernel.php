@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\CleanDemoSite;
 use App\Console\Commands\CreateWatchlists;
 use App\Console\Commands\GenerateSitemap;
+use App\Console\Commands\GenerateXMLTitle;
 use App\Console\Commands\UpdateListsFromRemote;
 use App\Console\Commands\UpdateNewsFromRemote;
 use Common\Settings\Settings;
@@ -22,6 +23,7 @@ class Kernel extends ConsoleKernel
         CreateWatchlists::class,
         CleanDemoSite::class,
         GenerateSitemap::class,
+        GenerateXMLTitle::class,
     ];
 
     /**

@@ -1,0 +1,40 @@
+import {
+    Component,
+    ViewEncapsulation,
+    ChangeDetectionStrategy,
+    HostBinding,
+    Input,
+    EventEmitter,
+    Output,
+} from '@angular/core';
+
+@Component({
+    selector: 'media-item-header',
+    templateUrl: './media-item-header.component.html',
+    styleUrls: ['./media-item-header.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class MediaItemHeaderComponent {
+    @Input() backdrop: string;
+    @Input() transparent = false;
+    @Input() showToggleButton = false;
+    @Output() toggleButtonClick: EventEmitter<any> = new EventEmitter();
+
+    @HostBinding('style.background-image') get backgroundImage() {
+        if (this.backdrop) {
+            return 'url(' + this.backdrop + ')';
+        }
+    }
+
+    @HostBinding('class.no-backdrop') get noBackdrop() {
+        if ( ! this.backdrop) {
+            return 'no-backdrop';
+        }
+    }
+
+
+    onToggleButtonClick(): void {
+        this.toggleButtonClick.emit(true);
+    }
+}

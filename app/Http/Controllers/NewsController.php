@@ -37,6 +37,10 @@ class NewsController extends Controller
         $paginator = (new Paginator($this->article));
         $paginator->searchColumn = 'title';
 
+        if ($this->request->get('visible')) {
+            $paginator->where('meta', 'like', '%"visible":true%');
+        }
+
         $pagination = $paginator->paginate($this->request->all());
 
         if ($this->request->get('stripHtml')) {
@@ -70,7 +74,7 @@ class NewsController extends Controller
     {
         $article = $this->article->findOrFail($id);
 
-        $this->authorize('update', $article);
+        // $this->authorize('update', $article);
 
         $this->validate($this->request, [
             'title' => 'min:5|max:250',
@@ -83,6 +87,12 @@ class NewsController extends Controller
         if ($image = $this->request->get('image')) {
             $meta['image'] = $image;
         }
+
+        if ($source = $this->request->get('source')) {
+            $meta['source'] = $source;
+        }
+
+        $meta['visible'] = $this->request->get('visible');
 
         $article->fill([
             'title' => $this->request->get('title'),
@@ -107,7 +117,11 @@ class NewsController extends Controller
             'title' => $this->request->get('title'),
             'slug' => str_limit($this->request->get('title'), 30),
             'body' => $this->request->get('body'),
-            'meta' => ['image' => $this->request->get('image')],
+            'meta' => [
+                'image' => $this->request->get('image'),
+                'source' => $this->request->get('source'),
+                'visible' => $this->request->get('visible'),
+            ],
             'type' => NewsArticle::NEWS_ARTICLE_TYPE,
         ]);
 

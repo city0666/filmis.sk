@@ -1,0 +1,7 @@
+<figure class="item" *ngFor="let item of items">
+    <media-image [src]="item.poster" size="medium" [link]="urls.mediaItem(item)"></media-image>
+    <figcaption>
+        <a class="title" [routerLink]="urls.mediaItem(item)">{{item.name}}</a>
+        <genre-widget [genres]="item.genres" [limit]="3" *ngIf="!isPerson(item)"></genre-widget>
+    </figcaption>
+</figure>

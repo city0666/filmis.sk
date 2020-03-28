@@ -1,0 +1,106 @@
+@import "../../../../scss/variables";
+
+people-index {
+  display: block;
+
+  .sticky-sidebar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+  }
+
+  .main-container {
+    display: flex;
+    margin-bottom: 60px;
+    padding-left: 0;
+    padding-right: 0;
+    min-height: calc(100vh - #{$material-navbar-height + $footer-height});
+    .page {
+      &_left {
+        flex: 0 0 320px;
+        flex-wrap: wrap;
+        padding-top: 35px;
+        width: 320px;
+      }
+      &_right {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 35px 20px 0;
+
+      }
+    }
+  }
+
+  .page-title {
+    padding: 0 6px;
+    margin: 0 0 15px;
+  }
+
+  .person {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 900px;
+
+    &:nth-child(even) {
+      background-color: $site-bg-color-200;
+    }
+
+    .meta {
+      padding: 0 20px;
+    }
+
+    .name {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+
+    a {
+      color: $site-accent-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    media-image {
+      width: 140px;
+      height: 210px;
+      flex: 0 0 140px;
+
+      img {
+        @include mat-elevation(1);
+        border-radius: 4px;
+        height: 100%;
+      }
+    }
+  }
+
+  .shared-ad-host {
+    margin-top: 30px;
+  }
+
+  @media only screen and (max-width: $medium) {
+    .description {
+      display: none;
+    }
+
+    .person media-image {
+      width: 50px;
+      height: 75px;
+      flex: 0 0 50px;
+    }
+  }
+}
+
+$start: 100;
+$end: 600;
+
+@for $i from $start through $end {
+  .left__sidebar-#{$i} {
+    flex: 0 0 #{$i}px !important;
+  }
+}
